@@ -1,6 +1,7 @@
 package com.act.controller;
 
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -11,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.act.model.ActService;
+import com.act.model.ActVO;
+import com.gen.tool.tools;
 
 
 public class actServlet extends HttpServlet {
@@ -31,54 +34,65 @@ public class actServlet extends HttpServlet {
 			req.setAttribute("errorMsgs", errorMsgs);
 
 			try {
-				/***********************1.接收請求參數 - 輸入格式的錯誤處理*************************/
-				String ename = req.getParameter("ename");
-				String enameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
-				if (ename == null || ename.trim().length() == 0) {
-					errorMsgs.put("ename","員工姓名: 請勿空白");
-				} else if(!ename.trim().matches(enameReg)) { //以下練習正則(規)表示式(regular-expression)
-					errorMsgs.put("ename","員工姓名: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
-	            }
-				
-				String job = req.getParameter("job").trim();
-				if (job == null || job.trim().length() == 0) {
-					errorMsgs.put("job","職位請勿空白");
-				}
-				
-				java.sql.Date hiredate = null;
-				try {
-					hiredate = java.sql.Date.valueOf(req.getParameter("hiredate").trim());
-				} catch (IllegalArgumentException e) {
-					errorMsgs.put("hiredate","請輸入日期");
-				}
-				
-				Double sal = null;
-				try {
-					sal = new Double(req.getParameter("sal").trim());
-				} catch (NumberFormatException e) {
-					errorMsgs.put("sal","薪水請填數字");
-				}
-				
-				Double comm = null;
-				try {
-					comm = new Double(req.getParameter("comm").trim());
-				} catch (NumberFormatException e) {
-					errorMsgs.put("comm","獎金請填數字");
-				}
-				
-				Integer deptno = new Integer(req.getParameter("deptno").trim());
+				Integer actID = Integer.parseInt(req.getParameter("actID"));
+				Integer memID = Integer.parseInt(req.getParameter("memID"));
+				Timestamp actCreateDate = tools.strToTimestamp(req.getParameter("actCreateDate"));
+				String actName = req.getParameter("actName");
+				Integer actStatID = Integer.parseInt(req.getParameter("actStatID"));
+				Integer actTimeID = Integer.parseInt(req.getParameter("actTimeID"));
+				Integer actPriID = Integer.parseInt(req.getParameter("actPriID"));
+				Integer actLocID = Integer.parseInt(req.getParameter("actLocID"));
+				Timestamp actStartDate = tools.strToTimestamp(req.getParameter("actStartDate"));
+				Timestamp actEndDate = tools.strToTimestamp(req.getParameter("actEndDate"));
+				Timestamp actSignStartDate = tools.strToTimestamp(req.getParameter("actSignStartDate"));
+				Timestamp actSignEndDate = tools.strToTimestamp(req.getParameter("actSignEndDate"));
+				Integer actITVType = Integer.parseInt(req.getParameter("actITVType"));
+				Integer actMemMax = Integer.parseInt(req.getParameter("actMemMax"));
+				Integer actMemMin = Integer.parseInt(req.getParameter("actMemMin"));
+				byte[] actImg = req.getParameter("actImg").getBytes();
+				String actContent = req.getParameter("actContent");
+				Integer actIsHot = Integer.parseInt(req.getParameter("actIsHot"));
+				Double actLong = Double.parseDouble(req.getParameter("actLong"));
+				Double actLat = Double.parseDouble(req.getParameter("actLat"));
+				String actLocName = req.getParameter("actLocName");
+				String actAdr = req.getParameter("actAdr");
 
+//為了回傳用的
+				ActVO actVO = new ActVO();
+				actVO.setActID(actID);
+				actVO.setMemID(memID);
+				actVO.setActCreateDate(actCreateDate);
+				actVO.setActName(actName);
+				actVO.setActStatID(actStatID);
+				actVO.setActTimeID(actTimeID);
+				actVO.setActPriID(actPriID);
+				actVO.setActLocID(actLocID);
+				actVO.setActStartDate(actStartDate);
+				actVO.setActEndDate(actEndDate);
+				actVO.setActSignStartDate(actSignStartDate);
+				actVO.setActSignEndDate(actSignEndDate);
+				actVO.setActITVType(actITVType);
+				actVO.setActMemMax(actMemMax);
+				actVO.setActMemMin(actMemMin);
+				actVO.setActImg(actImg);
+				actVO.setActContent(actContent);
+				actVO.setActLong(actLong);
+				actVO.setActLat(actLat);
+				actVO.setActLocName(actLocName);
+				actVO.setActAdr(actAdr);
+
+				
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/emp/addEmp.jsp");
+							.getRequestDispatcher("/act/actStart.jsp");
 					failureView.forward(req, res);
 					return;
 				}
 				
 				/***************************2.開始新增資料***************************************/
-//				actService actSrv = new actService();
-//				actSrv.createAct(ename, job, hiredate, sal, comm, deptno);
+				ActService actSrv = new ActService();
+				actSrv.insert(actVO);
 				
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
 				String url = "/emp/listAllEmp.jsp";

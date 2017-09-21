@@ -3,7 +3,6 @@ import java.sql.*;
 import java.util.*;
 import java.util.List;
 import com.act.model.ActVO;
-
 public class ActService {
 		private ActDAO_interface dao;
 
@@ -15,7 +14,9 @@ public class ActService {
 				return dao.getAll();
 		}
 		
-	    public void insert(ActVO actVO){};
+	    public void insert(ActVO actVO){
+			dao.insert(actVO);
+	    };
 	    public void update(ActVO actVO){};
 	    public ActVO getActByActID(Integer actID){
 			return null;};

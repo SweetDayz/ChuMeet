@@ -52,10 +52,6 @@
 <!-- BEGIN LEFT SIDEBAR -->            
       <div class="container">
     
-<div class="main">
-<!-- BEGIN CONTENT -->
-<!-- BEGIN LEFT SIDEBAR -->            
-      <div class="container">
     
       <div class="wd80">
 
