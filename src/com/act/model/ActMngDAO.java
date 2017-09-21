@@ -26,7 +26,7 @@ public class ActMngDAO implements  ActMngDAO_interface {
 	static {
 		try {
 			Context ctx = new InitialContext();
-			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TestDB");
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/BA103G2DB");
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}

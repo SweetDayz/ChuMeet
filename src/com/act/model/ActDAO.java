@@ -1,5 +1,4 @@
 package com.act.model;
-import java.io.IOException;
 import java.sql.*;
 import java.sql.Timestamp;
 import java.util.*;
@@ -14,7 +13,7 @@ public class ActDAO implements ActDAO_interface {
 	static {
 		try {
 			Context ctx = new InitialContext();
-			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TestDB");
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/BA103G2DB");
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}
@@ -178,19 +177,19 @@ public class ActDAO implements ActDAO_interface {
 			pstmt.setInt(1, actID);
 
 			rs = pstmt.executeQuery();
-
+			System.out.println("DAO1");
 			while (rs.next()) {
 				// ActVO 也稱為 Domain objects
 				ActVO = new ActVO();
 				ActVO.setActName(rs.getString("actName"));
 				ActVO.setActStartDate(rs.getTimestamp("actStartDate"));
 				ActVO.setActAdr(rs.getString("actAdr"));
+				System.out.println("DAO2");
 			}
-
+			System.out.println("DAO3");
 			// Handle any driver errors
 		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
+			throw new RuntimeException("A database error occured. "	+ se.getMessage());
 			// Clean up JDBC resources
 		} finally {
 			if (rs != null) {
@@ -313,7 +312,7 @@ public class ActDAO implements ActDAO_interface {
 				ActVO.setActID(rs.getInt("actID"));
 				ActVO.setMemID(rs.getInt("memID"));
 				ActVO.setActName(rs.getString("actName"));
-				ActVO.setActName(rs.getString("actCreateDate"));
+				ActVO.setActCreateDate(rs.getTimestamp("actCreateDate"));
 				list.add(ActVO); // Store the row in the list
 			}
 
@@ -368,7 +367,7 @@ public class ActDAO implements ActDAO_interface {
 				ActVO.setActID(rs.getInt("actID"));
 				ActVO.setMemID(rs.getInt("memID"));
 				ActVO.setActName(rs.getString("actName"));
-				ActVO.setActName(rs.getString("actCreateDate"));
+				ActVO.setActCreateDate(rs.getTimestamp("actCreateDate"));
 				list.add(ActVO); // Store the row in the list
 			}
 
@@ -424,7 +423,7 @@ public class ActDAO implements ActDAO_interface {
 				ActVO.setActID(rs.getInt("actID"));
 				ActVO.setMemID(rs.getInt("memID"));
 				ActVO.setActName(rs.getString("actName"));
-				ActVO.setActName(rs.getString("actCreateDate"));
+				ActVO.setActCreateDate(rs.getTimestamp("actCreateDate"));
 				list.add(ActVO); // Store the row in the list
 			}
 
@@ -486,7 +485,7 @@ public class ActDAO implements ActDAO_interface {
 				ActVO.setActID(rs.getInt("actID"));
 				ActVO.setMemID(rs.getInt("memID"));
 				ActVO.setActName(rs.getString("actName"));
-				ActVO.setActName(rs.getString("actCreateDate"));
+				ActVO.setActCreateDate(rs.getTimestamp("actCreateDate"));
 				list.add(ActVO); // Store the row in the list
 			}
 
@@ -542,7 +541,7 @@ public class ActDAO implements ActDAO_interface {
 				ActVO.setActID(rs.getInt("actID"));
 				ActVO.setMemID(rs.getInt("memID"));
 				ActVO.setActName(rs.getString("actName"));
-				ActVO.setActName(rs.getString("actCreateDate"));
+				ActVO.setActCreateDate(rs.getTimestamp("actCreateDate"));
 				list.add(ActVO); // Store the row in the list
 			}
 
@@ -598,7 +597,7 @@ public class ActDAO implements ActDAO_interface {
 				ActVO.setActID(rs.getInt("actID"));
 				ActVO.setMemID(rs.getInt("memID"));
 				ActVO.setActName(rs.getString("actName"));
-				ActVO.setActName(rs.getString("actCreateDate"));
+				ActVO.setActCreateDate(rs.getTimestamp("actCreateDate"));
 				list.add(ActVO); // Store the row in the list
 			}
 
@@ -654,7 +653,7 @@ public class ActDAO implements ActDAO_interface {
 				ActVO.setActID(rs.getInt("actID"));
 				ActVO.setMemID(rs.getInt("memID"));
 				ActVO.setActName(rs.getString("actName"));
-				ActVO.setActName(rs.getString("actCreateDate"));
+				ActVO.setActCreateDate(rs.getTimestamp("actCreateDate"));
 				list.add(ActVO); // Store the row in the list
 			}
 
@@ -710,7 +709,7 @@ public class ActDAO implements ActDAO_interface {
 				ActVO.setActID(rs.getInt("actID"));
 				ActVO.setMemID(rs.getInt("memID"));
 				ActVO.setActName(rs.getString("actName"));
-				ActVO.setActName(rs.getString("actCreateDate"));
+				ActVO.setActCreateDate(rs.getTimestamp("actCreateDate"));
 				list.add(ActVO); // Store the row in the list
 			}
 

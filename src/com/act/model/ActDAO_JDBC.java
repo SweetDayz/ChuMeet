@@ -781,12 +781,12 @@ public class ActDAO_JDBC implements ActDAO_interface {
 
 		// 新增	ok
 //		ActVO ActVOIns = new ActVO();
-		byte[] actImg=com.gen.tool.tools.getPictureByteArray("E:\\Dropbox\\@ChuMeet\\CloudStation\\Dayz\\1.jpg");
-		Timestamp ts=com.gen.tool.tools.strToTimestamp("2017-09-23 10:10:10");
-		Timestamp tsStart=com.gen.tool.tools.strToTimestamp("2017-09-24 18:00:00");
-		Timestamp tsEnd=com.gen.tool.tools.strToTimestamp("2017-09-25 18:00:00");
-		Timestamp tsSStart=com.gen.tool.tools.strToTimestamp("2017-09-22 18:00:00");
-		Timestamp tsSEnd=com.gen.tool.tools.strToTimestamp("2017-09-24 16:00:00");
+//		byte[] actImg=com.gen.tool.tools.getPictureByteArray("E:\\Dropbox\\@ChuMeet\\CloudStation\\Dayz\\1.jpg");
+//		Timestamp ts=com.gen.tool.tools.strToTimestamp("2017-09-23 10:10:10");
+//		Timestamp tsStart=com.gen.tool.tools.strToTimestamp("2017-09-24 18:00:00");
+//		Timestamp tsEnd=com.gen.tool.tools.strToTimestamp("2017-09-25 18:00:00");
+//		Timestamp tsSStart=com.gen.tool.tools.strToTimestamp("2017-09-22 18:00:00");
+//		Timestamp tsSEnd=com.gen.tool.tools.strToTimestamp("2017-09-24 16:00:00");
 //        ActVOIns.setMemID(1);
 //		ActVOIns.setActCreateDate(ts);
 //		ActVOIns.setActName("一起看揪咪<3");
@@ -840,11 +840,11 @@ public class ActDAO_JDBC implements ActDAO_interface {
 //		dao.delete(30);
 
 		// 查詢	ok
-//		ActVO ActVO3 = dao.getActByActID(3);
-//		System.out.print(ActVO3.getActName() + ",");
-//		System.out.print(ActVO3.getActStartDate() + ",");
-//		System.out.println(ActVO3.getActAdr());
-//		System.out.println("---------------------");
+		ActVO ActVO3 = dao.getActByActID(5);
+		System.out.print(ActVO3.getActName() + ",");
+		System.out.print(ActVO3.getActStartDate() + ",");
+		System.out.println(ActVO3.getActAdr());
+		System.out.println("---------------------");
 
 	
 

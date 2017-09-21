@@ -19,7 +19,9 @@ public class ActService {
 	    };
 	    public void update(ActVO actVO){};
 	    public ActVO getActByActID(Integer actID){
-			return null;};
+	    	return dao.getActByActID(actID);
+			};
+			
 	    public List<ActVO> getActByCat(Integer POIID){
 			return null;};
 	    public List<ActVO> getActByDate(Timestamp actDate){

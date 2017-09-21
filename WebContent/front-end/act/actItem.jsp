@@ -2,6 +2,14 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page import="com.act.model.*"%>
+<%@ page import="com.member.model.*"%>
+
+<%ActVO actVO = (ActVO) request.getAttribute("actVO");%>
+<%MemberVO memVO = (MemberVO) request.getAttribute("memVO");%>
+<%memVO.setMemID(1) %>
+
+
 <html>
 <!-- Head BEGIN -->
 <head>
@@ -23,110 +31,27 @@
 <!-- Head END -->
 
 <!-- Body BEGIN -->
-<body class="corporate">
-
-<!-- BEGIN TOP BAR 2-->
-<div class="pre-header">
-  <div class="container">
-    <div class="row"> 
-      <!-- BEGIN TOP BAR LEFT PART -->
-      <div class="col-md-6 col-sm-6 additional-shop-info">
-        <ul class="list-unstyled list-inline">
-          <li><span><strong>ChuMeet</strong></span></li>
-          <li><span>Nice to meet you <i class="fa fa-smile-o" aria-hidden="true"></i></span> </li>
-          <li><a href="actStart.html"><span class="topst"> 開始揪團吧！ </span></a></li>
-        </ul>
-        
-
-      </div>
-   
-      <!-- END TOP BAR LEFT PART --> 
-      <!-- BEGIN TOP BAR MENU -->
-      <div class="col-md-6 col-sm-6 additional-nav">
-        <ul class="list-unstyled list-inline pull-right">
-          <li><span>哈囉，剛哥！　</span> <a href="../member/setting.html"><i class="fa fa-cog" aria-hidden="true"></i>設定</a></li>
-          <li><a href="../member/logout.html"><i class="fa fa-sign-out" aria-hidden="true"></i>登出</a></li>
-          <li><a href="../member/mail.html"><i class="fa fa-envelope-o" aria-hidden="true"></i>消息</a></li>
-        </ul>
-      </div>
-      <!-- END TOP BAR MENU --> 
-    </div>
-  </div>
-</div>
-<!-- END TOP BAR 2--> 
-
-
-
-
-
-    <!-- BEGIN HEADER -->
-    <div class="header">
-      <div class="container">
-        <a class="site-logo" href="index.html"><img src="../assets/LOGO/ChuMeet_NavLogo_25.png" alt="ChuMeet"></a>
-
-        <a href="javascript:void(0);" class="mobi-toggler"><i class="fa fa-bars"></i></a>
-        
-        
-    <!-- BEGIN NAVIGATION -->
-    <div class="header-navigation pull-right font-transform-inherit">
-      <ul>
-		<li class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown" data-target="#" href="../member/memNF.html"> 會員中心 </a></li>
-        <li class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown" data-target="#" href="../act/act.html"> 活動廣場 </a>
-          <ul class="dropdown-menu">
-            <li><a href="../act/act.html">我的活動</a></li>
-            <li><a href="../act/act.html">揪咪推薦</a></li>
-            <li><a href="../act/act.html">政府藝文活動</a></li>
-            <li><a href="../act/act.html">周末特調</a></li>
-            <li><a href="../act/act.html">熱門標籤</a></li>
-            <li><a href="../act/act.html">活動分類</a></li>
-            <li><a href="../act/act.html">揪揪地圖</a></li>
-        </ul>
-        </li>
-        <li class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown" data-target="#" href="../club/club_ALL.html"> 社團大廳 </a>
-		          <ul class="dropdown-menu">
-						<li><a href="../club/club_ALL.html">我的社團</a></li>
-						<li><a href="../club/club_ALL.html">社團推薦</a></li>
-						<li><a href="../club/club_ALL.html">社團地圖</a></li>
-        </ul>  
-            
-        </li>
-
-            <!-- BEGIN TOP SEARCH -->
-            <li class="menu-search">
-              <span class="sep"></span>
-              <i class="fa fa-search search-btn"></i>
-              <div class="search-box">
-                <form action="#">
-                  <div class="input-group">
-                    <input type="text" placeholder="Search" class="form-control">
-                    <span class="input-group-btn">
-                      <button class="btn btn-primary" type="submit">Search</button>
-                    </span>
-                  </div>
-                </form>
-              </div> 
-            </li>
-            <!-- END TOP SEARCH -->
-          
-          </ul>
-        </div>
-        <!-- END NAVIGATION -->
-      </div>
-    </div>
-   
-<!-- Header END -->
-
-
-<!--主頁面要修改的都在這下面-->
+<body class="chumeet">
+<!-- userHeader Start -->
+  <c:import url="/front-end/userHeader.jsp">
+</c:import>
+<!-- userHeader Start -->
+  <!-- Header Start -->
+  <c:import url="/front-end/header.jsp">
+</c:import>
+  <!-- Header END -->
+  <!--主頁面要修改的都在這下面-->
+  
 <div class="main">
 <!-- BEGIN CONTENT -->
 <!-- BEGIN LEFT SIDEBAR -->            
       <div class="container">
         <ul class="breadcrumb">
-            <li><a href="../新增資料夾/index.html">ChuMeet!</a></li>
-            <li><a href="javascript:;">活動列表</a></li>
-			<li class="active">一起看Person Of Interest</li>
+            <li><a href="<%=request.getContextPath()%>/front-end/index.jsp">ChuMeet!</a></li>
+            <li><a href="<%=request.getContextPath()%>/front-end/act/actList.jsp">活動列表</a></li>
+			<li class="active">${actVO.actName}</li>
         </ul>
+        
         <!-- BEGIN SIDEBAR & CONTENT -->
         <div class="row margin-bottom-40">
           <!-- BEGIN CONTENT -->
@@ -141,9 +66,9 @@
                         <div class="col-md-6">
                           		<table  class="table table-hover">
                           		<tr><th class="text-danger topstat"><i class="fa fa-smile-o"></i></th><th>我的狀態</th><td><span>已參加，等待活動開始</span></td></tr>
-								<tr><th class="text-danger topstat"><i class="fa fa-user"></i></th><th>活動發起人</th><td><span>breadcan</span></td></tr>
-                         		<tr><th class="text-danger topstat"><i class="fa fa-calendar"></i></th><th>活動時間</th><td><span> 2017/7/30 19:00 起至 2017/9/30 20:00</span> <br><span>每周五晚上8:00-9:00</span></td></tr>
-                         		<tr><th class="text-danger topstat"><i class="fa fa-calendar-check-o"></i></th><th>報名時間</th><td><span> 2017/7/30 18:00 起至 2017/9/9 19:00</span></td></tr>
+								<tr><th class="text-danger topstat"><i class="fa fa-user"></i></th><th>活動發起人</th><td><span>${actVO.memID}</span></td></tr>
+                         		<tr><th class="text-danger topstat"><i class="fa fa-calendar"></i></th><th>活動時間</th><td><span> ${actVO.actStartDate}起至 ${actVO.actEndDate}</span> <br><span>每周五晚上8:00-9:00</span></td></tr>
+                         		<tr><th class="text-danger topstat"><i class="fa fa-calendar-check-o"></i></th><th>報名時間</th><td><span> ${actVO.actStartDate} 起至 2017/9/9 19:00</span></td></tr>
                          		<tr><th class="text-danger topstat"><i class="fa fa-users"></i></th><th>目前人數</th><td><span>222</span>/<span>300</span></td></tr>
 
                           		</table>

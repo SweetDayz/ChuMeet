@@ -2,7 +2,7 @@ package com.act.model;
 
 import java.sql.Timestamp;
 
-public class ActMBIDVO {
+public class ActMBVO {
 	private String actMBID;
 	private Integer actID;
 	private Integer memID;

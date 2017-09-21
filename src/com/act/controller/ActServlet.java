@@ -3,6 +3,8 @@ package com.act.controller;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
@@ -16,7 +18,7 @@ import com.act.model.ActVO;
 import com.gen.tool.tools;
 
 
-public class actServlet extends HttpServlet {
+public class ActServlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse res)
 			throws ServletException, IOException {
 		doPost(req, res);
@@ -28,7 +30,7 @@ public class actServlet extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
 
-        if ("insert".equals(action)) { // 來自addEmp.jsp的請求  
+        if ("insert".equals(action)) { // 來自actStart.jsp的請求  
 			
 			Map<String,String> errorMsgs = new LinkedHashMap<String,String>();
 			req.setAttribute("errorMsgs", errorMsgs);
@@ -107,5 +109,68 @@ public class actServlet extends HttpServlet {
 				failureView.forward(req, res);
 			}
 		}
+        
+        //==============================================================================================
+		
+		if ("showOne".equals(action)) { // 來自actListjsp的請求
+			System.out.println("yaaaaa");
+			List<String> errorMsgs = new LinkedList<String>();
+			// Store this set in the request scope, in case we need to
+			// send the ErrorPage view.
+			req.setAttribute("errorMsgs", errorMsgs);
+
+//			try {
+				/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
+				Integer actID=Integer.parseInt(req.getParameter("actID"));
+				System.out.println(Integer.parseInt(req.getParameter("actID")));
+				/***************************2.開始查詢資料*****************************************/
+				ActService actSvc = new ActService();
+				ActVO actVO = actSvc.getActByActID(actID);
+				if (actVO == null) {
+					errorMsgs.add("查無資料");
+				}
+				// Send the use back to the form, if there were errors
+				if (!errorMsgs.isEmpty()) {
+					RequestDispatcher failureView = req
+							.getRequestDispatcher("/error");
+					failureView.forward(req, res);
+					return;//程式中斷
+				}
+				
+				/***************************3.查詢完成,準備轉交(Send the Success view)*************/
+				req.setAttribute("actVO", actVO); // 資料庫取出的actVO物件,存入req
+				System.out.println("yaaaaa2");
+				String url = "/front-end/act/actItem.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交listOneEmp.jsp
+				successView.forward(req, res);
+
+				/***************************其他可能的錯誤處理*************************************/
+//			} catch (Exception e) {
+//				errorMsgs.add("無法取得資料:" + e.getMessage());
+//				RequestDispatcher failureView = req
+//						.getRequestDispatcher("/error2");
+//				failureView.forward(req, res);
+//			}
+		}
+		
+        //==============================================================================================
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
 	}
 }
