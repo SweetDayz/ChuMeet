@@ -5,9 +5,9 @@
 <%@ page import="com.act.model.*"%>
 <%@ page import="com.member.model.*"%>
 
-<%ActVO actVO = (ActVO) request.getAttribute("actVO");%>
+<%ActViewVO actViewVO = (ActViewVO) request.getAttribute("actViewVO");%>
 <%MemberVO memVO = (MemberVO) request.getAttribute("memVO");%>
-<%memVO.setMemID(1) %>
+<%memVO.setMemID(1); %>
 
 
 <html>
@@ -49,7 +49,7 @@
         <ul class="breadcrumb">
             <li><a href="<%=request.getContextPath()%>/front-end/index.jsp">ChuMeet!</a></li>
             <li><a href="<%=request.getContextPath()%>/front-end/act/actList.jsp">活動列表</a></li>
-			<li class="active">${actVO.actName}</li>
+			<li class="active">${actViewVO.actName}</li>
         </ul>
         
         <!-- BEGIN SIDEBAR & CONTENT -->

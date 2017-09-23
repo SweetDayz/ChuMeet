@@ -22,7 +22,7 @@ public class ActPOIService {
 			return dao.getPOIByActID(actID);
 		}
 
-		public  List<ActVO> getActByPOIID(Integer POIID) {
+		public  List<ActOneVO> getActByPOIID(Integer POIID) {
 			return dao.getActByPOIID(POIID);
 		}
 

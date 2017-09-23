@@ -1,7 +1,14 @@
 package com.act.model;
 import java.sql.Timestamp;
 
-public class ActVO {
+public class ActOneVO {
+	private String memName;
+	public String getMemName() {
+		return memName;
+	}
+	public void setMemName(String memName) {
+		this.memName = memName;
+	}
 	private Integer actID;
 	private Integer memID;
 	private Timestamp actCreateDate;

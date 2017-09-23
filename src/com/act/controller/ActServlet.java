@@ -13,8 +13,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.act.model.ActService;
-import com.act.model.ActVO;
+import com.act.model.ActOneService;
+import com.act.model.ActOneVO;
+import com.act.model.ActOneVO;
 import com.gen.tool.tools;
 
 
@@ -60,28 +61,28 @@ public class ActServlet extends HttpServlet {
 				String actAdr = req.getParameter("actAdr");
 
 //為了回傳用的
-				ActVO actVO = new ActVO();
-				actVO.setActID(actID);
-				actVO.setMemID(memID);
-				actVO.setActCreateDate(actCreateDate);
-				actVO.setActName(actName);
-				actVO.setActStatID(actStatID);
-				actVO.setActTimeID(actTimeID);
-				actVO.setActPriID(actPriID);
-				actVO.setActLocID(actLocID);
-				actVO.setActStartDate(actStartDate);
-				actVO.setActEndDate(actEndDate);
-				actVO.setActSignStartDate(actSignStartDate);
-				actVO.setActSignEndDate(actSignEndDate);
-				actVO.setActITVType(actITVType);
-				actVO.setActMemMax(actMemMax);
-				actVO.setActMemMin(actMemMin);
-				actVO.setActImg(actImg);
-				actVO.setActContent(actContent);
-				actVO.setActLong(actLong);
-				actVO.setActLat(actLat);
-				actVO.setActLocName(actLocName);
-				actVO.setActAdr(actAdr);
+				ActOneVO actOneVO = new ActOneVO();
+				actOneVO.setActID(actID);
+				actOneVO.setMemID(memID);
+				actOneVO.setActCreateDate(actCreateDate);
+				actOneVO.setActName(actName);
+				actOneVO.setActStatID(actStatID);
+				actOneVO.setActTimeID(actTimeID);
+				actOneVO.setActPriID(actPriID);
+				actOneVO.setActLocID(actLocID);
+				actOneVO.setActStartDate(actStartDate);
+				actOneVO.setActEndDate(actEndDate);
+				actOneVO.setActSignStartDate(actSignStartDate);
+				actOneVO.setActSignEndDate(actSignEndDate);
+				actOneVO.setActITVType(actITVType);
+				actOneVO.setActMemMax(actMemMax);
+				actOneVO.setActMemMin(actMemMin);
+				actOneVO.setActImg(actImg);
+				actOneVO.setActContent(actContent);
+				actOneVO.setActLong(actLong);
+				actOneVO.setActLat(actLat);
+				actOneVO.setActLocName(actLocName);
+				actOneVO.setActAdr(actAdr);
 
 				
 				// Send the use back to the form, if there were errors
@@ -93,8 +94,8 @@ public class ActServlet extends HttpServlet {
 				}
 				
 				/***************************2.開始新增資料***************************************/
-				ActService actSrv = new ActService();
-				actSrv.insert(actVO);
+				ActOneService actSrv = new ActOneService();
+				actSrv.insert(actOneVO);
 				
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
 				String url = "/emp/listAllEmp.jsp";
@@ -110,7 +111,7 @@ public class ActServlet extends HttpServlet {
 			}
 		}
         
-        //==============================================================================================
+        //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 		
 		if ("showOne".equals(action)) { // 來自actListjsp的請求
 			System.out.println("yaaaaa");
@@ -124,9 +125,9 @@ public class ActServlet extends HttpServlet {
 				Integer actID=Integer.parseInt(req.getParameter("actID"));
 				System.out.println(Integer.parseInt(req.getParameter("actID")));
 				/***************************2.開始查詢資料*****************************************/
-				ActService actSvc = new ActService();
-				ActVO actVO = actSvc.getActByActID(actID);
-				if (actVO == null) {
+				ActOneService actOneSvc = new ActOneService();
+				ActOneVO actOneVO = actOneSvc.getActByActID(actID);
+				if (actOneVO == null) {
 					errorMsgs.add("查無資料");
 				}
 				// Send the use back to the form, if there were errors
@@ -138,7 +139,7 @@ public class ActServlet extends HttpServlet {
 				}
 				
 				/***************************3.查詢完成,準備轉交(Send the Success view)*************/
-				req.setAttribute("actVO", actVO); // 資料庫取出的actVO物件,存入req
+				req.setAttribute("actOneVO", actOneVO); // 資料庫取出的actOneVO物件,存入req
 				System.out.println("yaaaaa2");
 				String url = "/front-end/act/actItem.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交listOneEmp.jsp
@@ -153,7 +154,7 @@ public class ActServlet extends HttpServlet {
 //			}
 		}
 		
-        //==============================================================================================
+        //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
         
         
         

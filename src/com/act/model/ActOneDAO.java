@@ -8,7 +8,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-public class ActDAO implements ActDAO_interface {
+public class ActOneDAO implements ActOne_interface {
 	private static DataSource ds = null;
 	static {
 		try {
@@ -27,7 +27,7 @@ public class ActDAO implements ActDAO_interface {
 																					+ "actImg=?, actContent=?, actAdr=? where actID=?";
 	private static final String GET_ALL_STMT = "SELECT * FROM act";
 //	private static final String GET_ONE_STMT = "select * from act where actID=?";
-	private static final String GET_ACT_BY_ACTID="select * from act where actID=?";
+	private static final String GET_ACT_BY_ACTID="select * from actview where actID=?";
 	private static final String GET_ACT_BY_DATE="select * from act where actDate=timestamp (\'?\')";
 	private static final String GET_ACT_BY_POIID="select * from act join actPOI on act.actID=actPOI.actID where POIID=?";
 	private static final String GET_ACT_BY_WKS="SELECT * FROM act WHERE MOD(TO_CHAR(?, 'J'), 7) + 1 IN (6, 7);";
@@ -45,7 +45,7 @@ public class ActDAO implements ActDAO_interface {
 
 	@Override
 
-	public void insert(ActVO ActVO) {
+	public void insert(ActOneVO ActVO) {
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -108,7 +108,7 @@ public class ActDAO implements ActDAO_interface {
 	}
 
 	@Override
-	public void update(ActVO ActVO) {
+	public void update(ActOneVO ActVO) {
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -162,65 +162,84 @@ public class ActDAO implements ActDAO_interface {
 	}
 
 	@Override
-	public ActVO getActByActID(Integer actID) {
+	public ActOneVO getActByActID(Integer actID) {
+		ActOneVO actViewVO = null;
 
-		ActVO ActVO = null;
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
+			Connection con = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
 
-		try {
+			try {
+				con = ds.getConnection();
+				pstmt = con.prepareStatement(GET_ALL_STMT);
+				rs = pstmt.executeQuery();
 
-			con = ds.getConnection();
-			pstmt = con.prepareStatement(GET_ACT_BY_ACTID);
+				while (rs.next()) {
+					actViewVO.setMemName(rs.getString("memName"));
+					actViewVO.setActID(rs.getInt("actID"));
+					actViewVO.setMemID(rs.getInt("memID"));
+					actViewVO.setActCreateDate(rs.getTimestamp("actCreateDate"));
+					actViewVO.setActName(rs.getString("actName"));
+					actViewVO.setActStatID(rs.getInt("actStatID"));
+					actViewVO.setActTimeID(rs.getInt("actTimeID"));
+					actViewVO.setActPriID(rs.getInt("actPriID"));
+					actViewVO.setActLocID(rs.getInt("actLocID"));
+					actViewVO.setActStartDate(rs.getTimestamp("actStartDate"));
+					actViewVO.setActEndDate(rs.getTimestamp("actEndDate"));
+					actViewVO.setActSignStartDate(rs.getTimestamp("actSignStartDate"));
+					actViewVO.setActSignEndDate(rs.getTimestamp("actSignEndDate"));
+					actViewVO.setActITVType(rs.getInt("actITVType"));
+					actViewVO.setActITVCount(rs.getString("actITVCount"));
+					actViewVO.setActMemMax(rs.getInt("actMemMax"));
+					actViewVO.setActMemMin(rs.getInt("actMemMin"));
+					actViewVO.setActImg(rs.getBytes("actImg"));
+					actViewVO.setActBN(rs.getBytes("actBN"));
+					actViewVO.setActContent(rs.getString("actContent"));
+					actViewVO.setActWeather(rs.getString("actWeather"));
+					actViewVO.setActWD(rs.getString("actWD"));
+					actViewVO.setActWR(rs.getString("actWR"));
+					actViewVO.setActIsHot(rs.getInt("actIsHot"));
+					actViewVO.setActLong(rs.getDouble("actLong"));
+					actViewVO.setActLat(rs.getDouble("actLat"));
+					actViewVO.setActLocName(rs.getString("actLocName"));
+					actViewVO.setActAdr(rs.getString("actAdr"));
+				}
 
-			pstmt.setInt(1, actID);
-
-			rs = pstmt.executeQuery();
-			System.out.println("DAO1");
-			while (rs.next()) {
-				// ActVO 也稱為 Domain objects
-				ActVO = new ActVO();
-				ActVO.setActName(rs.getString("actName"));
-				ActVO.setActStartDate(rs.getTimestamp("actStartDate"));
-				ActVO.setActAdr(rs.getString("actAdr"));
-				System.out.println("DAO2");
-			}
-			System.out.println("DAO3");
-			// Handle any driver errors
-		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "	+ se.getMessage());
-			// Clean up JDBC resources
-		} finally {
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
+				// Handle any driver errors
+			} catch (SQLException se) {
+				throw new RuntimeException("A database error occured. "
+						+ se.getMessage());
+			} finally {
+				if (rs != null) {
+					try {
+						rs.close();
+					} catch (SQLException se) {
+						se.printStackTrace(System.err);
+					}
+				}
+				if (pstmt != null) {
+					try {
+						pstmt.close();
+					} catch (SQLException se) {
+						se.printStackTrace(System.err);
+					}
+				}
+				if (con != null) {
+					try {
+						con.close();
+					} catch (Exception e) {
+						e.printStackTrace(System.err);
+					}
 				}
 			}
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (Exception e) {
-					e.printStackTrace(System.err);
-				}
-			}
+			return actViewVO;
 		}
-		return ActVO;
-	}
+
 
 	@Override
-	public List<ActVO> getAll() {
-		List<ActVO> list = new ArrayList<ActVO>();
-		ActVO ActVO = null;
+	public List<ActOneVO> getAll() {
+		List<ActOneVO> list = new ArrayList<ActOneVO>();
+		ActOneVO ActVO = null;
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -232,7 +251,7 @@ public class ActDAO implements ActDAO_interface {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				ActVO = new ActVO();
+				ActVO = new ActOneVO();
 				ActVO.setActID(rs.getInt("actID"));
 				ActVO.setMemID(rs.getInt("memID"));
 				ActVO.setActCreateDate(rs.getTimestamp("actCreateDate"));
@@ -294,9 +313,9 @@ public class ActDAO implements ActDAO_interface {
 	}
 
 	@Override
-	public List<ActVO> getActByCat(Integer POIID) {
-		List<ActVO> list = new ArrayList<ActVO>();
-		ActVO ActVO = null;
+	public List<ActOneVO> getActByPOIID(Integer POIID) {
+		List<ActOneVO> list = new ArrayList<ActOneVO>();
+		ActOneVO ActVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -308,7 +327,7 @@ public class ActDAO implements ActDAO_interface {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				ActVO = new ActVO();
+				ActVO = new ActOneVO();
 				ActVO.setActID(rs.getInt("actID"));
 				ActVO.setMemID(rs.getInt("memID"));
 				ActVO.setActName(rs.getString("actName"));
@@ -349,9 +368,9 @@ public class ActDAO implements ActDAO_interface {
 	}
 
 @Override
-	public List<ActVO> getActByDate(Timestamp actDate) {
-		List<ActVO> list = new ArrayList<ActVO>();
-		ActVO ActVO = null;
+	public List<ActOneVO> getActByDate(Timestamp actDate) {
+		List<ActOneVO> list = new ArrayList<ActOneVO>();
+		ActOneVO ActVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -363,7 +382,7 @@ public class ActDAO implements ActDAO_interface {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				ActVO = new ActVO();
+				ActVO = new ActOneVO();
 				ActVO.setActID(rs.getInt("actID"));
 				ActVO.setMemID(rs.getInt("memID"));
 				ActVO.setActName(rs.getString("actName"));
@@ -404,9 +423,9 @@ public class ActDAO implements ActDAO_interface {
 	}
 
 	@Override
-	public List<ActVO> getActByWks(Timestamp actDate) {
-		List<ActVO> list = new ArrayList<ActVO>();
-		ActVO ActVO = null;
+	public List<ActOneVO> getActByWks(Timestamp actDate) {
+		List<ActOneVO> list = new ArrayList<ActOneVO>();
+		ActOneVO ActVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -419,7 +438,7 @@ public class ActDAO implements ActDAO_interface {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				ActVO = new ActVO();
+				ActVO = new ActOneVO();
 				ActVO.setActID(rs.getInt("actID"));
 				ActVO.setMemID(rs.getInt("memID"));
 				ActVO.setActName(rs.getString("actName"));
@@ -467,9 +486,9 @@ public class ActDAO implements ActDAO_interface {
 //	}
 
 	@Override
-	public List<ActVO> getActByMemIDJoin(Integer memID) {
-		List<ActVO> list = new ArrayList<ActVO>();
-		ActVO ActVO = null;
+	public List<ActOneVO> getActByMemIDJoin(Integer memID) {
+		List<ActOneVO> list = new ArrayList<ActOneVO>();
+		ActOneVO ActVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -481,7 +500,7 @@ public class ActDAO implements ActDAO_interface {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				ActVO = new ActVO();
+				ActVO = new ActOneVO();
 				ActVO.setActID(rs.getInt("actID"));
 				ActVO.setMemID(rs.getInt("memID"));
 				ActVO.setActName(rs.getString("actName"));
@@ -523,9 +542,9 @@ public class ActDAO implements ActDAO_interface {
 
 
 	@Override
-	public List<ActVO> getActByMemIDCreate(Integer memID) {
-		List<ActVO> list = new ArrayList<ActVO>();
-		ActVO ActVO = null;
+	public List<ActOneVO> getActByMemIDCreate(Integer memID) {
+		List<ActOneVO> list = new ArrayList<ActOneVO>();
+		ActOneVO ActVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -537,7 +556,7 @@ public class ActDAO implements ActDAO_interface {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				ActVO = new ActVO();
+				ActVO = new ActOneVO();
 				ActVO.setActID(rs.getInt("actID"));
 				ActVO.setMemID(rs.getInt("memID"));
 				ActVO.setActName(rs.getString("actName"));
@@ -579,9 +598,9 @@ public class ActDAO implements ActDAO_interface {
 
 
 	@Override
-	public List<ActVO> getActByMemIDFriend(Integer memID) {
-		List<ActVO> list = new ArrayList<ActVO>();
-		ActVO ActVO = null;
+	public List<ActOneVO> getActByMemIDFriend(Integer memID) {
+		List<ActOneVO> list = new ArrayList<ActOneVO>();
+		ActOneVO ActVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -593,7 +612,7 @@ public class ActDAO implements ActDAO_interface {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				ActVO = new ActVO();
+				ActVO = new ActOneVO();
 				ActVO.setActID(rs.getInt("actID"));
 				ActVO.setMemID(rs.getInt("memID"));
 				ActVO.setActName(rs.getString("actName"));
@@ -635,9 +654,9 @@ public class ActDAO implements ActDAO_interface {
 
 
 	@Override
-	public List<ActVO> getActByMemIDTrack(Integer memID) {
-		List<ActVO> list = new ArrayList<ActVO>();
-		ActVO ActVO = null;
+	public List<ActOneVO> getActByMemIDTrack(Integer memID) {
+		List<ActOneVO> list = new ArrayList<ActOneVO>();
+		ActOneVO ActVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -649,7 +668,7 @@ public class ActDAO implements ActDAO_interface {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				ActVO = new ActVO();
+				ActVO = new ActOneVO();
 				ActVO.setActID(rs.getInt("actID"));
 				ActVO.setMemID(rs.getInt("memID"));
 				ActVO.setActName(rs.getString("actName"));
@@ -691,9 +710,9 @@ public class ActDAO implements ActDAO_interface {
 
 
 	@Override
-	public List<ActVO> getActByClub(Integer clubID) {
-		List<ActVO> list = new ArrayList<ActVO>();
-		ActVO ActVO = null;
+	public List<ActOneVO> getActByClub(Integer clubID) {
+		List<ActOneVO> list = new ArrayList<ActOneVO>();
+		ActOneVO ActVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -705,7 +724,7 @@ public class ActDAO implements ActDAO_interface {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				ActVO = new ActVO();
+				ActVO = new ActOneVO();
 				ActVO.setActID(rs.getInt("actID"));
 				ActVO.setMemID(rs.getInt("memID"));
 				ActVO.setActName(rs.getString("actName"));

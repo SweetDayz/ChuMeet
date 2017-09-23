@@ -25,7 +25,7 @@ package com.act.model;
 		@Override
 		public List<String> getPOIByActID(Integer actID) {
 			List<String> list = new ArrayList<String>();
-			ActVO actVO = null;
+			ActOneVO actVO = null;
 
 			Connection con = null;
 			PreparedStatement pstmt = null;
@@ -72,9 +72,9 @@ package com.act.model;
 		}
 		
 		@Override
-		public List<ActVO> getActByPOIID(Integer POIID) {
-			List<ActVO> list = new ArrayList<ActVO>();
-			ActVO actVO = null;
+		public List<ActOneVO> getActByPOIID(Integer POIID) {
+			List<ActOneVO> list = new ArrayList<ActOneVO>();
+			ActOneVO actVO = null;
 
 			Connection con = null;
 			PreparedStatement pstmt = null;
