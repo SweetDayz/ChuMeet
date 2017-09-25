@@ -6,7 +6,7 @@ public interface ActPOIDAO_interface {
 	//POI做標籤
     public List<String> getPOIByActID(Integer actID);
     //select by POI
-    public List<ActOneVO> getActByPOIID(Integer POIID);
+    public List<Act_VO> getActByPOIID(Integer POIID);
     //++POI
     public void insert(ActPOIVO actPOIVO);
     //--POI

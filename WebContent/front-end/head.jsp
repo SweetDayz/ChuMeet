@@ -12,7 +12,7 @@
   <!-- 全站統一CSS 不要亂動，動了要跟全組說 -->
 
   <!-- Global styles START -->
-  <link href="<%=request.getContextPath()%>/HTML/assets/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
   <link href="<%=request.getContextPath()%>/HTML/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="<%=request.getContextPath()%>/HTML/assets/pages/css/base.css" rel="stylesheet">
   <!-- Global styles END -->

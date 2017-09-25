@@ -25,7 +25,7 @@ package com.act.model;
 		@Override
 		public List<String> getPOIByActID(Integer actID) {
 			List<String> list = new ArrayList<String>();
-			ActOneVO actVO = null;
+			Act_VO act_VO = null;
 
 			Connection con = null;
 			PreparedStatement pstmt = null;
@@ -72,9 +72,9 @@ package com.act.model;
 		}
 		
 		@Override
-		public List<ActOneVO> getActByPOIID(Integer POIID) {
-			List<ActOneVO> list = new ArrayList<ActOneVO>();
-			ActOneVO actVO = null;
+		public List<Act_VO> getActByPOIID(Integer POIID) {
+			List<Act_VO> list = new ArrayList<Act_VO>();
+			Act_VO act_VO = null;
 
 			Connection con = null;
 			PreparedStatement pstmt = null;
@@ -87,22 +87,22 @@ package com.act.model;
 				rs = pstmt.executeQuery();
 
 				while (rs.next()) {
-					actVO.setActID(rs.getInt("actID"));
-					actVO.setMemID(rs.getInt("memID"));
-					actVO.setActCreateDate(rs.getTimestamp("actCreateDate"));
-					actVO.setActName(rs.getString("actName"));
-					actVO.setActStatID(rs.getInt("actStatID"));
-					actVO.setActLocID(rs.getInt("actLocID"));
-					actVO.setActStartDate(rs.getTimestamp("actStartDate"));
-					actVO.setActITVType(rs.getInt("actITVType"));
-					actVO.setActMemMax(rs.getInt("actMemMax"));
-					actVO.setActMemMin(rs.getInt("actMemMin"));
-					actVO.setActImg(rs.getBytes("actImg"));
-					actVO.setActContent(rs.getString("actContent"));
-					actVO.setActLong(rs.getDouble("actLong"));
-					actVO.setActLat(rs.getDouble("actLat"));
-					actVO.setActAdr(rs.getString("actAdr"));
-					list.add(actVO); // Store the row in the list
+					act_VO.setActID(rs.getInt("actID"));
+					act_VO.setMemID(rs.getInt("memID"));
+					act_VO.setActCreateDate(rs.getTimestamp("actCreateDate"));
+					act_VO.setActName(rs.getString("actName"));
+					act_VO.setActStatID(rs.getInt("actStatID"));
+					act_VO.setActLocID(rs.getInt("actLocID"));
+					act_VO.setActStartDate(rs.getTimestamp("actStartDate"));
+					act_VO.setActITVType(rs.getInt("actITVType"));
+					act_VO.setActMemMax(rs.getInt("actMemMax"));
+					act_VO.setActMemMin(rs.getInt("actMemMin"));
+					act_VO.setActImg(rs.getBytes("actImg"));
+					act_VO.setActContent(rs.getString("actContent"));
+					act_VO.setActLong(rs.getDouble("actLong"));
+					act_VO.setActLat(rs.getDouble("actLat"));
+					act_VO.setActAdr(rs.getString("actAdr"));
+					list.add(act_VO); // Store the row in the list
 				}
 
 				// Handle any SQL errors

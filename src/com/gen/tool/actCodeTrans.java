@@ -1,8 +1,25 @@
 package com.gen.tool;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import javax.naming.*;
+import javax.sql.DataSource;
+
+import com.act.model.Act_VO;
 
 public class actCodeTrans {
-		
-		public static String actStatIDtoString(int actStatID){
+	private static DataSource ds = null;
+	static {
+		try {
+			Context ctx = new InitialContext();
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/BA103G2DB");
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}
+	}
+		public static String actStattoString(int actStatID){
 			String Str=null;
 				switch(actStatID){
 				case 1:
@@ -28,12 +45,10 @@ public class actCodeTrans {
 				}
 			return Str;
 		}
+
+		
 			public static String actLoctoString(int postNo){
 				String city=null;
-				
-				
-				
-				
 				return city;
 			}
 			

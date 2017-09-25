@@ -162,8 +162,23 @@ public class tools {
 		  if(timestamp==null){
 			  return "null";
 		  }else{
-			  SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//定义格式，不显示毫秒 
-				 // Timestamp now = new Timestamp(System.currentTimeMillis());//获取系统当前时间 
+			  SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// 
+				 // Timestamp now = new Timestamp(System.currentTimeMillis());/ 
+				  String str = df.format(timestamp); 
+				  System.out.println(str); 
+			        return str;
+		  }
+
+	  }
+	  
+		//Timestamp轉String@Act
+	  public static String tsToActStr(Timestamp timestamp){
+		  
+		  if(timestamp==null){
+			  return "null";
+		  }else{
+			  SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");// 
+				 // Timestamp now = new Timestamp(System.currentTimeMillis());/ 
 				  String str = df.format(timestamp); 
 				  System.out.println(str); 
 			        return str;

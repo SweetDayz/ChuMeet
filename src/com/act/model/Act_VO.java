@@ -1,41 +1,40 @@
 package com.act.model;
 import java.sql.Timestamp;
 
-public class ActOneVO {
+public class Act_VO {
+	
 	private String memName;
+	private Integer actID;
+	private Integer memID;
+	private Timestamp actCreateDate;
+	private String actName;
+	private Integer actStatus;
+	private Integer actPriID;
+	private Timestamp actStartDate;
+	private Timestamp actEndDate;
+	private Timestamp actSignStartDate;
+	private Timestamp actSignEndDate;
+	private Integer actTimeTypeID;
+	private String actTimeTypeCnt;
+	private Integer actMemMax;
+	private Integer actMemMin;
+	private byte[] actIMG;
+	private String actContent;
+	private Integer actIsHot;
+	private Double actLong;
+	private Double actLat;
+	private Integer actPost;
+	private String actLocName;
+	private String actAdr;
+
+	
+	
 	public String getMemName() {
 		return memName;
 	}
 	public void setMemName(String memName) {
 		this.memName = memName;
 	}
-	private Integer actID;
-	private Integer memID;
-	private Timestamp actCreateDate;
-	private String actName;
-	private Integer actStatID;
-	private Integer actTimeID;
-	private Integer actPriID;
-	private Integer actLocID;
-	private Timestamp actStartDate;
-	private Timestamp actEndDate;
-	private Timestamp actSignStartDate;
-	private Timestamp actSignEndDate;
-	private Integer actITVType;
-	private String actITVCount;
-	private Integer actMemMax;
-	private Integer actMemMin;
-	private byte[] actImg;
-	private byte[] actBN;	
-	private String actContent;
-	private String actWeather;
-	private String actWD;
-	private String actWR;
-	private Integer actIsHot;
-	private Double actLong;
-	private Double actLat;
-	private String actLocName;
-	private String actAdr;
 	public Integer getActID() {
 		return actID;
 	}
@@ -60,29 +59,17 @@ public class ActOneVO {
 	public void setActName(String actName) {
 		this.actName = actName;
 	}
-	public Integer getActStatID() {
-		return actStatID;
+	public Integer getActStatus() {
+		return actStatus;
 	}
-	public void setActStatID(Integer actStatID) {
-		this.actStatID = actStatID;
-	}
-	public Integer getActTimeID() {
-		return actTimeID;
-	}
-	public void setActTimeID(Integer actTimeID) {
-		this.actTimeID = actTimeID;
+	public void setActStatus(Integer actStatus) {
+		this.actStatus = actStatus;
 	}
 	public Integer getActPriID() {
 		return actPriID;
 	}
 	public void setActPriID(Integer actPriID) {
 		this.actPriID = actPriID;
-	}
-	public Integer getActLocID() {
-		return actLocID;
-	}
-	public void setActLocID(Integer actLocID) {
-		this.actLocID = actLocID;
 	}
 	public Timestamp getActStartDate() {
 		return actStartDate;
@@ -108,17 +95,17 @@ public class ActOneVO {
 	public void setActSignEndDate(Timestamp actSignEndDate) {
 		this.actSignEndDate = actSignEndDate;
 	}
-	public Integer getActITVType() {
-		return actITVType;
+	public Integer getActTimeTypeID() {
+		return actTimeTypeID;
 	}
-	public void setActITVType(Integer actITVType) {
-		this.actITVType = actITVType;
+	public void setActTimeTypeID(Integer actTimeTypeID) {
+		this.actTimeTypeID = actTimeTypeID;
 	}
-	public String getActITVCount() {
-		return actITVCount;
+	public String getActTimeTypeCnt() {
+		return actTimeTypeCnt;
 	}
-	public void setActITVCount(String actITVCount) {
-		this.actITVCount = actITVCount;
+	public void setActTimeTypeCnt(String actTimeTypeCnt) {
+		this.actTimeTypeCnt = actTimeTypeCnt;
 	}
 	public Integer getActMemMax() {
 		return actMemMax;
@@ -132,41 +119,17 @@ public class ActOneVO {
 	public void setActMemMin(Integer actMemMin) {
 		this.actMemMin = actMemMin;
 	}
-	public byte[] getActImg() {
-		return actImg;
+	public byte[] getActIMG() {
+		return actIMG;
 	}
-	public void setActImg(byte[] actImg) {
-		this.actImg = actImg;
-	}
-	public byte[] getActBN() {
-		return actBN;
-	}
-	public void setActBN(byte[] actBN) {
-		this.actBN = actBN;
+	public void setActIMG(byte[] actIMG) {
+		this.actIMG = actIMG;
 	}
 	public String getActContent() {
 		return actContent;
 	}
 	public void setActContent(String actContent) {
 		this.actContent = actContent;
-	}
-	public String getActWeather() {
-		return actWeather;
-	}
-	public void setActWeather(String actWeather) {
-		this.actWeather = actWeather;
-	}
-	public String getActWD() {
-		return actWD;
-	}
-	public void setActWD(String actWD) {
-		this.actWD = actWD;
-	}
-	public String getActWR() {
-		return actWR;
-	}
-	public void setActWR(String actWR) {
-		this.actWR = actWR;
 	}
 	public Integer getActIsHot() {
 		return actIsHot;
@@ -186,6 +149,12 @@ public class ActOneVO {
 	public void setActLat(Double actLat) {
 		this.actLat = actLat;
 	}
+	public Integer getActPost() {
+		return actPost;
+	}
+	public void setActPost(Integer actPost) {
+		this.actPost = actPost;
+	}
 	public String getActLocName() {
 		return actLocName;
 	}
@@ -198,5 +167,7 @@ public class ActOneVO {
 	public void setActAdr(String actAdr) {
 		this.actAdr = actAdr;
 	}
+
+
 	
 }

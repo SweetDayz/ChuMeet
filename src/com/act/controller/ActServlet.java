@@ -13,9 +13,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.act.model.ActOneService;
-import com.act.model.ActOneVO;
-import com.act.model.ActOneVO;
+import com.act.model.Act_Service;
+import com.act.model.Act_VO;
+import com.act.model.Act_VO;
 import com.gen.tool.tools;
 
 
@@ -41,48 +41,52 @@ public class ActServlet extends HttpServlet {
 				Integer memID = Integer.parseInt(req.getParameter("memID"));
 				Timestamp actCreateDate = tools.strToTimestamp(req.getParameter("actCreateDate"));
 				String actName = req.getParameter("actName");
-				Integer actStatID = Integer.parseInt(req.getParameter("actStatID"));
-				Integer actTimeID = Integer.parseInt(req.getParameter("actTimeID"));
+				Integer actStatus = Integer.parseInt(req.getParameter("actStatus"));
 				Integer actPriID = Integer.parseInt(req.getParameter("actPriID"));
-				Integer actLocID = Integer.parseInt(req.getParameter("actLocID"));
 				Timestamp actStartDate = tools.strToTimestamp(req.getParameter("actStartDate"));
 				Timestamp actEndDate = tools.strToTimestamp(req.getParameter("actEndDate"));
 				Timestamp actSignStartDate = tools.strToTimestamp(req.getParameter("actSignStartDate"));
 				Timestamp actSignEndDate = tools.strToTimestamp(req.getParameter("actSignEndDate"));
-				Integer actITVType = Integer.parseInt(req.getParameter("actITVType"));
+				Integer actTimeTypeID = Integer.parseInt(req.getParameter("actTimeTypeID"));
+				String actTimeTypeCnt = req.getParameter("actTimeTypeCnt");
 				Integer actMemMax = Integer.parseInt(req.getParameter("actMemMax"));
 				Integer actMemMin = Integer.parseInt(req.getParameter("actMemMin"));
-				byte[] actImg = req.getParameter("actImg").getBytes();
+				byte[] actIMG = req.getParameter("actImg").getBytes();
 				String actContent = req.getParameter("actContent");
 				Integer actIsHot = Integer.parseInt(req.getParameter("actIsHot"));
 				Double actLong = Double.parseDouble(req.getParameter("actLong"));
 				Double actLat = Double.parseDouble(req.getParameter("actLat"));
+				Integer actPost = Integer.parseInt(req.getParameter("actPost"));
 				String actLocName = req.getParameter("actLocName");
 				String actAdr = req.getParameter("actAdr");
 
+
+
 //為了回傳用的
-				ActOneVO actOneVO = new ActOneVO();
-				actOneVO.setActID(actID);
-				actOneVO.setMemID(memID);
-				actOneVO.setActCreateDate(actCreateDate);
-				actOneVO.setActName(actName);
-				actOneVO.setActStatID(actStatID);
-				actOneVO.setActTimeID(actTimeID);
-				actOneVO.setActPriID(actPriID);
-				actOneVO.setActLocID(actLocID);
-				actOneVO.setActStartDate(actStartDate);
-				actOneVO.setActEndDate(actEndDate);
-				actOneVO.setActSignStartDate(actSignStartDate);
-				actOneVO.setActSignEndDate(actSignEndDate);
-				actOneVO.setActITVType(actITVType);
-				actOneVO.setActMemMax(actMemMax);
-				actOneVO.setActMemMin(actMemMin);
-				actOneVO.setActImg(actImg);
-				actOneVO.setActContent(actContent);
-				actOneVO.setActLong(actLong);
-				actOneVO.setActLat(actLat);
-				actOneVO.setActLocName(actLocName);
-				actOneVO.setActAdr(actAdr);
+				Act_VO act_VO = new Act_VO();
+				act_VO.setActID(actID);
+				act_VO.setMemID(memID);
+				act_VO.setActCreateDate(actCreateDate);
+				act_VO.setActName(actName);
+				act_VO.setActStatus(actStatus);
+				act_VO.setActPriID(actPriID);
+				act_VO.setActStartDate(actStartDate);
+				act_VO.setActEndDate(actEndDate);
+				act_VO.setActSignStartDate(actSignStartDate);
+				act_VO.setActSignEndDate(actSignEndDate);
+				act_VO.setActTimeTypeID(actTimeTypeID);
+				act_VO.setActTimeTypeCnt(actTimeTypeCnt);
+				act_VO.setActMemMax(actMemMax);
+				act_VO.setActMemMin(actMemMin);
+				act_VO.setActIMG(actIMG);
+				act_VO.setActContent(actContent);
+				act_VO.setActIsHot(actIsHot);
+				act_VO.setActLong(actLong);
+				act_VO.setActLat(actLat);
+				act_VO.setActPost(actPost);
+				act_VO.setActLocName(actLocName);
+				act_VO.setActAdr(actAdr);
+
 
 				
 				// Send the use back to the form, if there were errors
@@ -94,8 +98,8 @@ public class ActServlet extends HttpServlet {
 				}
 				
 				/***************************2.開始新增資料***************************************/
-				ActOneService actSrv = new ActOneService();
-				actSrv.insert(actOneVO);
+				Act_Service actSrv = new Act_Service();
+				actSrv.insert(act_VO);
 				
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
 				String url = "/emp/listAllEmp.jsp";
@@ -112,7 +116,9 @@ public class ActServlet extends HttpServlet {
 		}
         
         //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-		
+        //@@@@@@@@@@@@@@@@					ShowOne				@@@@@@@@@@@@@@@@@@@@@
+        //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+        
 		if ("showOne".equals(action)) { // 來自actListjsp的請求
 			System.out.println("yaaaaa");
 			List<String> errorMsgs = new LinkedList<String>();
@@ -125,9 +131,10 @@ public class ActServlet extends HttpServlet {
 				Integer actID=Integer.parseInt(req.getParameter("actID"));
 				System.out.println(Integer.parseInt(req.getParameter("actID")));
 				/***************************2.開始查詢資料*****************************************/
-				ActOneService actOneSvc = new ActOneService();
-				ActOneVO actOneVO = actOneSvc.getActByActID(actID);
-				if (actOneVO == null) {
+				Act_Service act_Svc = new Act_Service();
+				Act_VO act_VO = act_Svc.getOne(actID);
+				Integer memNow=1;						 // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+				if (act_VO == null) {
 					errorMsgs.add("查無資料");
 				}
 				// Send the use back to the form, if there were errors
@@ -139,7 +146,8 @@ public class ActServlet extends HttpServlet {
 				}
 				
 				/***************************3.查詢完成,準備轉交(Send the Success view)*************/
-				req.setAttribute("actOneVO", actOneVO); // 資料庫取出的actOneVO物件,存入req
+				req.setAttribute("act_VO", act_VO); // 資料庫取出的act_VO物件,存入req
+				req.setAttribute("memNow", memNow); // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 				System.out.println("yaaaaa2");
 				String url = "/front-end/act/actItem.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交listOneEmp.jsp

@@ -252,7 +252,7 @@
 										<td>${actMngVO.memName}</td>
 										<td>  <fmt:formatDate  pattern="yyyy-MM-dd" value="${actMngVO.actCreateDate}"/> </td>
 										<td>${actMngVO.actName}</td>
-										<td>${act.actStatIDtoString(actMngVO.actStatID)}</td>
+										<td>${act.actStattoString(actMngVO.actStatID)}</td>
 										<td>
 												<div class="radio">
 												  <label><input type="radio" name="radio_${actMngVO.actID}" value="0" checked><i class="fa fa-check-square" aria-hidden="true"></i></label>

@@ -1,16 +1,23 @@
 package com.act.model;
-
-import java.io.IOException;
 import java.sql.*;
 import java.sql.Timestamp;
 import java.util.*;
 //import com.act.model.ActVO;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
 
-public class ActOneDAO_JDBC implements ActOne_interface {
-	String driver = "oracle.jdbc.driver.OracleDriver";
-	String url = "jdbc:oracle:thin:@localhost:1521:XE";
-	String userid = "BA103G2";
-	String passwd = "a123";
+public class ActDAO_bk implements Act_interface {
+	private static DataSource ds = null;
+	static {
+		try {
+			Context ctx = new InitialContext();
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/BA103G2DB");
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}
+	}
 
 	private static final String INSERT_STMT = "insert into act (actID,memID,actCreateDate,actName,actStatID,actTimeID,actPriID,actLocID,actStartDate,actEndDate,actSignStartDate,actSignEndDate,actITVType,actITVCount,actMemMax,actMemMin,actImg,actBN,actContent,actWeather,actWD,actWR,actIsHot,actLong,actLat,actLocName,actAdr) "+
 																					"values (actID_seq.nextval,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,0,?,?,?,?)";
@@ -20,7 +27,7 @@ public class ActOneDAO_JDBC implements ActOne_interface {
 																					+ "actImg=?, actContent=?, actAdr=? where actID=?";
 	private static final String GET_ALL_STMT = "SELECT * FROM act";
 //	private static final String GET_ONE_STMT = "select * from act where actID=?";
-	private static final String GET_ACT_BY_ACTID="select * from act where actID=?";
+	private static final String GET_ACT_BY_ACTID="select member.MEMNAME, act.MEMID, act.ACTCREATEDATE, act.ACTSTARTDATE, act.ACTENDDATE, act.ACTSIGNSTARTDATE, act.ACTSIGNENDDATE, act.ACTTIMEID, act.ACTMEMMAX, act.ACTMEMMIN, act.ACTLOCID, act.ACTLOCNAME, act.ACTADR, act.ACTLONG, act.ACTLAT, act.ACTCONTENT FROM ACT join MEMBER on member.memID=act.memID where actID=?";
 	private static final String GET_ACT_BY_DATE="select * from act where actDate=timestamp (\'?\')";
 	private static final String GET_ACT_BY_POIID="select * from act join actPOI on act.actID=actPOI.actID where POIID=?";
 	private static final String GET_ACT_BY_WKS="SELECT * FROM act WHERE MOD(TO_CHAR(?, 'J'), 7) + 1 IN (6, 7);";
@@ -38,50 +45,45 @@ public class ActOneDAO_JDBC implements ActOne_interface {
 
 	@Override
 
-	public void insert(ActOneVO ActVO) {
+	public void insert(Act_VO Act_VO) {
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(INSERT_STMT);
 			
-			pstmt.setInt(1, ActVO.getMemID());
-			pstmt.setTimestamp(2, ActVO.getActCreateDate());
-			pstmt.setString(3, ActVO.getActName());
-			pstmt.setInt(4, ActVO.getActStatID());
-			pstmt.setInt(5, ActVO.getActTimeID());
-			pstmt.setInt(6, ActVO.getActPriID());
-			pstmt.setInt(7, ActVO.getActLocID());
-			pstmt.setTimestamp(8, ActVO.getActStartDate());
-			pstmt.setTimestamp(9, ActVO.getActEndDate());
-			pstmt.setTimestamp(10, ActVO.getActSignStartDate());
-			pstmt.setTimestamp(11, ActVO.getActSignEndDate());
-			pstmt.setInt(12, ActVO.getActITVType());
-			pstmt.setString(13, ActVO.getActITVCount());
-			pstmt.setInt(14, ActVO.getActMemMax());
-			pstmt.setInt(15, ActVO.getActMemMin());
-			pstmt.setBytes(16, ActVO.getActImg());
-			pstmt.setBytes(17, ActVO.getActBN());
-			pstmt.setString(18, ActVO.getActContent());
-			pstmt.setString(19, ActVO.getActWeather());
-			pstmt.setString(20, ActVO.getActWD());
-			pstmt.setString(21, ActVO.getActWR());
-			pstmt.setDouble(22, ActVO.getActLong());
-			pstmt.setDouble(23, ActVO.getActLat());
-			pstmt.setString(24, ActVO.getActLocName());
-			pstmt.setString(25, ActVO.getActAdr());
+			pstmt.setInt(1, Act_VO.getMemID());
+			pstmt.setTimestamp(2, Act_VO.getActCreateDate());
+			pstmt.setString(3, Act_VO.getActName());
+			pstmt.setInt(4, Act_VO.getActStatID());
+			pstmt.setInt(5, Act_VO.getActTimeID());
+			pstmt.setInt(6, Act_VO.getActPriID());
+			pstmt.setInt(7, Act_VO.getActLocID());
+			pstmt.setTimestamp(8, Act_VO.getActStartDate());
+			pstmt.setTimestamp(9, Act_VO.getActEndDate());
+			pstmt.setTimestamp(10, Act_VO.getActSignStartDate());
+			pstmt.setTimestamp(11, Act_VO.getActSignEndDate());
+			pstmt.setInt(12, Act_VO.getActITVType());
+			pstmt.setString(13, Act_VO.getActITVCount());
+			pstmt.setInt(14, Act_VO.getActMemMax());
+			pstmt.setInt(15, Act_VO.getActMemMin());
+			pstmt.setBytes(16, Act_VO.getActImg());
+			pstmt.setBytes(17, Act_VO.getActBN());
+			pstmt.setString(18, Act_VO.getActContent());
+			pstmt.setString(19, Act_VO.getActWeather());
+			pstmt.setString(20, Act_VO.getActWD());
+			pstmt.setString(21, Act_VO.getActWR());
+			pstmt.setDouble(22, Act_VO.getActLong());
+			pstmt.setDouble(23, Act_VO.getActLat());
+			pstmt.setString(24, Act_VO.getActLocName());
+			pstmt.setString(25, Act_VO.getActAdr());
 
 			pstmt.executeUpdate();
 
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -106,41 +108,36 @@ public class ActOneDAO_JDBC implements ActOne_interface {
 	}
 
 	@Override
-	public void update(ActOneVO ActVO) {
+	public void update(Act_VO Act_VO) {
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE);
 
-			pstmt.setString(1, ActVO.getActName());
-			pstmt.setInt(2, ActVO.getActStatID());
-			pstmt.setInt(3, ActVO.getActTimeID());
-			pstmt.setInt(4, ActVO.getActPriID());
-			pstmt.setTimestamp(5, ActVO.getActStartDate());
-			pstmt.setTimestamp(6, ActVO.getActEndDate());
-			pstmt.setTimestamp(7, ActVO.getActSignStartDate());
-			pstmt.setTimestamp(8, ActVO.getActSignEndDate());
-			pstmt.setInt(9, ActVO.getActITVType());
-			pstmt.setString(10, ActVO.getActITVCount());
-			pstmt.setInt(11, ActVO.getActMemMax());
-			pstmt.setInt(12, ActVO.getActMemMin());
-			pstmt.setBytes(13, ActVO.getActImg());
-			pstmt.setString(14, ActVO.getActContent());
-			pstmt.setString(15, ActVO.getActAdr());
-			pstmt.setInt(16, ActVO.getActID());
+			pstmt.setString(1, Act_VO.getActName());
+			pstmt.setInt(2, Act_VO.getActStatID());
+			pstmt.setInt(3, Act_VO.getActTimeID());
+			pstmt.setInt(4, Act_VO.getActPriID());
+			pstmt.setTimestamp(5, Act_VO.getActStartDate());
+			pstmt.setTimestamp(6, Act_VO.getActEndDate());
+			pstmt.setTimestamp(7, Act_VO.getActSignStartDate());
+			pstmt.setTimestamp(8, Act_VO.getActSignEndDate());
+			pstmt.setInt(9, Act_VO.getActITVType());
+			pstmt.setString(10, Act_VO.getActITVCount());
+			pstmt.setInt(11, Act_VO.getActMemMax());
+			pstmt.setInt(12, Act_VO.getActMemMin());
+			pstmt.setBytes(13, Act_VO.getActImg());
+			pstmt.setString(14, Act_VO.getActContent());
+			pstmt.setString(15, Act_VO.getActAdr());
+			pstmt.setInt(16, Act_VO.getActID());
 			
 			pstmt.executeUpdate();
 
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -164,39 +161,35 @@ public class ActOneDAO_JDBC implements ActOne_interface {
 
 	}
 
-	public ActOneVO getActByActIeD(Integer actID) {
+	@Override
+	public Act_VO getActByActID(Integer actID) {
 
-		ActOneVO ActVO = null;
+		Act_VO Act_VO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ACT_BY_ACTID);
 
 			pstmt.setInt(1, actID);
 
 			rs = pstmt.executeQuery();
-
+			System.out.println("DAO1");
 			while (rs.next()) {
 				// ActVO 也稱為 Domain objects
-				ActVO = new ActOneVO();
-				ActVO.setActName(rs.getString("actName"));
-				ActVO.setActStartDate(rs.getTimestamp("actStartDate"));
-				ActVO.setActAdr(rs.getString("actAdr"));
+				Act_VO = new Act_VO();
+				Act_VO.setActName(rs.getString("actName"));
+				Act_VO.setActStartDate(rs.getTimestamp("actStartDate"));
+				Act_VO.setActAdr(rs.getString("actAdr"));
+				System.out.println("DAO2");
 			}
-
+			System.out.println("DAO3");
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
+			throw new RuntimeException("A database error occured. "	+ se.getMessage());
 			// Clean up JDBC resources
 		} finally {
 			if (rs != null) {
@@ -221,39 +214,56 @@ public class ActOneDAO_JDBC implements ActOne_interface {
 				}
 			}
 		}
-		return ActVO;
+		return Act_VO;
 	}
 
 	@Override
-	public List<ActOneVO> getAll() {
-		List<ActOneVO> list = new ArrayList<ActOneVO>();
-		ActOneVO ActVO = null;
+	public List<Act_VO> getAll() {
+		List<Act_VO> list = new ArrayList<Act_VO>();
+		Act_VO Act_VO = null;
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 
 		try {
-
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ALL_STMT);
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				ActVO = new ActOneVO();
-				ActVO.setActID(rs.getInt("actID"));
-				ActVO.setMemID(rs.getInt("memID"));
-				ActVO.setActName(rs.getString("actName"));
-				ActVO.setActName(rs.getString("actCreateDate"));
-				list.add(ActVO); // Store the row in the list
+				Act_VO = new Act_VO();
+				Act_VO.setActID(rs.getInt("actID"));
+				Act_VO.setMemID(rs.getInt("memID"));
+				Act_VO.setActCreateDate(rs.getTimestamp("actCreateDate"));
+				Act_VO.setActName(rs.getString("actName"));
+				Act_VO.setActStatID(rs.getInt("actStatID"));
+				Act_VO.setActTimeID(rs.getInt("actTimeID"));
+				Act_VO.setActPriID(rs.getInt("actPriID"));
+				Act_VO.setActLocID(rs.getInt("actLocID"));
+				Act_VO.setActStartDate(rs.getTimestamp("actStartDate"));
+				Act_VO.setActEndDate(rs.getTimestamp("actEndDate"));
+				Act_VO.setActSignStartDate(rs.getTimestamp("actSignStartDate"));
+				Act_VO.setActSignEndDate(rs.getTimestamp("actSignEndDate"));
+				Act_VO.setActITVType(rs.getInt("actITVType"));
+				Act_VO.setActITVCount(rs.getString("actITVCount"));
+				Act_VO.setActMemMax(rs.getInt("actMemMax"));
+				Act_VO.setActMemMin(rs.getInt("actMemMin"));
+				Act_VO.setActImg(rs.getBytes("actImg"));
+				Act_VO.setActBN(rs.getBytes("actBN"));
+				Act_VO.setActContent(rs.getString("actContent"));
+				Act_VO.setActWeather(rs.getString("actWeather"));
+				Act_VO.setActWD(rs.getString("actWD"));
+				Act_VO.setActWR(rs.getString("actWR"));
+				Act_VO.setActIsHot(rs.getInt("actIsHot"));
+				Act_VO.setActLong(rs.getDouble("actLong"));
+				Act_VO.setActLat(rs.getDouble("actLat"));
+				Act_VO.setActLocName(rs.getString("actLocName"));
+				Act_VO.setActAdr(rs.getString("actAdr"));
+				list.add(Act_VO); // Store the row in the list
 			}
 
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -283,36 +293,31 @@ public class ActOneDAO_JDBC implements ActOne_interface {
 		return list;
 	}
 
-
-	public List<ActOneVO> getActBwyCat(Integer POIID) {
-		List<ActOneVO> list = new ArrayList<ActOneVO>();
-		ActOneVO ActVO = null;
+	@Override
+	public List<Act_VO> getActByCat(Integer POIID) {
+		List<Act_VO> list = new ArrayList<Act_VO>();
+		Act_VO Act_VO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 
 		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ACT_BY_POIID);
 			pstmt.setInt(1, POIID);
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				ActVO = new ActOneVO();
-				ActVO.setActID(rs.getInt("actID"));
-				ActVO.setMemID(rs.getInt("memID"));
-				ActVO.setActName(rs.getString("actName"));
-				ActVO.setActName(rs.getString("actCreateDate"));
-				list.add(ActVO); // Store the row in the list
+				Act_VO = new Act_VO();
+				Act_VO.setActID(rs.getInt("actID"));
+				Act_VO.setMemID(rs.getInt("memID"));
+				Act_VO.setActName(rs.getString("actName"));
+				Act_VO.setActCreateDate(rs.getTimestamp("actCreateDate"));
+				list.add(Act_VO); // Store the row in the list
 			}
 
 
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -344,35 +349,30 @@ public class ActOneDAO_JDBC implements ActOne_interface {
 	}
 
 @Override
-	public List<ActOneVO> getActByDate(Timestamp actDate) {
-		List<ActOneVO> list = new ArrayList<ActOneVO>();
-		ActOneVO ActVO = null;
+	public List<Act_VO> getActByDate(Timestamp actDate) {
+		List<Act_VO> list = new ArrayList<Act_VO>();
+		Act_VO Act_VO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 
 		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ACT_BY_DATE);
 			pstmt.setTimestamp(1, actDate);
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				ActVO = new ActOneVO();
-				ActVO.setActID(rs.getInt("actID"));
-				ActVO.setMemID(rs.getInt("memID"));
-				ActVO.setActName(rs.getString("actName"));
-				ActVO.setActName(rs.getString("actCreateDate"));
-				list.add(ActVO); // Store the row in the list
+				Act_VO = new Act_VO();
+				Act_VO.setActID(rs.getInt("actID"));
+				Act_VO.setMemID(rs.getInt("memID"));
+				Act_VO.setActName(rs.getString("actName"));
+				Act_VO.setActCreateDate(rs.getTimestamp("actCreateDate"));
+				list.add(Act_VO); // Store the row in the list
 			}
 
 
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -404,36 +404,31 @@ public class ActOneDAO_JDBC implements ActOne_interface {
 	}
 
 	@Override
-	public List<ActOneVO> getActByWks(Timestamp actDate) {
-		List<ActOneVO> list = new ArrayList<ActOneVO>();
-		ActOneVO ActVO = null;
+	public List<Act_VO> getActByWks(Timestamp actDate) {
+		List<Act_VO> list = new ArrayList<Act_VO>();
+		Act_VO Act_VO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 
 		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ACT_BY_WKS);
 			pstmt.setTimestamp(1, actDate);
 			pstmt.setTimestamp(2, actDate);
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				ActVO = new ActOneVO();
-				ActVO.setActID(rs.getInt("actID"));
-				ActVO.setMemID(rs.getInt("memID"));
-				ActVO.setActName(rs.getString("actName"));
-				ActVO.setActName(rs.getString("actCreateDate"));
-				list.add(ActVO); // Store the row in the list
+				Act_VO = new Act_VO();
+				Act_VO.setActID(rs.getInt("actID"));
+				Act_VO.setMemID(rs.getInt("memID"));
+				Act_VO.setActName(rs.getString("actName"));
+				Act_VO.setActCreateDate(rs.getTimestamp("actCreateDate"));
+				list.add(Act_VO); // Store the row in the list
 			}
 
 
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -472,35 +467,30 @@ public class ActOneDAO_JDBC implements ActOne_interface {
 //	}
 
 	@Override
-	public List<ActOneVO> getActByMemIDJoin(Integer memID) {
-		List<ActOneVO> list = new ArrayList<ActOneVO>();
-		ActOneVO ActVO = null;
+	public List<Act_VO> getActByMemIDJoin(Integer memID) {
+		List<Act_VO> list = new ArrayList<Act_VO>();
+		Act_VO Act_VO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 
 		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ACT_BY_MEMID_JOIN);
 			pstmt.setInt(1, memID);
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				ActVO = new ActOneVO();
-				ActVO.setActID(rs.getInt("actID"));
-				ActVO.setMemID(rs.getInt("memID"));
-				ActVO.setActName(rs.getString("actName"));
-				ActVO.setActName(rs.getString("actCreateDate"));
-				list.add(ActVO); // Store the row in the list
+				Act_VO = new Act_VO();
+				Act_VO.setActID(rs.getInt("actID"));
+				Act_VO.setMemID(rs.getInt("memID"));
+				Act_VO.setActName(rs.getString("actName"));
+				Act_VO.setActCreateDate(rs.getTimestamp("actCreateDate"));
+				list.add(Act_VO); // Store the row in the list
 			}
 
 
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -533,35 +523,30 @@ public class ActOneDAO_JDBC implements ActOne_interface {
 
 
 	@Override
-	public List<ActOneVO> getActByMemIDCreate(Integer memID) {
-		List<ActOneVO> list = new ArrayList<ActOneVO>();
-		ActOneVO ActVO = null;
+	public List<Act_VO> getActByMemIDCreate(Integer memID) {
+		List<Act_VO> list = new ArrayList<Act_VO>();
+		Act_VO Act_VO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 
 		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ACT_BY_MEMID_CREATE);
 			pstmt.setInt(1, memID);
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				ActVO = new ActOneVO();
-				ActVO.setActID(rs.getInt("actID"));
-				ActVO.setMemID(rs.getInt("memID"));
-				ActVO.setActName(rs.getString("actName"));
-				ActVO.setActName(rs.getString("actCreateDate"));
-				list.add(ActVO); // Store the row in the list
+				Act_VO = new Act_VO();
+				Act_VO.setActID(rs.getInt("actID"));
+				Act_VO.setMemID(rs.getInt("memID"));
+				Act_VO.setActName(rs.getString("actName"));
+				Act_VO.setActCreateDate(rs.getTimestamp("actCreateDate"));
+				list.add(Act_VO); // Store the row in the list
 			}
 
 
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -594,35 +579,30 @@ public class ActOneDAO_JDBC implements ActOne_interface {
 
 
 	@Override
-	public List<ActOneVO> getActByMemIDFriend(Integer memID) {
-		List<ActOneVO> list = new ArrayList<ActOneVO>();
-		ActOneVO ActVO = null;
+	public List<Act_VO> getActByMemIDFriend(Integer memID) {
+		List<Act_VO> list = new ArrayList<Act_VO>();
+		Act_VO Act_VO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 
 		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ACT_BY_MEMID_FRIEND);
 			pstmt.setInt(1, memID);
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				ActVO = new ActOneVO();
-				ActVO.setActID(rs.getInt("actID"));
-				ActVO.setMemID(rs.getInt("memID"));
-				ActVO.setActName(rs.getString("actName"));
-				ActVO.setActName(rs.getString("actCreateDate"));
-				list.add(ActVO); // Store the row in the list
+				Act_VO = new Act_VO();
+				Act_VO.setActID(rs.getInt("actID"));
+				Act_VO.setMemID(rs.getInt("memID"));
+				Act_VO.setActName(rs.getString("actName"));
+				Act_VO.setActCreateDate(rs.getTimestamp("actCreateDate"));
+				list.add(Act_VO); // Store the row in the list
 			}
 
 
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -655,35 +635,30 @@ public class ActOneDAO_JDBC implements ActOne_interface {
 
 
 	@Override
-	public List<ActOneVO> getActByMemIDTrack(Integer memID) {
-		List<ActOneVO> list = new ArrayList<ActOneVO>();
-		ActOneVO ActVO = null;
+	public List<Act_VO> getActByMemIDTrack(Integer memID) {
+		List<Act_VO> list = new ArrayList<Act_VO>();
+		Act_VO Act_VO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 
 		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ACT_BY_MEMID_TRACK);
 			pstmt.setInt(1, memID);
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				ActVO = new ActOneVO();
-				ActVO.setActID(rs.getInt("actID"));
-				ActVO.setMemID(rs.getInt("memID"));
-				ActVO.setActName(rs.getString("actName"));
-				ActVO.setActName(rs.getString("actCreateDate"));
-				list.add(ActVO); // Store the row in the list
+				Act_VO = new Act_VO();
+				Act_VO.setActID(rs.getInt("actID"));
+				Act_VO.setMemID(rs.getInt("memID"));
+				Act_VO.setActName(rs.getString("actName"));
+				Act_VO.setActCreateDate(rs.getTimestamp("actCreateDate"));
+				list.add(Act_VO); // Store the row in the list
 			}
 
 
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -716,35 +691,30 @@ public class ActOneDAO_JDBC implements ActOne_interface {
 
 
 	@Override
-	public List<ActOneVO> getActByClub(Integer clubID) {
-		List<ActOneVO> list = new ArrayList<ActOneVO>();
-		ActOneVO ActVO = null;
+	public List<Act_VO> getActByClub(Integer clubID) {
+		List<Act_VO> list = new ArrayList<Act_VO>();
+		Act_VO Act_VO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 
 		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ACT_BY_CLUBID);
 			pstmt.setInt(1, clubID);
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				ActVO = new ActOneVO();
-				ActVO.setActID(rs.getInt("actID"));
-				ActVO.setMemID(rs.getInt("memID"));
-				ActVO.setActName(rs.getString("actName"));
-				ActVO.setActName(rs.getString("actCreateDate"));
-				list.add(ActVO); // Store the row in the list
+				Act_VO = new Act_VO();
+				Act_VO.setActID(rs.getInt("actID"));
+				Act_VO.setMemID(rs.getInt("memID"));
+				Act_VO.setActName(rs.getString("actName"));
+				Act_VO.setActCreateDate(rs.getTimestamp("actCreateDate"));
+				list.add(Act_VO); // Store the row in the list
 			}
 
 
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -774,95 +744,4 @@ public class ActOneDAO_JDBC implements ActOne_interface {
 		}
 		return list;
 	}
-	public static void main(String[] args) throws IOException {
-
-		ActOneDAO_JDBC dao = new ActOneDAO_JDBC();
-
-		// 新增	ok
-//		ActVO ActVOIns = new ActVO();
-//		byte[] actImg=com.gen.tool.tools.getPictureByteArray("E:\\Dropbox\\@ChuMeet\\CloudStation\\Dayz\\1.jpg");
-//		Timestamp ts=com.gen.tool.tools.strToTimestamp("2017-09-23 10:10:10");
-//		Timestamp tsStart=com.gen.tool.tools.strToTimestamp("2017-09-24 18:00:00");
-//		Timestamp tsEnd=com.gen.tool.tools.strToTimestamp("2017-09-25 18:00:00");
-//		Timestamp tsSStart=com.gen.tool.tools.strToTimestamp("2017-09-22 18:00:00");
-//		Timestamp tsSEnd=com.gen.tool.tools.strToTimestamp("2017-09-24 16:00:00");
-//        ActVOIns.setMemID(1);
-//		ActVOIns.setActCreateDate(ts);
-//		ActVOIns.setActName("一起看揪咪<3");
-//		ActVOIns.setActStatID(1);
-//		ActVOIns.setActTimeID(0);
-//		ActVOIns.setActPriID(1);
-//		ActVOIns.setActLocID(111);
-//		ActVOIns.setActStartDate(tsStart);
-//		ActVOIns.setActEndDate(tsEnd);
-//		ActVOIns.setActSignStartDate(tsSStart);
-//		ActVOIns.setActSignEndDate(tsSEnd);
-//		ActVOIns.setActITVType(0);
-//		ActVOIns.setActITVCount("");
-//		ActVOIns.setActMemMax(5);
-//		ActVOIns.setActMemMin(1);
-//		ActVOIns.setActImg(actImg);
-//		ActVOIns.setActBN(actImg);
-//		ActVOIns.setActContent("123");
-//		ActVOIns.setActWeather("321");
-//		ActVOIns.setActWD("20-30");
-//		ActVOIns.setActWR("60");
-//		ActVOIns.setActLong(25.102364);
-//		ActVOIns.setActLat(121.548502);
-//		ActVOIns.setActLocName("國立故宮博物院");
-//		ActVOIns.setActAdr("台北市士林區至善路二段221號");
-//
-//		dao.insert(ActVOIns);
-
-		// 修改	ok
-//		ActVO ActVOUpd = new ActVO();
-//		ActVOUpd.setActName("更改測試");
-//		ActVOUpd.setActStatID(1);
-//		ActVOUpd.setActTimeID(0);
-//		ActVOUpd.setActPriID(1);
-//		ActVOUpd.setActStartDate(tsStart);
-//		ActVOUpd.setActEndDate(tsEnd);
-//		ActVOUpd.setActSignStartDate(tsSStart);
-//		ActVOUpd.setActSignEndDate(tsSEnd);
-//		ActVOUpd.setActITVType(0);
-//		ActVOUpd.setActITVCount("");
-//		ActVOUpd.setActMemMax(999);
-//		ActVOUpd.setActMemMin(5);
-//		ActVOUpd.setActImg(actImg);
-//		ActVOUpd.setActContent("改了辣");
-//		ActVOUpd.setActAdr("我家");
-//		ActVOUpd.setActID(1);
-//		
-//		dao.update(ActVOUpd);
-
-		// 刪除	不能刪辣
-//		dao.delete(30);
-
-		// 查詢	ok
-//		ActOneVO ActVO3 = dao.getActByAcetID(5);
-//		System.out.print(ActVO3.getActName() + ",");
-//		System.out.print(ActVO3.getActStartDate() + ",");
-//		System.out.println(ActVO3.getActAdr());
-//		System.out.println("---------------------");
-
-	
-
-	}
-
-	@Override
-	public ActOneVO getActByActID(Integer actID) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<ActOneVO> getActByPOIID(Integer POIID) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	}
-
-
-	
-
+}

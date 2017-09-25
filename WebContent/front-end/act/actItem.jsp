@@ -5,9 +5,9 @@
 <%@ page import="com.act.model.*"%>
 <%@ page import="com.member.model.*"%>
 
-<%ActViewVO actViewVO = (ActViewVO) request.getAttribute("actViewVO");%>
-<%MemberVO memVO = (MemberVO) request.getAttribute("memVO");%>
-<%memVO.setMemID(1); %>
+<%Act_VO act_VO = (Act_VO) request.getAttribute("act_VO");%>
+<%Integer memNow = (Integer) request.getAttribute("memNow");%>
+<
 
 
 <html>
@@ -49,7 +49,7 @@
         <ul class="breadcrumb">
             <li><a href="<%=request.getContextPath()%>/front-end/index.jsp">ChuMeet!</a></li>
             <li><a href="<%=request.getContextPath()%>/front-end/act/actList.jsp">活動列表</a></li>
-			<li class="active">${actViewVO.actName}</li>
+			<li class="active">${act_VO.actName}</li>
         </ul>
         
         <!-- BEGIN SIDEBAR & CONTENT -->
@@ -59,6 +59,7 @@
             <h1>一起看Person Of Interest</h1>
             <div class="content-page">
               <div class="row">
+		<jsp:useBean id="toolman" scope="session" class="com.gen.tool.tools"/> 
                 <!-- BEGIN LEFT SIDEBAR -->            
                 <div class="col-md-9 col-sm-9 blog-item">
                   <div class="row">
@@ -66,9 +67,9 @@
                         <div class="col-md-6">
                           		<table  class="table table-hover">
                           		<tr><th class="text-danger topstat"><i class="fa fa-smile-o"></i></th><th>我的狀態</th><td><span>已參加，等待活動開始</span></td></tr>
-								<tr><th class="text-danger topstat"><i class="fa fa-user"></i></th><th>活動發起人</th><td><span>${actVO.memID}</span></td></tr>
-                         		<tr><th class="text-danger topstat"><i class="fa fa-calendar"></i></th><th>活動時間</th><td><span> ${actVO.actStartDate}起至 ${actVO.actEndDate}</span> <br><span>每周五晚上8:00-9:00</span></td></tr>
-                         		<tr><th class="text-danger topstat"><i class="fa fa-calendar-check-o"></i></th><th>報名時間</th><td><span> ${actVO.actStartDate} 起至 2017/9/9 19:00</span></td></tr>
+								<tr><th class="text-danger topstat"><i class="fa fa-user"></i></th><th>活動發起人</th><td><span>${act_VO.memName}</span></td></tr>
+                         		<tr><th class="text-danger topstat"><i class="fa fa-calendar"></i></th><th>活動時間</th><td><span> ${toolman.tsToActStr(act_VO.actStartDate)}起至 ${toolman.tsToActStr(act_VO.actEndDate)}</span> <br><span>每周五晚上8:00-9:00</span></td></tr>
+                         		<tr><th class="text-danger topstat"><i class="fa fa-calendar-check-o"></i></th><th>報名時間</th><td><span> ${toolman.tsToActStr(act_VO.actSignStartDate)} 起至 ${toolman.tsToActStr(act_VO.actSignEndDate)}</span></td></tr>
                          		<tr><th class="text-danger topstat"><i class="fa fa-users"></i></th><th>目前人數</th><td><span>222</span>/<span>300</span></td></tr>
 
                           		</table>
