@@ -3,6 +3,7 @@ package com.act.model;
 public class ActPOIVO {
 	private Integer actID;
 	private Integer POIID;
+	
 	public Integer getActID() {
 		return actID;
 	}

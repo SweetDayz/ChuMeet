@@ -12,7 +12,7 @@ package com.act.model;
 		static {
 			try {
 				Context ctx = new InitialContext();
-				ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TestDB");
+				ds = (DataSource) ctx.lookup("java:comp/env/jdbc/BA103G2DB");
 			} catch (NamingException e) {
 				e.printStackTrace();
 			}
@@ -22,9 +22,11 @@ package com.act.model;
 		private static final String DELETE_STMT = "DELETE FROM actPOI where actID = ?";
 		private static final String SELECT_POI_BY_ACTID_STMT = "select POINAMEC from actPOI a join POI p on a.POIID=p.POIID where a.actID=?";
 		private static final String SELECT_ACT_BY_POIID_STMT = "select act.actID, act.memID, act.actImg, act.actITVLType, act.actStatID, act.ACTSTARTDATE, act.actMemMax, act.ACTCONTENT, act.ACTLOCID, act.actLat, act.actLong, act.ACTCREATEDATE from actPOI join act on actPOI.ACTID=act.ACTID where actPOI.POIID=?";
+
+		
 		@Override
 		public List<String> getPOIByActID(Integer actID) {
-			List<String> list = new ArrayList<String>();
+			List<String> POIlist = new ArrayList<String>();
 			Act_VO act_VO = null;
 
 			Connection con = null;
@@ -35,10 +37,11 @@ package com.act.model;
 
 				con = ds.getConnection();
 				pstmt = con.prepareStatement(SELECT_POI_BY_ACTID_STMT);
+				pstmt.setInt(1, actID);
 				rs = pstmt.executeQuery();
 
 				while (rs.next()) {
-					list.add(rs.getString("POINAMEC"));
+					POIlist.add(rs.getString("POINAMEC"));
 				}
 
 				// Handle any SQL errors
@@ -68,7 +71,7 @@ package com.act.model;
 					}
 				}
 			}
-			return list;
+			return POIlist;
 		}
 		
 		@Override
@@ -87,23 +90,31 @@ package com.act.model;
 				rs = pstmt.executeQuery();
 
 				while (rs.next()) {
+					act_VO = new Act_VO();
+					act_VO.setMemName(rs.getString("memName"));					
 					act_VO.setActID(rs.getInt("actID"));
 					act_VO.setMemID(rs.getInt("memID"));
 					act_VO.setActCreateDate(rs.getTimestamp("actCreateDate"));
 					act_VO.setActName(rs.getString("actName"));
-					act_VO.setActStatID(rs.getInt("actStatID"));
-					act_VO.setActLocID(rs.getInt("actLocID"));
+					act_VO.setActStatus(rs.getInt("actStatus"));
+					act_VO.setActPriID(rs.getInt("actPriID"));
 					act_VO.setActStartDate(rs.getTimestamp("actStartDate"));
-					act_VO.setActITVType(rs.getInt("actITVType"));
+					act_VO.setActEndDate(rs.getTimestamp("actEndDate"));
+					act_VO.setActSignStartDate(rs.getTimestamp("actSignStartDate"));
+					act_VO.setActSignEndDate(rs.getTimestamp("actSignEndDate"));
+					act_VO.setActTimeTypeID(rs.getInt("actTimeTypeID"));
+					act_VO.setActTimeTypeCnt(rs.getString("actTimeTypeCnt"));
 					act_VO.setActMemMax(rs.getInt("actMemMax"));
 					act_VO.setActMemMin(rs.getInt("actMemMin"));
-					act_VO.setActImg(rs.getBytes("actImg"));
+					act_VO.setActIMG(rs.getBytes("actIMG"));
 					act_VO.setActContent(rs.getString("actContent"));
+					act_VO.setActIsHot(rs.getInt("actIsHot"));
 					act_VO.setActLong(rs.getDouble("actLong"));
 					act_VO.setActLat(rs.getDouble("actLat"));
+					act_VO.setActPost(rs.getInt("actPost"));
+					act_VO.setActLocName(rs.getString("actLocName"));
 					act_VO.setActAdr(rs.getString("actAdr"));
-					list.add(act_VO); // Store the row in the list
-				}
+				};
 
 				// Handle any SQL errors
 			} catch (SQLException se) {

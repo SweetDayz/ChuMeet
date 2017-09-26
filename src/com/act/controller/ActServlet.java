@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.act.model.ActPOIService;
+import com.act.model.ActPOIVO;
 import com.act.model.Act_Service;
 import com.act.model.Act_VO;
 import com.act.model.Act_VO;
@@ -132,7 +134,9 @@ public class ActServlet extends HttpServlet {
 				System.out.println(Integer.parseInt(req.getParameter("actID")));
 				/***************************2.開始查詢資料*****************************************/
 				Act_Service act_Svc = new Act_Service();
+				ActPOIService actpoiSvc = new ActPOIService();
 				Act_VO act_VO = act_Svc.getOne(actID);
+				List<String> actpoilist = actpoiSvc.getPOIByActID(actID);
 				Integer memNow=1;						 // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 				if (act_VO == null) {
 					errorMsgs.add("查無資料");
@@ -148,6 +152,7 @@ public class ActServlet extends HttpServlet {
 				/***************************3.查詢完成,準備轉交(Send the Success view)*************/
 				req.setAttribute("act_VO", act_VO); // 資料庫取出的act_VO物件,存入req
 				req.setAttribute("memNow", memNow); // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+				req.setAttribute("actpoilist", actpoilist); // poi
 				System.out.println("yaaaaa2");
 				String url = "/front-end/act/actItem.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交listOneEmp.jsp

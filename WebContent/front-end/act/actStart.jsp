@@ -240,7 +240,7 @@
 								</td>
 								<th>截止報名時間</th>
 								<td>
-									<input type="datetime-local" name="actSignEndDate" onkeydown="if(event.keyCode==13)return false;" value="2017-10-18T23:59:59">
+									<input type="datetime-local" name="actSignEndDate" onkeydown="if(event.keyCode==13)return false;" value="2017-10-18T23:59:00">
 								</td>
 							  </tr>
 							  <tr>

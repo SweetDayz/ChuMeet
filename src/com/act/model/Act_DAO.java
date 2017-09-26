@@ -145,9 +145,6 @@ private static final String GET_ACT_BY_CLUBID="select * from act join actclub on
 			pstmt.setString(19, act_VO.getActLocName());
 			pstmt.setString(20, act_VO.getActAdr());
 
-
-
-
 			pstmt.executeUpdate();
 
 			// Handle any driver errors

@@ -4,10 +4,24 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page import="com.act.model.*"%>
 <%@ page import="com.member.model.*"%>
+<%@ page import="java.util.*"%>
 
 <%Act_VO act_VO = (Act_VO) request.getAttribute("act_VO");%>
 <%Integer memNow = (Integer) request.getAttribute("memNow");%>
-<
+
+
+<%
+	ActPOIService actPOISvc = new ActPOIService();
+	List<String> actpoilist = actPOISvc.getPOIByActID(act_VO.getActID());
+	pageContext.setAttribute("actpoilist",actpoilist);
+%>
+
+<%
+	ActMemService actMemSvc = new ActMemService();
+	HashMap<Integer, String> memInhs = actMemSvc.whosIn(act_VO.getActID());
+	pageContext.setAttribute("memInhs",memInhs);
+	pageContext.setAttribute("memInCount",memInhs.size());
+%>								
 
 
 <html>
@@ -56,7 +70,7 @@
         <div class="row margin-bottom-40">
           <!-- BEGIN CONTENT -->
           <div class="col-md-12 col-sm-12">
-            <h1>一起看Person Of Interest</h1>
+            <h1>${act_VO.actName}</h1>
             <div class="content-page">
               <div class="row">
 		<jsp:useBean id="toolman" scope="session" class="com.gen.tool.tools"/> 
@@ -70,15 +84,18 @@
 								<tr><th class="text-danger topstat"><i class="fa fa-user"></i></th><th>活動發起人</th><td><span>${act_VO.memName}</span></td></tr>
                          		<tr><th class="text-danger topstat"><i class="fa fa-calendar"></i></th><th>活動時間</th><td><span> ${toolman.tsToActStr(act_VO.actStartDate)}起至 ${toolman.tsToActStr(act_VO.actEndDate)}</span> <br><span>每周五晚上8:00-9:00</span></td></tr>
                          		<tr><th class="text-danger topstat"><i class="fa fa-calendar-check-o"></i></th><th>報名時間</th><td><span> ${toolman.tsToActStr(act_VO.actSignStartDate)} 起至 ${toolman.tsToActStr(act_VO.actSignEndDate)}</span></td></tr>
-                         		<tr><th class="text-danger topstat"><i class="fa fa-users"></i></th><th>目前人數</th><td><span>222</span>/<span>300</span></td></tr>
+                         		<tr><th class="text-danger topstat"><i class="fa fa-users"></i></th><th>目前人數</th><td><span>${memInCount}</span>/<span>${act_VO.actMemMax}</span></td></tr>
 
                           		</table>
-									<div class="event-tags">
-									<li><a href="#"><i class="fa fa-tags"></i>法鯊</a></li>
-									<li><a href="#"><i class="fa fa-tag"></i>帥哥</a></li>
-									</div>	
-                     	
-                        	
+                			<div class="event-tags">
+                          		<c:forEach var="actpoilist" items="${actpoilist}">
+                          		<li>
+                          		<a href="#"><i class="fa fa-tags"></i>
+                          			${actpoilist}
+                          		</a></li>
+                          		</c:forEach>
+							</div>	
+
                         	
                         </div>
 
