@@ -6,7 +6,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.io.Reader;
 import java.sql.Blob;
 import java.sql.Clob;
@@ -67,7 +69,7 @@ public class tools {
 		}
 	}
 
-	//byte轉Blob(需連線參數)
+	//byte轉Blob(需連線參數) 本機圖片>>資料庫
 	public static Blob byteToBlob(String path, Connection con) throws SQLException, IOException {
 		Blob blob = con.createBlob();
 		byte[] pic2 = getPictureByteArray(path);
@@ -199,4 +201,37 @@ public class tools {
 	        return new java.sql.Timestamp(utDate.getTime());
 	    }
 
+	    
+	    
+	    
+		public static byte[] sendPicture(String path) throws IOException {
+			
+			FileInputStream in = new FileInputStream(path);
+			ByteArrayOutputStream out = new ByteArrayOutputStream();
+			byte[] buff = new byte[in.available()];
+			int len;
+			while((len=in.read(buff)) != -1) {
+				out.write(buff, 0 , len);
+			}
+			out.close();
+			in.close();
+			return out.toByteArray();
+		}
+		
+		
+		
+		public static String sendInfo(String text) throws IOException {
+			
+			BufferedReader in = new BufferedReader(new FileReader(text));
+			StringBuilder sb = new StringBuilder();
+			String info;
+			while((info = in.readLine()) != null) {
+				sb.append(info);
+				sb.append("\n\r");
+			}
+			return sb.toString();
+		}
+		
+		
+	    
 }

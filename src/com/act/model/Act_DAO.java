@@ -168,7 +168,6 @@ private static final String GET_ACT_BY_CLUBID="select * from act join actclub on
 				}
 			}
 		}
-
 	}
 
 	@Override

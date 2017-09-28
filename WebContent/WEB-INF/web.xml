@@ -80,5 +80,15 @@
 		<servlet-name>ActServlet</servlet-name>
 		<url-pattern>/front-end/act/act.do</url-pattern>
 	</servlet-mapping>
+<!-- ********************Act END************************* -->
+<!-- ********************ImgStart************************* -->
+  	<servlet>
+		<servlet-name>showIMG</servlet-name>
+		<servlet-class>com.gen.tool.bytesToImg</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>showIMG</servlet-name>
+		<url-pattern>/img/showIMG</url-pattern>
+	</servlet-mapping>
 </web-app>
 <!-- ********************Act END************************* -->

@@ -17,7 +17,7 @@ import com.act.model.ActPOIService;
 import com.act.model.ActPOIVO;
 import com.act.model.Act_Service;
 import com.act.model.Act_VO;
-import com.act.model.Act_VO;
+import com.gen.tool.*;
 import com.gen.tool.tools;
 
 
@@ -136,6 +136,8 @@ public class ActServlet extends HttpServlet {
 				Act_Service act_Svc = new Act_Service();
 				ActPOIService actpoiSvc = new ActPOIService();
 				Act_VO act_VO = act_Svc.getOne(actID);
+		
+				
 				List<String> actpoilist = actpoiSvc.getPOIByActID(actID);
 				Integer memNow=1;						 // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 				if (act_VO == null) {
