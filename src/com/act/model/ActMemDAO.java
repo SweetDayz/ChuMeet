@@ -37,7 +37,9 @@ public class ActMemDAO implements ActMem_Interface{
 	private static final String AMIIN = "select memID, ACTMEMSTATUS from ACTMEN where actID=? AND ACTMEMSTATUS in (1,2) AND memID=?";
 	private static final String AMITRAKING = "select memID from ACTMEN where actID=? AND ACTMEMSTATUS in 5 AND memID=?";
 	private static final String AMIRATED = "select memID from ACTMEN where actID=? AND ACTSTAR>0";
-	
+	private static final String DELETE = 	"delete from ACTMEM where actid=? and MEMID=?";
+	private static final String INSERT = 
+			"INSERT INTO ACTMEM (actID, memID, actMemStatus, actJoinDate) VALUES (?,?,?,SYSTIMESTAMP)";
 	
 	
 	@Override
@@ -93,6 +95,87 @@ public class ActMemDAO implements ActMem_Interface{
 		return hm;
 	}
 
+	public void delete(Integer actID, Integer memID) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+	
+
+		try {
+//			Class.forName(driver);
+//			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(DELETE);
+
+			pstmt.setInt(1, actID);
+			pstmt.setInt(2, memID);
+
+			pstmt.executeUpdate();
+			System.out.println("deleted: "+actID+", "+memID);
+			// Handle any driver errors
+		} catch (SQLException  se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+
+	}
+	
+	@Override
+	public void insert(ActMemVO actmVO) {
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(INSERT);
+
+			pstmt.setInt(1, actmVO.getActID());
+			pstmt.setInt(2, actmVO.getMemID());
+			pstmt.setInt(3, actmVO.getActMemStatus());
+
+			pstmt.executeUpdate();
+
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+
+	}
 	@Override
 	public List<Integer> amIIn(Integer actID, Integer memID) {
 		// TODO Auto-generated method stub
@@ -110,8 +193,8 @@ public class ActMemDAO implements ActMem_Interface{
 		// TODO Auto-generated method stub
 		return null;
 	}
-	public static void main(String[] args) throws IOException {
-		ActMemDAO dao = new ActMemDAO();
+//	public static void main(String[] args) throws IOException {
+//		ActMemDAO dao = new ActMemDAO();
 
 		// 查詢	ok
 //		HashMap<Integer, String> hs = dao.whosIn(1);
@@ -128,7 +211,9 @@ public class ActMemDAO implements ActMem_Interface{
 //			System.out.print(aDept.getActAdr());
 //			System.out.println();
 //		}
+		
+//		dao.delete(6, 2);
 
 	}
 
-}
+

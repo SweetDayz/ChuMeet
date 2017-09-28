@@ -8,4 +8,6 @@ public interface ActMem_Interface {
     public List<Integer> amIIn(Integer actID, Integer memID);
     public List<Integer> amITracking(Integer actID, Integer memID);
     public List<Integer> amIRated(Integer actID, Integer memID);
+	public void delete(Integer actID, Integer memID);
+	void insert(ActMemVO actmVO);
 }

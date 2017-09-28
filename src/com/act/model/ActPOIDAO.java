@@ -21,7 +21,7 @@ package com.act.model;
 		private static final String INSERT_STMT = "insert into actPOI values (?,?)";
 		private static final String DELETE_STMT = "DELETE FROM actPOI where actID = ?";
 		private static final String SELECT_POI_BY_ACTID_STMT = "select POINAMEC from actPOI a join POI p on a.POIID=p.POIID where a.actID=?";
-		private static final String SELECT_ACT_BY_POIID_STMT = "select act.actID, act.memID, act.actImg, act.actITVLType, act.actStatID, act.ACTSTARTDATE, act.actMemMax, act.ACTCONTENT, act.ACTLOCID, act.actLat, act.actLong, act.ACTCREATEDATE from actPOI join act on actPOI.ACTID=act.ACTID where actPOI.POIID=?";
+		private static final String SELECT_ACT_BY_POIID_STMT = "select act.actID as actID, act.actPOST as actPOST, act.actContent as actContent, act.actStartDate as actStartDate from actPOI join act on actPOI.ACTID=act.ACTID where actPOI.POIID=? and actStatus";
 
 		
 		@Override

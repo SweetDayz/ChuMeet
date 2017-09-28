@@ -4,7 +4,7 @@ import java.sql.Timestamp;
 
 public class ActMemVO {
 	private Integer actID;
-	private String memID;
+	private Integer memID;
 	private Integer actMemStatus;
 	private Timestamp actJoinDate;
 	public Integer getActID() {
@@ -13,10 +13,10 @@ public class ActMemVO {
 	public void setActID(Integer actID) {
 		this.actID = actID;
 	}
-	public String getMemID() {
+	public Integer getMemID() {
 		return memID;
 	}
-	public void setMemID(String memID) {
+	public void setMemID(Integer memID) {
 		this.memID = memID;
 	}
 	public Integer getActMemStatus() {

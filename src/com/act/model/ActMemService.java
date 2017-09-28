@@ -13,5 +13,11 @@ public class ActMemService {
     public HashMap<Integer, String> whosIn(Integer actID){
     	return dao.whosIn(actID);
     };
-
+    
+    public void delete(Integer actID, Integer memID){
+    	dao.delete(actID, memID);
+    };
+	public void insert(ActMemVO actmVO){
+		dao.insert(actmVO);
+	}
 }

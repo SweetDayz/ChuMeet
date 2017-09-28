@@ -29,12 +29,240 @@
   <div class="container">
   <div class="wd80">
   <br><br><br>
-<form action="<%=request.getContextPath()%>/front-end/act/act.do" method="get">
+
 	<button type="submit" class="btn mybtns" name="actID" value="1">1</button>
 	<button type="submit" class="btn mybtns" name="actID" value="2">2</button>
 	<button type="submit" class="btn mybtns" name="actID" value="3">3</button>
 	<button type="submit" class="btn mybtns" name="actID" value="4">4</button>
 	<button type="submit" class="btn mybtns" name="actID" value="5">5</button>
+	
+	
+	
+	<!--主頁面要修改的都在這下面-->
+<div class="main">
+
+<!--     end of top contain-->
+      <div class="container">
+<!--      start of top top row (with select)-->
+        <div class="row">
+        <div class="col-md-3">
+			<div id="bread">
+				<ul class="breadcrumb">
+					<li><a href="../新增資料夾/index.html">ChuMeet!</a></li>
+					<li><a href="javascript:;">活動列表</a></li>
+					<li class="active">揪咪推薦</li>
+				</ul>
+			</div>
+              </div>
+<!--        <div class="col-md-9">-->
+        
+        <!--    start of search group 	-->
+<!-- BEGIN TOP SEARCH -->
+   <!--					  <div class="input-group">
+							<span class="input-group-btn">
+								 <button class="btn btn-primary btnSearch" onClick="searchStart();">
+									<i class="fa fa-search" aria-hidden="true"></i>
+								</button>
+							</span>							<input type="text" placeholder="Search" id="searchInput" class="form-control">
+
+					  </div>-->
+<!-- END TOP SEARCH -->
+<!--	</div>-->
+
+<!--end of search group-->
+       
+
+        <!-- BEGIN SIDEBAR & CONTENT -->
+        <div class="row margin-bottom-40">
+      
+<!-- BEGIN CONTENT -->
+          <div class="col-md-12 col-sm-12">
+           <div class="row">
+           	<div class="col-md-8">
+           	  <h1>揪咪推薦</h1>
+           	      
+        </div>
+       <div class="col-md-4 padding-top-10">
+        		<div class="actFilter pull-right">
+					<select>
+						<option>依距離排列</option>
+						<option selected>依時間排列</option>
+						<option>依人數排列</option>
+						<option>依熱門度排列</option>
+					</select>
+				</div>
+       </div> 
+           </div>
+          
+            <div class="content-page">
+              <div class="row">
+              
+              
+              
+                <div class="col-md-3 col-sm-3">
+                  <ul class="tabbable actl-tabbable">
+                   	<li><a href="#tab_3" data-toggle="tab">開個揪揪團</a></li>
+                    <li data-toggle="collapse" data-target="#myAct" class="collapsed">
+                           <a href="#tab_1" data-toggle="tab">我的活動 <span class="arrow"></span></a></li>
+                            <ul class="sub-menu collapse" id="myAct">
+								<li><a href="#">參加中</a></li>
+								<li><a href="#">邀請中</a></li>
+								<li><a href="#">我舉辦的活動</a></li>
+								<li><a href="#">追蹤中</a></li>
+								<li><a href="#">社團活動</a></li>
+								<li><a href="#">好友活動</a></li>
+							</ul>
+                    <li class="active"><a href="#tab_3" data-toggle="tab">揪咪推薦</a></li>
+                    <li><a href="#tab_3" data-toggle="tab">政府藝文活動</a></li>
+                    <li><a href="#tab_1" data-toggle="tab">周末特調</a></li>
+                    <li data-toggle="collapse" data-target="#actPOI" class="collapsed">
+                         <a href="#tab_2" data-toggle="tab">活動分類 <span class="arrow"></span></a></li>
+                          <ul class="sub-menu collapse" id="actPOI">
+                          		<li><a href="#">熱門</a></li>
+								<li><a href="#">運動</a></li>
+								<li><a href="#">手作</a></li>
+								<li><a href="#">學習</a></li>
+								<li><a href="#">餐聚</a></li>
+								<li><a href="#">藝文活動</a></li>
+								<li><a href="#">電影</a></li>
+								<li><a href="#">電動遊戲</a></li>
+								<li><a href="#">線上活動</a></li>
+								<li><a href="#">戶外</a></li>
+								<li><a href="#">寵物</a></li>
+								<li><a href="#">展覽</a></li>
+								<li><a href="#">讀書會</a></li>
+								<li><a href="#">其他</a></li>
+							</ul>
+					<li><a href="#tab_2" data-toggle="tab">揪揪地圖</a></li>
+				</ul>
+                              
+                                    <!-- BEGIN RECENT NEWS -->                            
+                  <p />
+                  <h3>注目活動</h3>
+                  <div class="recent-news margin-bottom-10">
+                   
+                   
+<!--                  card start -->
+                    <div class="wow fadeInUp" data-wow-duration=".3" data-wow-delay=".2s">
+                        <div class="card">
+							<img class="card-img-top cardImg" src="act_assets/img/eventSamples/Cap-Commandos.jpg" alt="Card image cap">
+							<div class="card-block">
+							  <h4 class="card-title">咆嘯突擊隊</h4>
+							  <small><i class="fa fa-map-marker"></i>中壢, <i class="fa fa-calendar"></i>2017/07/31 12:00</small>
+							<div class="event-tags">
+								<li><a href="#"><i class="fa fa-tags"></i>影視</a></li>
+								<li><a href="#"><i class="fa fa-tag"></i>帥哥</a></li>
+							</div>
+							  <span class="card-text">The Howling Commandos is the name of several fictional groups appearing in American comic books published by Marvel Comics.</span>
+							  <div class="card-text cardmore">
+								  <button class="btn btn-sm btn-danger"> 詳細資訊 </button>
+								</div>
+							</div>
+                           </div>
+                      </div>
+<!--                      card over-->
+                   
+
+<!--                  card start -->
+                    <div class="wow fadeInUp" data-wow-duration=".3" data-wow-delay=".2s">
+                        <div class="card">
+							<img class="card-img-top cardImg" src="act_assets/img/eventSamples/fess.jpg" alt="Card image cap">
+							<div class="card-block">
+							  <h4 class="card-title">普羅米修斯</h4>
+							  <small><i class="fa fa-map-marker"></i>中壢, <i class="fa fa-calendar"></i>2017/07/31 12:00</small>
+							<div class="event-tags">
+								<li><a href="#"><i class="fa fa-tags"></i>法鯊</a></li>
+								<li><a href="#"><i class="fa fa-tag"></i>帥哥</a></li>
+							</div>
+							  <span class="card-text">法鯊就是帥BJ4</span>
+							  <div class="card-text cardmore">
+								  <button class="btn btn-sm btn-danger"> 詳細資訊 </button>
+								</div>
+							</div>
+                           </div>
+                      </div>
+<!--                      card over-->
+					</div>
+                  <!-- END RECENT NEWS -->   
+                </div>              
+<!-- BEGIN LEFT SIDEBAR -->            
+<div class="col-md-9 col-sm-9 event-posts">
+
+<form action="<%=request.getContextPath()%>/front-end/act/act.do" method="get">               
+<!--      1st card          -->
+	<div class="ec wow fadeInLeft" data-wow-delay=".05s" data-wow-duration=".1">
+		<div class="row">
+			<div class="col-md-4 col-sm-4">
+				<a href="actItem.html"><img alt="Person Of Interest" class="img-responsive img-rounded" src="act_assets/img/eventSamples/POI.jpg"></a>
+			</div>
+			
+			<div class="col-md-8 col-sm-8">
+				<h2><a href="actItem.html">一起看Person Of Interest</a></h2>
+				<ul class="event-info">
+					<li><i class="fa fa-calendar"></i> 2017/7/30起 每周五晚上8:00-9:00</li>
+					<li><i class="fa fa-map-marker"></i><a href="#">線上</a></li>
+					<li><i class="fa fa-users"></i>222</li>
+					<li><i class="fa fa-user"></i><a href="#">breadcan</a></li>
+
+				</ul>
+				<div class="ecContent">
+				<p>《疑犯追蹤》（Person of Interest），是美國CBS電視台製作的犯罪電視影集，由強納森·諾蘭（Jonathan Nolan）與J·J·亞柏拉罕（J. J. Abrams）共同打造出劇情架構，全五季共103集。哈洛·芬奇為政府開發了一套稱作「機器」（The Machine），可偵測恐怖攻擊的大規模監控電腦系統。它可預測「有計畫或謀略策劃的犯罪」，諸如911事件之類的大型恐怖攻擊災難，並提供情報讓有關當局防範未然。</p>
+				</div>
+				<div class="row">
+					<span class="col-sm-4">
+					<a class="more" href="actItem.html">詳細資訊 <i class="icon-angle-right"></i></a></span> 
+					
+					
+					<span class="col-sm-8 ecbtn">
+					<button type="button" class="btn btn-primary mybtns"><i class="fa fa-star" aria-hidden="true"></i> 已追蹤</button>
+					<button type="button" class="btn btn-success mybtns"><i class="fa fa-check-circle" aria-hidden="true"></i> 已參加</button>
+					</span>
+				</div>
+				<div class="event-tags">
+						<li><a href="#"><i class="fa fa-tags"></i>線上</a></li>
+						<li><a href="#"><i class="fa fa-tag"></i>專業</a></li>
+						<li><a href="#"><i class="fa fa-tag"></i>技術宅</a></li>
+						<li><a href="#"><i class="fa fa-tag"></i>帥</a></li>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--  end of 1st card         -->
+	<hr class="event-post-sep">
+                                                           
+                                                            
+
+
+	<hr class="event-post-sep">
+                 
+                  <ul class="pagination">
+                    <li><a href="javascript:;">上一頁</a></li>
+                    <li><a href="javascript:;">1</a></li>
+                    <li><a href="javascript:;">2</a></li>
+                    <li class="active"><a href="javascript:;">3</a></li>
+                    <li><a href="javascript:;">4</a></li>
+                    <li><a href="javascript:;">5</a></li>
+                    <li><a href="javascript:;">下一頁</a></li>
+                  </ul>               
+                </div>
+
+                <!-- END LEFT SIDEBAR -->
+        
+              </div>
+            </div>
+          </div>
+          <!-- END CONTENT -->
+        </div>
+        <!-- END SIDEBAR & CONTENT -->
+      </div>
+      </div>
+<!--      end of top top row (with select)-->
+</div>
+
+<!--主頁面要修改的都在這上面-->
+	
+	
+	
 	        <input type="hidden" name="action" value="showOne">
 </form>
 <br><br><br>

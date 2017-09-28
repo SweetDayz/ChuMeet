@@ -18,6 +18,8 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import oracle.sql.BLOB;
 import oracle.sql.CLOB;
@@ -233,5 +235,33 @@ public class tools {
 		}
 		
 		
+//		去除HTML標籤
+	    public static String delHTMLTag(String htmlStr){ 
+//	         String regEx_script="<script[^>]*?>[\\s\\S]*?<\\/script>"; //定義script 
+//	         String regEx_style="<style[^>]*?>[\\s\\S]*?<\\/style>"; //定義CSS 
+	         String regEx_html="<[^>]+>"; //定義HTML
+	         
+//	         Pattern p_script=Pattern.compile(regEx_script,Pattern.CASE_INSENSITIVE); 
+//	         Matcher m_script=p_script.matcher(htmlStr); 
+//	         htmlStr=m_script.replaceAll(""); //-JS 
+//	         
+//	         Pattern p_style=Pattern.compile(regEx_style,Pattern.CASE_INSENSITIVE); 
+//	         Matcher m_style=p_style.matcher(htmlStr); 
+//	         htmlStr=m_style.replaceAll(""); //-CSS
+	         
+	         Pattern p_html=Pattern.compile(regEx_html,Pattern.CASE_INSENSITIVE); 
+	         Matcher m_html=p_html.matcher(htmlStr); 
+	         htmlStr=m_html.replaceAll(""); //-HTML 
+
+	        return htmlStr.trim(); //return
+	     } 
+		
+
+//		只取XX字
+	    public static String strshorter(String str, int len){ 
+	    	String strCut=str.substring(0, len);
+	        return strCut; //return
+	     } 
+
 	    
 }

@@ -81,6 +81,16 @@
 		<url-pattern>/front-end/act/act.do</url-pattern>
 	</servlet-mapping>
 <!-- ********************Act END************************* -->
+<!-- ********************Actm Start************************* -->
+  	<servlet>
+		<servlet-name>ActMemServlet</servlet-name>
+		<servlet-class>com.act.controller.ActMemServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ActMemServlet</servlet-name>
+		<url-pattern>/front-end/act/actm.do</url-pattern>
+	</servlet-mapping>
+<!-- ********************Actm END************************* -->
 <!-- ********************ImgStart************************* -->
   	<servlet>
 		<servlet-name>showIMG</servlet-name>

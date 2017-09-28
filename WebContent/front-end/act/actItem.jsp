@@ -8,17 +8,13 @@
 
 <%Act_VO act_VO = (Act_VO) request.getAttribute("act_VO");%>
 <c:set var="holder" value="${act_VO.memID}" />
-
-<%Integer memNow = (Integer) request.getAttribute("memNow");%>
-
+<c:set var="memNow" value="1"  scope="session"/>
 
 <%
 	ActPOIService actPOISvc = new ActPOIService();
 	List<String> actpoilist = actPOISvc.getPOIByActID(act_VO.getActID());
 	pageContext.setAttribute("actpoilist",actpoilist);
-%>
 
-<%
 	ActMemService actMemSvc = new ActMemService();
 	HashMap<Integer, String> memInhs = actMemSvc.whosIn(act_VO.getActID());
 	pageContext.setAttribute("memInhs",memInhs);
@@ -82,6 +78,7 @@
                             <h1>${act_VO.actName}</h1>
                   <div class="row">
 						<div class="col-md-5">   <img src="<%=request.getContextPath()%>/img/showIMG?colName=actIMG&table=ACT&pk=actID&imgFrom=${act_VO.actID}" class="img-responsive margin-bottom-30 img-rounded" alt=""></div>
+						
                         <div class="col-md-7">
                           		<table  class="table table-hover">
                           		<tr><th class="text-danger topstat"><i class="fa fa-smile-o"></i></th><th>我的狀態</th><td><span>
@@ -207,25 +204,28 @@
 
                 <!-- BEGIN RIGHT SIDEBAR -->            
                 <div class="col-md-3 col-sm-3 blog-sidebar">
-                <form action="act.do" method=post value="">
+                <form action="actm.do" method="post">
 					<div>
 						<c:choose>
 							<c:when test="${memNow==holder}">
 								<button id="actMng" <c:if test="${toolman.nowTimestamp() > act_VO.actEndDate}"> disabled </c:if>class="btn btn-block btn-info">管理活動</button>
+
 							</c:when>
 							
 							<c:when test="${memInhs.containsKey(memNow)}">					
-								<button <c:if test="${toolman.nowTimestamp() > act_VO.actEndDate}"> disabled </c:if> class="btn btn-block btn-warning">退出活動</button>
+								<button type="submit" name="action" value="delete" <c:if test="${toolman.nowTimestamp() > act_VO.actEndDate}"> disabled </c:if> class="btn btn-block btn-warning">退出活動</button>
 							</c:when>
 							
 						<c:otherwise>
-							<button <c:if test="${toolman.nowTimestamp() > act_VO.actEndDate}"> disabled </c:if> class="btn btn-block btn-primary">我要參加</button>
-							<button <c:if test="${toolman.nowTimestamp() > act_VO.actEndDate}"> disabled </c:if> class="btn btn-block btn-success">追蹤活動</button>
+							<button type="submit" name="action" value="insert2"  <c:if test="${toolman.nowTimestamp() > act_VO.actEndDate}"> disabled </c:if> class="btn btn-block btn-primary">我要參加</button>
+							<button  type="submit" name="action" value="insert5" <c:if test="${toolman.nowTimestamp() > act_VO.actEndDate}"> disabled </c:if> class="btn btn-block btn-success">追蹤活動</button>
 						</c:otherwise>
 
 
 						</c:choose>
 					</div>
+						<input type="hidden" name="actID" value="${act_VO.actID}">
+						<input type="hidden" name="requestURL"	 value="<%=request.getServletPath()%>">
 					</form>
 <p />
                   <!-- BEGIN map -->
@@ -234,7 +234,7 @@
                         <p>${act_VO.actAdr}</p>
                         <c:choose>
                         <c:when test="${act_VO.actPost==999}">
-                        	 <img src="<%=request.getContextPath()%>/front-end/act/act_assets/img/online.jpg" alt="">
+                        	 <img src="<%=request.getContextPath()%>/front-end/act/act_assets/img/online.jpg" alt="" class="img-rounded">
                         </c:when>
                         <c:otherwise>
 					  <div id="map"></div>
