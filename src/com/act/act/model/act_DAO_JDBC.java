@@ -1,17 +1,18 @@
-package com.act.model;
+package com.act.act.model;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.*;
 import java.util.*;
-import com.act.model.Act_VO;
+
+import com.act.act.model.Act_VO;
 import com.gen.tool.tools;
 
 import oracle.sql.BLOB;
 
 
-public class Act_DAO_JDBC implements Act_interface {
+public class act_DAO_JDBC implements Act_interface {
 	String driver = "oracle.jdbc.driver.OracleDriver";
 	String url = "jdbc:oracle:thin:@localhost:1521:XE";
 	String userid = "BA103G2";
@@ -115,7 +116,7 @@ public class Act_DAO_JDBC implements Act_interface {
 
 	@Override
 
-	public void insert(Act_VO act_VO) {
+	public void insert(Act_VO Act_VO) {
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -126,26 +127,26 @@ public class Act_DAO_JDBC implements Act_interface {
 			pstmt = con.prepareStatement(INSERT_STMT);
 
 			
-			pstmt.setInt(1, act_VO.getMemID());
-			pstmt.setTimestamp(2, act_VO.getActCreateDate());
-			pstmt.setString(3, act_VO.getActName());
-			pstmt.setInt(4, act_VO.getActStatus());
-			pstmt.setInt(5, act_VO.getActPriID());
-			pstmt.setTimestamp(6, act_VO.getActStartDate());
-			pstmt.setTimestamp(7, act_VO.getActEndDate());
-			pstmt.setTimestamp(8, act_VO.getActSignStartDate());
-			pstmt.setTimestamp(9, act_VO.getActSignEndDate());
-			pstmt.setInt(10, act_VO.getActTimeTypeID());
-			pstmt.setString(11, act_VO.getActTimeTypeCnt());
-			pstmt.setInt(12, act_VO.getActMemMax());
-			pstmt.setInt(13, act_VO.getActMemMin());
-			pstmt.setBytes(14, act_VO.getActIMG());
-			pstmt.setString(15, act_VO.getActContent());
-			pstmt.setDouble(16, act_VO.getActLong());
-			pstmt.setDouble(17, act_VO.getActLat());
-			pstmt.setInt(18, act_VO.getActPost());
-			pstmt.setString(19, act_VO.getActLocName());
-			pstmt.setString(20, act_VO.getActAdr());
+			pstmt.setInt(1, Act_VO.getMemID());
+			pstmt.setTimestamp(2, Act_VO.getActCreateDate());
+			pstmt.setString(3, Act_VO.getActName());
+			pstmt.setInt(4, Act_VO.getActStatus());
+			pstmt.setInt(5, Act_VO.getActPriID());
+			pstmt.setTimestamp(6, Act_VO.getActStartDate());
+			pstmt.setTimestamp(7, Act_VO.getActEndDate());
+			pstmt.setTimestamp(8, Act_VO.getActSignStartDate());
+			pstmt.setTimestamp(9, Act_VO.getActSignEndDate());
+			pstmt.setInt(10, Act_VO.getActTimeTypeID());
+			pstmt.setString(11, Act_VO.getActTimeTypeCnt());
+			pstmt.setInt(12, Act_VO.getActMemMax());
+			pstmt.setInt(13, Act_VO.getActMemMin());
+			pstmt.setBytes(14, Act_VO.getActIMG());
+			pstmt.setString(15, Act_VO.getActContent());
+			pstmt.setDouble(16, Act_VO.getActLong());
+			pstmt.setDouble(17, Act_VO.getActLat());
+			pstmt.setInt(18, Act_VO.getActPost());
+			pstmt.setString(19, Act_VO.getActLocName());
+			pstmt.setString(20, Act_VO.getActAdr());
 
 
 
@@ -331,7 +332,7 @@ public class Act_DAO_JDBC implements Act_interface {
 
 	}
 	@Override
-	public void update(Act_VO act_VO) {
+	public void update(Act_VO Act_VO) {
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -342,20 +343,20 @@ public class Act_DAO_JDBC implements Act_interface {
 				con = DriverManager.getConnection(url, userid, passwd);
 				pstmt = con.prepareStatement(UPDATE);
 			
-			pstmt.setString(1, act_VO.getActName());
-			pstmt.setInt(2, act_VO.getActPriID());
-			pstmt.setTimestamp(3, act_VO.getActStartDate());
-			pstmt.setTimestamp(4, act_VO.getActEndDate());
-			pstmt.setTimestamp(5, act_VO.getActSignStartDate());
-			pstmt.setTimestamp(6, act_VO.getActSignEndDate());
-			pstmt.setInt(7, act_VO.getActTimeTypeID());
-			pstmt.setString(8, act_VO.getActTimeTypeCnt());
-			pstmt.setInt(9, act_VO.getActMemMax());
-			pstmt.setInt(10, act_VO.getActMemMin());
-			pstmt.setBytes(11, act_VO.getActIMG());
-			pstmt.setString(12, act_VO.getActContent());
-			pstmt.setString(13, act_VO.getActAdr());
-			pstmt.setInt(14, act_VO.getActID());
+			pstmt.setString(1, Act_VO.getActName());
+			pstmt.setInt(2, Act_VO.getActPriID());
+			pstmt.setTimestamp(3, Act_VO.getActStartDate());
+			pstmt.setTimestamp(4, Act_VO.getActEndDate());
+			pstmt.setTimestamp(5, Act_VO.getActSignStartDate());
+			pstmt.setTimestamp(6, Act_VO.getActSignEndDate());
+			pstmt.setInt(7, Act_VO.getActTimeTypeID());
+			pstmt.setString(8, Act_VO.getActTimeTypeCnt());
+			pstmt.setInt(9, Act_VO.getActMemMax());
+			pstmt.setInt(10, Act_VO.getActMemMin());
+			pstmt.setBytes(11, Act_VO.getActIMG());
+			pstmt.setString(12, Act_VO.getActContent());
+			pstmt.setString(13, Act_VO.getActAdr());
+			pstmt.setInt(14, Act_VO.getActID());
 	
 		
 
@@ -391,7 +392,7 @@ public class Act_DAO_JDBC implements Act_interface {
 
 	@Override
 	public Act_VO getOne(Integer actID) {
-		Act_VO act_VO = null;
+		Act_VO Act_VO = null;
 
 			Connection con = null;
 			PreparedStatement pstmt = null;
@@ -405,30 +406,30 @@ public class Act_DAO_JDBC implements Act_interface {
 				rs = pstmt.executeQuery();
 
 				while (rs.next()) {
-					act_VO = new Act_VO();
-					act_VO.setMemName(rs.getString("memName"));					
-					act_VO.setActID(rs.getInt("actID"));
-					act_VO.setMemID(rs.getInt("memID"));
-					act_VO.setActCreateDate(rs.getTimestamp("actCreateDate"));
-					act_VO.setActName(rs.getString("actName"));
-					act_VO.setActStatus(rs.getInt("actStatus"));
-					act_VO.setActPriID(rs.getInt("actPriID"));
-					act_VO.setActStartDate(rs.getTimestamp("actStartDate"));
-					act_VO.setActEndDate(rs.getTimestamp("actEndDate"));
-					act_VO.setActSignStartDate(rs.getTimestamp("actSignStartDate"));
-					act_VO.setActSignEndDate(rs.getTimestamp("actSignEndDate"));
-					act_VO.setActTimeTypeID(rs.getInt("actTimeTypeID"));
-					act_VO.setActTimeTypeCnt(rs.getString("actTimeTypeCnt"));
-					act_VO.setActMemMax(rs.getInt("actMemMax"));
-					act_VO.setActMemMin(rs.getInt("actMemMin"));
-					act_VO.setActIMG(rs.getBytes("actIMG"));
-					act_VO.setActContent(rs.getString("actContent"));
-					act_VO.setActIsHot(rs.getInt("actIsHot"));
-					act_VO.setActLong(rs.getDouble("actLong"));
-					act_VO.setActLat(rs.getDouble("actLat"));
-					act_VO.setActPost(rs.getInt("actPost"));
-					act_VO.setActLocName(rs.getString("actLocName"));
-					act_VO.setActAdr(rs.getString("actAdr"));
+					Act_VO = new Act_VO();
+					Act_VO.setMemName(rs.getString("memName"));					
+					Act_VO.setActID(rs.getInt("actID"));
+					Act_VO.setMemID(rs.getInt("memID"));
+					Act_VO.setActCreateDate(rs.getTimestamp("actCreateDate"));
+					Act_VO.setActName(rs.getString("actName"));
+					Act_VO.setActStatus(rs.getInt("actStatus"));
+					Act_VO.setActPriID(rs.getInt("actPriID"));
+					Act_VO.setActStartDate(rs.getTimestamp("actStartDate"));
+					Act_VO.setActEndDate(rs.getTimestamp("actEndDate"));
+					Act_VO.setActSignStartDate(rs.getTimestamp("actSignStartDate"));
+					Act_VO.setActSignEndDate(rs.getTimestamp("actSignEndDate"));
+					Act_VO.setActTimeTypeID(rs.getInt("actTimeTypeID"));
+					Act_VO.setActTimeTypeCnt(rs.getString("actTimeTypeCnt"));
+					Act_VO.setActMemMax(rs.getInt("actMemMax"));
+					Act_VO.setActMemMin(rs.getInt("actMemMin"));
+					Act_VO.setActIMG(rs.getBytes("actIMG"));
+					Act_VO.setActContent(rs.getString("actContent"));
+					Act_VO.setActIsHot(rs.getInt("actIsHot"));
+					Act_VO.setActLong(rs.getDouble("actLong"));
+					Act_VO.setActLat(rs.getDouble("actLat"));
+					Act_VO.setActPost(rs.getInt("actPost"));
+					Act_VO.setActLocName(rs.getString("actLocName"));
+					Act_VO.setActAdr(rs.getString("actAdr"));
 				};
 				// Handle any driver errors
 			} catch (SQLException se) {
@@ -459,14 +460,14 @@ public class Act_DAO_JDBC implements Act_interface {
 					}
 				}
 			}
-			return act_VO;
+			return Act_VO;
 		}
 
 
 	@Override
 	public List<Act_VO> getAll() {
 		List<Act_VO> list = new ArrayList<Act_VO>();
-		Act_VO act_VO = null;
+		Act_VO Act_VO = null;
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -484,31 +485,31 @@ public class Act_DAO_JDBC implements Act_interface {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				act_VO = new Act_VO();
-				act_VO.setMemName(rs.getString("memName"));					
-				act_VO.setActID(rs.getInt("actID"));
-				act_VO.setMemID(rs.getInt("memID"));
-				act_VO.setActCreateDate(rs.getTimestamp("actCreateDate"));
-				act_VO.setActName(rs.getString("actName"));
-				act_VO.setActStatus(rs.getInt("actStatus"));
-				act_VO.setActPriID(rs.getInt("actPriID"));
-				act_VO.setActStartDate(rs.getTimestamp("actStartDate"));
-				act_VO.setActEndDate(rs.getTimestamp("actEndDate"));
-				act_VO.setActSignStartDate(rs.getTimestamp("actSignStartDate"));
-				act_VO.setActSignEndDate(rs.getTimestamp("actSignEndDate"));
-				act_VO.setActTimeTypeID(rs.getInt("actTimeTypeID"));
-				act_VO.setActTimeTypeCnt(rs.getString("actTimeTypeCnt"));
-				act_VO.setActMemMax(rs.getInt("actMemMax"));
-				act_VO.setActMemMin(rs.getInt("actMemMin"));
-				act_VO.setActIMG(rs.getBytes("actIMG"));
-				act_VO.setActContent(rs.getString("actContent"));
-				act_VO.setActIsHot(rs.getInt("actIsHot"));
-				act_VO.setActLong(rs.getDouble("actLong"));
-				act_VO.setActLat(rs.getDouble("actLat"));
-				act_VO.setActPost(rs.getInt("actPost"));
-				act_VO.setActLocName(rs.getString("actLocName"));
-				act_VO.setActAdr(rs.getString("actAdr"));
-				list.add(act_VO); // Store the row in the list
+				Act_VO = new Act_VO();
+				Act_VO.setMemName(rs.getString("memName"));					
+				Act_VO.setActID(rs.getInt("actID"));
+				Act_VO.setMemID(rs.getInt("memID"));
+				Act_VO.setActCreateDate(rs.getTimestamp("actCreateDate"));
+				Act_VO.setActName(rs.getString("actName"));
+				Act_VO.setActStatus(rs.getInt("actStatus"));
+				Act_VO.setActPriID(rs.getInt("actPriID"));
+				Act_VO.setActStartDate(rs.getTimestamp("actStartDate"));
+				Act_VO.setActEndDate(rs.getTimestamp("actEndDate"));
+				Act_VO.setActSignStartDate(rs.getTimestamp("actSignStartDate"));
+				Act_VO.setActSignEndDate(rs.getTimestamp("actSignEndDate"));
+				Act_VO.setActTimeTypeID(rs.getInt("actTimeTypeID"));
+				Act_VO.setActTimeTypeCnt(rs.getString("actTimeTypeCnt"));
+				Act_VO.setActMemMax(rs.getInt("actMemMax"));
+				Act_VO.setActMemMin(rs.getInt("actMemMin"));
+				Act_VO.setActIMG(rs.getBytes("actIMG"));
+				Act_VO.setActContent(rs.getString("actContent"));
+				Act_VO.setActIsHot(rs.getInt("actIsHot"));
+				Act_VO.setActLong(rs.getDouble("actLong"));
+				Act_VO.setActLat(rs.getDouble("actLat"));
+				Act_VO.setActPost(rs.getInt("actPost"));
+				Act_VO.setActLocName(rs.getString("actLocName"));
+				Act_VO.setActAdr(rs.getString("actAdr"));
+				list.add(Act_VO); // Store the row in the list
 			}
 
 			// Handle any driver errors
@@ -854,7 +855,7 @@ public class Act_DAO_JDBC implements Act_interface {
 	
 	public static void main(String[] args) throws IOException {
 
-		Act_DAO_JDBC dao = new Act_DAO_JDBC();
+		act_DAO_JDBC dao = new act_DAO_JDBC();
 
 		// 新增	ok
 //		Act_VO ActVOIns = new Act_VO();

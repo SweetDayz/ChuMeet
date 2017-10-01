@@ -1,4 +1,4 @@
-package com.act.model;
+package com.act.actMem.model;
 
 import java.util.HashMap;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.act.controller;
+package com.act.act.controller;
 
 import java.io.IOException;
 import java.sql.Timestamp;
@@ -13,11 +13,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.act.model.ActMemService;
-import com.act.model.ActMemVO;
+import com.act.act.model.Act_Service;
+import com.act.act.model.Act_VO;
+import com.act.actMem.model.ActMemService;
+import com.act.actMem.model.ActMemVO;
 import com.act.model.ActPOIService;
-import com.act.model.Act_Service;
-import com.act.model.Act_VO;
 import com.gen.tool.tools;
 
 public class ActMemServlet extends HttpServlet{

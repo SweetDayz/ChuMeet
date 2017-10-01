@@ -7,6 +7,8 @@ package com.act.model;
 	import javax.naming.NamingException;
 	import javax.sql.DataSource;
 
+import com.act.act.model.Act_VO;
+
 	public class ActPOIDAO implements ActPOIDAO_interface{
 		private static DataSource ds = null;
 		static {
@@ -27,7 +29,7 @@ package com.act.model;
 		@Override
 		public List<String> getPOIByActID(Integer actID) {
 			List<String> POIlist = new ArrayList<String>();
-			Act_VO act_VO = null;
+			Act_VO Act_VO = null;
 
 			Connection con = null;
 			PreparedStatement pstmt = null;
@@ -77,7 +79,7 @@ package com.act.model;
 		@Override
 		public List<Act_VO> getActByPOIID(Integer POIID) {
 			List<Act_VO> list = new ArrayList<Act_VO>();
-			Act_VO act_VO = null;
+			Act_VO Act_VO = null;
 
 			Connection con = null;
 			PreparedStatement pstmt = null;
@@ -90,30 +92,30 @@ package com.act.model;
 				rs = pstmt.executeQuery();
 
 				while (rs.next()) {
-					act_VO = new Act_VO();
-					act_VO.setMemName(rs.getString("memName"));					
-					act_VO.setActID(rs.getInt("actID"));
-					act_VO.setMemID(rs.getInt("memID"));
-					act_VO.setActCreateDate(rs.getTimestamp("actCreateDate"));
-					act_VO.setActName(rs.getString("actName"));
-					act_VO.setActStatus(rs.getInt("actStatus"));
-					act_VO.setActPriID(rs.getInt("actPriID"));
-					act_VO.setActStartDate(rs.getTimestamp("actStartDate"));
-					act_VO.setActEndDate(rs.getTimestamp("actEndDate"));
-					act_VO.setActSignStartDate(rs.getTimestamp("actSignStartDate"));
-					act_VO.setActSignEndDate(rs.getTimestamp("actSignEndDate"));
-					act_VO.setActTimeTypeID(rs.getInt("actTimeTypeID"));
-					act_VO.setActTimeTypeCnt(rs.getString("actTimeTypeCnt"));
-					act_VO.setActMemMax(rs.getInt("actMemMax"));
-					act_VO.setActMemMin(rs.getInt("actMemMin"));
-					act_VO.setActIMG(rs.getBytes("actIMG"));
-					act_VO.setActContent(rs.getString("actContent"));
-					act_VO.setActIsHot(rs.getInt("actIsHot"));
-					act_VO.setActLong(rs.getDouble("actLong"));
-					act_VO.setActLat(rs.getDouble("actLat"));
-					act_VO.setActPost(rs.getInt("actPost"));
-					act_VO.setActLocName(rs.getString("actLocName"));
-					act_VO.setActAdr(rs.getString("actAdr"));
+					Act_VO = new Act_VO();
+					Act_VO.setMemName(rs.getString("memName"));					
+					Act_VO.setActID(rs.getInt("actID"));
+					Act_VO.setMemID(rs.getInt("memID"));
+					Act_VO.setActCreateDate(rs.getTimestamp("actCreateDate"));
+					Act_VO.setActName(rs.getString("actName"));
+					Act_VO.setActStatus(rs.getInt("actStatus"));
+					Act_VO.setActPriID(rs.getInt("actPriID"));
+					Act_VO.setActStartDate(rs.getTimestamp("actStartDate"));
+					Act_VO.setActEndDate(rs.getTimestamp("actEndDate"));
+					Act_VO.setActSignStartDate(rs.getTimestamp("actSignStartDate"));
+					Act_VO.setActSignEndDate(rs.getTimestamp("actSignEndDate"));
+					Act_VO.setActTimeTypeID(rs.getInt("actTimeTypeID"));
+					Act_VO.setActTimeTypeCnt(rs.getString("actTimeTypeCnt"));
+					Act_VO.setActMemMax(rs.getInt("actMemMax"));
+					Act_VO.setActMemMin(rs.getInt("actMemMin"));
+					Act_VO.setActIMG(rs.getBytes("actIMG"));
+					Act_VO.setActContent(rs.getString("actContent"));
+					Act_VO.setActIsHot(rs.getInt("actIsHot"));
+					Act_VO.setActLong(rs.getDouble("actLong"));
+					Act_VO.setActLat(rs.getDouble("actLat"));
+					Act_VO.setActPost(rs.getInt("actPost"));
+					Act_VO.setActLocName(rs.getString("actLocName"));
+					Act_VO.setActAdr(rs.getString("actAdr"));
 				};
 
 				// Handle any SQL errors

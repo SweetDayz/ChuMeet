@@ -1,6 +1,7 @@
-package com.act.model;
+package com.act.act.model;
 import java.util.List;
-import com.act.model.ActMngVO;
+
+import com.act.act.model.ActMngVO;
 
 public class ActMngService {
 		private ActMngDAO_interface dao;

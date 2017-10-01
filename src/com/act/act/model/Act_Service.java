@@ -1,8 +1,9 @@
-package com.act.model;
+package com.act.act.model;
 import java.sql.*;
 import java.util.*;
 import java.util.List;
-import com.act.model.Act_VO;
+
+import com.act.act.model.Act_VO;
 public class Act_Service {
 		private Act_interface dao;
 
@@ -14,10 +15,10 @@ public class Act_Service {
 				return dao.getAll();
 		}
 		
-	    public void insert(Act_VO act_VO){
-			dao.insert(act_VO);
+	    public void insert(Act_VO Act_VO){
+			dao.insert(Act_VO);
 	    };
-	    public void update(Act_VO act_VO){};
+	    public void update(Act_VO Act_VO){};
 	    
 	    public Act_VO getOne(Integer actID){
 	    	return dao.getOne(actID);

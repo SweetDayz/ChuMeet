@@ -2,6 +2,8 @@ package com.act.model;
 
 import java.util.List;
 
+import com.act.act.model.Act_VO;
+
 public interface ActPOIDAO_interface {
 	//POI做標籤
     public List<String> getPOIByActID(Integer actID);

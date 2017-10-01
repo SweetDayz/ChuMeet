@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import javax.naming.*;
 import javax.sql.DataSource;
 
-import com.act.model.Act_VO;
+import com.act.act.model.Act_VO;
 
 public class actCodeTrans {
 	private static DataSource ds = null;

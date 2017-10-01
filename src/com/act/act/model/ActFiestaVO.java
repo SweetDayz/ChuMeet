@@ -1,11 +1,12 @@
-package com.act.model;
+package com.act.act.model;
+
 import java.sql.Timestamp;
 
-public class Act_VO {
-	
-	private String memName;
+public class ActFiestaVO {
+
 	private Integer actID;
 	private Integer memID;
+	private String memName;
 	private Timestamp actCreateDate;
 	private String actName;
 	private Integer actStatus;
@@ -169,5 +170,4 @@ public class Act_VO {
 	}
 
 
-	
 }

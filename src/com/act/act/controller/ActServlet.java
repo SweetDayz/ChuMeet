@@ -1,4 +1,4 @@
-package com.act.controller;
+package com.act.act.controller;
 
 import java.io.IOException;
 import java.sql.Timestamp;
@@ -13,10 +13,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.act.act.model.Act_Service;
+import com.act.act.model.Act_VO;
 import com.act.model.ActPOIService;
 import com.act.model.ActPOIVO;
-import com.act.model.Act_Service;
-import com.act.model.Act_VO;
 import com.gen.tool.*;
 import com.gen.tool.tools;
 
@@ -65,29 +65,29 @@ public class ActServlet extends HttpServlet {
 
 
 //為了回傳用的
-				Act_VO act_VO = new Act_VO();
-				act_VO.setActID(actID);
-				act_VO.setMemID(memID);
-				act_VO.setActCreateDate(actCreateDate);
-				act_VO.setActName(actName);
-				act_VO.setActStatus(actStatus);
-				act_VO.setActPriID(actPriID);
-				act_VO.setActStartDate(actStartDate);
-				act_VO.setActEndDate(actEndDate);
-				act_VO.setActSignStartDate(actSignStartDate);
-				act_VO.setActSignEndDate(actSignEndDate);
-				act_VO.setActTimeTypeID(actTimeTypeID);
-				act_VO.setActTimeTypeCnt(actTimeTypeCnt);
-				act_VO.setActMemMax(actMemMax);
-				act_VO.setActMemMin(actMemMin);
-				act_VO.setActIMG(actIMG);
-				act_VO.setActContent(actContent);
-				act_VO.setActIsHot(actIsHot);
-				act_VO.setActLong(actLong);
-				act_VO.setActLat(actLat);
-				act_VO.setActPost(actPost);
-				act_VO.setActLocName(actLocName);
-				act_VO.setActAdr(actAdr);
+				Act_VO Act_VO = new Act_VO();
+				Act_VO.setActID(actID);
+				Act_VO.setMemID(memID);
+				Act_VO.setActCreateDate(actCreateDate);
+				Act_VO.setActName(actName);
+				Act_VO.setActStatus(actStatus);
+				Act_VO.setActPriID(actPriID);
+				Act_VO.setActStartDate(actStartDate);
+				Act_VO.setActEndDate(actEndDate);
+				Act_VO.setActSignStartDate(actSignStartDate);
+				Act_VO.setActSignEndDate(actSignEndDate);
+				Act_VO.setActTimeTypeID(actTimeTypeID);
+				Act_VO.setActTimeTypeCnt(actTimeTypeCnt);
+				Act_VO.setActMemMax(actMemMax);
+				Act_VO.setActMemMin(actMemMin);
+				Act_VO.setActIMG(actIMG);
+				Act_VO.setActContent(actContent);
+				Act_VO.setActIsHot(actIsHot);
+				Act_VO.setActLong(actLong);
+				Act_VO.setActLat(actLat);
+				Act_VO.setActPost(actPost);
+				Act_VO.setActLocName(actLocName);
+				Act_VO.setActAdr(actAdr);
 
 
 				
@@ -101,7 +101,7 @@ public class ActServlet extends HttpServlet {
 				
 				/***************************2.開始新增資料***************************************/
 				Act_Service actSrv = new Act_Service();
-				actSrv.insert(act_VO);
+				actSrv.insert(Act_VO);
 				
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
 				String url = "/emp/listAllEmp.jsp";
@@ -133,11 +133,11 @@ public class ActServlet extends HttpServlet {
 				/***************************2.開始查詢資料*****************************************/
 				Act_Service act_Svc = new Act_Service();
 				ActPOIService actpoiSvc = new ActPOIService();
-				Act_VO act_VO = act_Svc.getOne(actID);
+				Act_VO Act_VO = act_Svc.getOne(actID);
 				
 				List<String> actpoilist = actpoiSvc.getPOIByActID(actID);
 				Integer memNow=1;						 // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-				if (act_VO == null) {
+				if (Act_VO == null) {
 					errorMsgs.add("查無資料");
 				}
 				// Send the use back to the form, if there were errors
@@ -149,7 +149,7 @@ public class ActServlet extends HttpServlet {
 				}
 				
 				/***************************3.查詢完成,準備轉交(Send the Success view)*************/
-				req.setAttribute("act_VO", act_VO); // 資料庫取出的act_VO物件,存入req
+				req.setAttribute("act_VO", Act_VO); // 資料庫取出的act_VO物件,存入req
 				req.setAttribute("memNow", memNow); // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 				req.setAttribute("actpoilist", actpoilist); // poi
 
@@ -184,11 +184,11 @@ public class ActServlet extends HttpServlet {
 				/***************************2.開始查詢資料*****************************************/
 				Act_Service act_Svc = new Act_Service();
 				ActPOIService actpoiSvc = new ActPOIService();
-				Act_VO act_VO = act_Svc.getOne(actID);
+				Act_VO Act_VO = act_Svc.getOne(actID);
 				
 				List<String> actpoilist = actpoiSvc.getPOIByActID(actID);
 				Integer memNow=1;						 // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-				if (act_VO == null) {
+				if (Act_VO == null) {
 					errorMsgs.add("查無資料");
 				}
 				// Send the use back to the form, if there were errors
@@ -200,7 +200,7 @@ public class ActServlet extends HttpServlet {
 				}
 				
 				/***************************3.查詢完成,準備轉交(Send the Success view)*************/
-				req.setAttribute("act_VO", act_VO); // 資料庫取出的act_VO物件,存入req
+				req.setAttribute("act_VO", Act_VO); // 資料庫取出的act_VO物件,存入req
 				req.setAttribute("memNow", memNow); // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 				req.setAttribute("actpoilist", actpoilist); // poi
 

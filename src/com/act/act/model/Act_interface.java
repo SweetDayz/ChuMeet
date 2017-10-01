@@ -1,12 +1,13 @@
-package com.act.model;
+package com.act.act.model;
 
 import java.sql.Timestamp;
 import java.util.*;
-import com.act.model.Act_VO;
+
+import com.act.act.model.Act_VO;
 
 public interface Act_interface {
-    public void insert(Act_VO act_VO);
-    public void update(Act_VO act_VO);
+    public void insert(Act_VO actVO);
+    public void update(Act_VO actVO);
 
     public List<Act_VO> getAll();
     public Act_VO getOne(Integer actID);

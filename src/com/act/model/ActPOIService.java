@@ -2,6 +2,8 @@ package com.act.model;
 
 import java.util.List;
 
+import com.act.act.model.Act_VO;
+
 public class ActPOIService {
 
 		private ActPOIDAO_interface dao;

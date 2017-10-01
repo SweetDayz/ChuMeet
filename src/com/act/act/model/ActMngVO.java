@@ -1,4 +1,4 @@
-package com.act.model;
+package com.act.act.model;
 
 import java.sql.Timestamp;
 
