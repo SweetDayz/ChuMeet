@@ -1,5 +1,10 @@
 package com.act.act.model;
 import java.sql.Timestamp;
+import java.util.HashSet;
+import java.util.Set;
+
+import com.act.actMem.model.ActMemVO;
+import com.act.actPOI.model.ActPOIVO;
 
 public class Act_VO {
 	
@@ -26,7 +31,21 @@ public class Act_VO {
 	private String actLocName;
 	private String actAdr;
 
-
+	private Set<ActMemVO> actMemVO = new HashSet<ActMemVO>();
+	private Set<ActPOIVO> actPOIVO = new HashSet<ActPOIVO>();
+	
+	public Set<ActPOIVO> getActPOIVO() {
+		return actPOIVO;
+	}
+	public void setActPOIVO(Set<ActPOIVO> actPOIVO) {
+		this.actPOIVO = actPOIVO;
+	}
+	public Set<ActMemVO> getActMemVO() {
+		return actMemVO;
+	}
+	public void setActMemVO(Set<ActMemVO> actMemVO) {
+		this.actMemVO = actMemVO;
+	}
 	public Integer getActID() {
 		return actID;
 	}

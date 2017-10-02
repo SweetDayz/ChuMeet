@@ -1,19 +1,22 @@
 package com.act.actPOI.model;
 
+import com.act.act.model.Act_VO;
+import com.poi.model.POIVO;
+
 public class ActPOIVO {
-	private Integer actID;
-	private Integer POIID;
+	private Act_VO actVO;
+	private POIVO POIVO;
+	public Act_VO getActVO() {
+		return actVO;
+	}
+	public void setActVO(Act_VO actVO) {
+		this.actVO = actVO;
+	}
+	public POIVO getPOIVO() {
+		return POIVO;
+	}
+	public void setPOIVO(POIVO pOIVO) {
+		POIVO = pOIVO;
+	}
 	
-	public Integer getActID() {
-		return actID;
-	}
-	public void setActID(Integer actID) {
-		this.actID = actID;
-	}
-	public Integer getPOIID() {
-		return POIID;
-	}
-	public void setPOIID(Integer pOIID) {
-		POIID = pOIID;
-	}
 }

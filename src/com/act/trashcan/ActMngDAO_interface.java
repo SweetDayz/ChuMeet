@@ -1,4 +1,4 @@
-package com.act.act.model;
+package com.act.trashcan;
 
 import java.util.List;
 

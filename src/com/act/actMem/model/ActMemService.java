@@ -7,13 +7,9 @@ public class ActMemService {
 	private ActMem_Interface dao;
 
 	public ActMemService() {
-		dao = new ActMemDAO();
+		dao = new ActMemDAO_JNDI();
 	}
-	
-    public HashMap<Integer, String> whosIn(Integer actID){
-    	return dao.whosIn(actID);
-    };
-    
+
     public void delete(Integer actID, Integer memID){
     	dao.delete(actID, memID);
     };

@@ -2,6 +2,18 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page import="com.act.actMem.model.*"%>
+<%@ page import="com.act.act.model.*"%>
+<%@ page import="com.act.actPOI.model.*"%>
+<%@ page import="java.util.*"%>
+<%
+	Act_Service actS = new Act_Service();
+	List<Act_VO> list = actS.getAll();
+	pageContext.setAttribute("list",list);
+%>
+
+<c:set var="memNow" value="1"  scope="session"/>
+
 <html>
 <!-- Head BEGIN -->
 <head>
@@ -10,7 +22,7 @@
 </c:import>
 	<!-- 共用Header -->
   <!--  my styles  -->
-
+<link href="<%=request.getContextPath()%>/front-end/act/act_assets/css/actMain.css" rel="stylesheet">
   
 </head>
 <!-- Head END -->
@@ -25,14 +37,6 @@
   <c:import url="/front-end/header.jsp">
 </c:import>
   <!-- Header END -->
-  <!--主頁面要修改的都在這下面-->
-  <div class="container">
-  <div class="wd80">
-  <br><br><br>
-<form action="<%=request.getContextPath()%>/front-end/act/act.do" method="get">
-	<button type="submit" class="btn mybtns" name="actID" value="1">1</button>
-	<input type="hidden" class="btn mybtns" name="action" value="showOne">
-</form>
 	<!--主頁面要修改的都在這下面-->
 <div class="main">
 
@@ -184,37 +188,57 @@
 <div class="col-md-9 col-sm-9 event-posts">
 
         
+<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
+<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
+         
+  
 
 
-
-       
+<c:forEach var="actVO" items="${list}">
 <!--      1st card          -->
 	<div class="ec wow fadeInLeft" data-wow-delay=".05s" data-wow-duration=".1">
 		<div class="row">
 			<div class="col-md-4 col-sm-4">
-				<a href="actItem.html"><img alt="Person Of Interest" class="img-responsive img-rounded" src="act_assets/img/eventSamples/POI.jpg"></a>
+				<a href="<%=request.getContextPath()%>/front-end/act/act.do?action=showOne&actID=1">
+					<img alt="Person Of Interest" class="img-responsive img-rounded" src="act_assets/img/eventSamples/POI.jpg">
+				</a>
 			</div>
 			
 			<div class="col-md-8 col-sm-8">
-				<h2><a href="actItem.html">一起看Person Of Interest</a></h2>
+				<h2><a href="actItem.html">${actVO.actName}</a></h2>
 				<ul class="event-info">
-					<li><i class="fa fa-calendar"></i> 2017/7/30起 每周五晚上8:00-9:00</li>
-					<li><i class="fa fa-map-marker"></i><a href="#">線上</a></li>
+					<li><i class="fa fa-calendar"></i>${actVO.actStartDate}</li>
+					<li><i class="fa fa-map-marker"></i><a href="#">${actVO.actPost}</a></li>
 					<li><i class="fa fa-users"></i>222</li>
-					<li><i class="fa fa-user"></i><a href="#">breadcan</a></li>
+					<li><i class="fa fa-user"></i><a href="#">${actVO.memID}</a></li>
 
 				</ul>
 				<div class="ecContent">
-				<p>《疑犯追蹤》（Person of Interest），是美國CBS電視台製作的犯罪電視影集，由強納森·諾蘭（Jonathan Nolan）與J·J·亞柏拉罕（J. J. Abrams）共同打造出劇情架構，全五季共103集。哈洛·芬奇為政府開發了一套稱作「機器」（The Machine），可偵測恐怖攻擊的大規模監控電腦系統。它可預測「有計畫或謀略策劃的犯罪」，諸如911事件之類的大型恐怖攻擊災難，並提供情報讓有關當局防範未然。</p>
+				<p>${actVO.actContent}</p>
 				</div>
 				<div class="row">
 					<span class="col-sm-4">
-					<a class="more" href="actItem.html">詳細資訊 <i class="icon-angle-right"></i></a></span> 
+					<form action="<%=request.getContextPath()%>/front-end/act/act.do" method="get">
+							<input type="hidden" class="btn mybtns" name="action" value="showOne">
+							<button type="submit" class="btn btn-link" name="actID" value="1">詳細資訊 <i class="icon-angle-right"></i></button>
+					</form>
+					</span> 
 					
 					
 					<span class="col-sm-8 ecbtn">
-					<button type="button" class="btn btn-primary mybtns"><i class="fa fa-star" aria-hidden="true"></i> 已追蹤</button>
-					<button type="button" class="btn btn-success mybtns"><i class="fa fa-check-circle" aria-hidden="true"></i> 已參加</button>
+					<form action="<%=request.getContextPath()%>/front-end/act/act.do" method="get">
+						<c:choose>
+							<c:when test="${memInhs.containsKey(memNow)}">
+								<button type="button" class="btn btn-primary mybtns"><i class="fa fa-star" aria-hidden="true"></i> 已參加</button>
+							</c:when>
+							<c:otherwise>
+								<button type="button" class="btn btn-default mybtns"><i class="fa fa-star-o" aria-hidden="true"></i> 追蹤活動</button>
+								<button type="button" class="btn btn-default mybtns"><i class="fa fa-check-circle-o" aria-hidden="true"></i> 我要參加</button>
+							</c:otherwise>
+							
+						</c:choose>
+					</form>
+
 					</span>
 				</div>
 				<div class="event-tags">
@@ -228,6 +252,7 @@
 	</div>
 	<!--  end of 1st card         -->
 	<hr class="event-post-sep">
+</c:forEach>
                                                            
                                                             
 

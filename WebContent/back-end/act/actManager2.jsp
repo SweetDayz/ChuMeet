@@ -2,7 +2,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page import="com.act.model.*"%>
+<%@ page import="com.act.act.model.*"%>
 <%@ page import="java.util.*"%>
 <%
     ActMngService actMngSvc = new ActMngService();
@@ -16,15 +16,11 @@
 
 <head>
 <title>所有活動資料</title>
-	<!-- 共用Header -->
-<c:import url="/head.jsp">
-</c:import>
-	<!-- 共用Header -->
-  <link href="<%=request.getContextPath()%>/src/act/css/act.css" rel="stylesheet">
-      <link href="assets/css/material-dashboard.css" rel="stylesheet" />
-          <link href="assets/css/demo.css" rel="stylesheet" />
-              <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
-    <link href="http://fonts.googleapis.com/css?family=Roboto:400,700,300|Material+Icons" rel="stylesheet" type="text/css">
+<link href="assets/css/act.css" rel="stylesheet">
+<link href="assets/css/material-dashboard.css" rel="stylesheet" />
+<link href="assets/css/demo.css" rel="stylesheet" />
+ <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+<link href="http://fonts.googleapis.com/css?family=Roboto:400,700,300|Material+Icons" rel="stylesheet" type="text/css">
   <style>
 	   .table, .table th, .table td, .table select{
 		   text-align: center;
@@ -100,7 +96,6 @@ input:checked + .cclabel:after {
         <div class="sidebar" data-color="purple" data-image="assets/img/sidebar-1.jpg">
             <!--
             Tip 1: You can change the color of the sidebar using: data-color="purple | blue | green | orange | red"
-
             Tip 2: you can also add an image using data-image tag
         -->
             <div class="logo text-center"> <img src="assets/img/ChuMeet_logo_2.png"> <strong>管理平台</strong> </div>
@@ -286,7 +281,7 @@ input:checked + .cclabel:after {
 								<c:forEach var="actMngVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 									<tr align='center' valign='middle'>
 										<td>${actMngVO.actID}</td>
-										<td>${actMngVO.memName}</td>
+										<td>${actMngVO.memID}</td>
 										<td>  <fmt:formatDate  pattern="yyyy-MM-dd" value="${actMngVO.actCreateDate}"/> </td>
 										<td>${actMngVO.actName}</td>
 										<td>${act.actStatIDtoString(actMngVO.actStatID)}</td>
@@ -306,7 +301,7 @@ input:checked + .cclabel:after {
     
 											<input type="checkbox"  name="ck_${actMngVO.actID} " id="switch${actMngVO.actID} " /><label class="cclabel" for="switch${actMngVO.actID} ">推</label>
 										</td>
-										<td>${actMngVO.actAdr}</td>
+										<td>${actMngVO.actPost}</td>
 										<td><a href="#" class="btn btn-info btn-sm">詳情</a></td>
 									</tr>
 								</c:forEach>

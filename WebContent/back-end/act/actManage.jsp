@@ -1,12 +1,18 @@
-<%@ page import="com.gen.tool.actCodeTrans"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page import="com.act.model.*"%>
-<%@ page import="java.util.*"%><%
+<%@ page import="com.act.act.model.*"%>
+<%@ page import="java.util.*"%>
+<%@ page import="com.gen.tool.actCodeTrans"%>
+<%
     ActMngService actMngSvc = new ActMngService();
     List<ActMngVO> list = actMngSvc.getAll();
     pageContext.setAttribute("list",list);
+%>
+<%
+    Act_Service actS = new Act_Service();
+    List<Act_VO> actlist = (List<Act_VO>)actS.getAll();
+    pageContext.setAttribute("actlist",actlist);
 %>
 <!DOCTYPE html>
 <html>
@@ -233,9 +239,9 @@
 							<thead>
 								<tr class="bg-danger">
 									<th class="col-md-1">代碼</th>
-									<th class="col-md-2">舉辦人</th>
+									<th class="col-md-1">舉辦人</th>
 									<th class="col-md-1">建立時間</th>
-									<th class="col-md-3">活動名稱</th>
+									<th class="col-md-4">活動名稱</th>
 									<th class="col-md-1">狀態</th>
 									<th class="col-md-1">設定</th>
 									<th class="col-md-1">HOT</th>
@@ -246,30 +252,30 @@
 							<tbody>
 							<jsp:useBean id="act" scope="page" class="com.gen.tool.actCodeTrans"/>
 								<%@ include file="act/listAllAct.file" %> 
-								<c:forEach var="actMngVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
+								<c:forEach var="actVO" items="${actlist}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 									<tr align='center' valign='middle'>
-										<td>${actMngVO.actID}</td>
-										<td>${actMngVO.memName}</td>
-										<td>  <fmt:formatDate  pattern="yyyy-MM-dd" value="${actMngVO.actCreateDate}"/> </td>
-										<td>${actMngVO.actName}</td>
-										<td>${act.actStattoString(actMngVO.actStatID)}</td>
+										<td>${actVO.actID}</td>
+										<td>xxxxx</td>
+										<td>  <fmt:formatDate  pattern="yyyy-MM-dd" value="${actVO.actCreateDate}"/> </td>
+										<td>${actVO.actName}</td>
+										<td>${act.actStattoString(actVO.actStatus)}</td>
 										<td>
 												<div class="radio">
-												  <label><input type="radio" name="radio_${actMngVO.actID}" value="0" checked><i class="fa fa-check-square" aria-hidden="true"></i></label>
+												  <label><input type="radio" name="radio_${actVO.actID}" value="0" checked><i class="fa fa-check-square" aria-hidden="true"></i></label>
 												</div>
 												<div class="radio">
-												  <label><input type="radio" name="radio_${actMngVO.actID}" value="4"><i class="fa fa-ban" aria-hidden="true"></i></label>
+												  <label><input type="radio" name="radio_${actVO.actID}" value="4"><i class="fa fa-ban" aria-hidden="true"></i></label>
 												</div>
 												<div class="radio">
-												  <label><input type="radio" name="radio_${actMngVO.actID}" value="5"><i class="fa fa-question-circle" aria-hidden="true"></i></label>
+												  <label><input type="radio" name="radio_${actVO.actID}" value="5"><i class="fa fa-question-circle" aria-hidden="true"></i></label>
 												</div>
 
 												</td>
 										<td>
     
-											<input type="checkbox"  name="ck_${actMngVO.actID} " id="switch${actMngVO.actID} " /><label class="cclabel" for="switch${actMngVO.actID} ">推</label>
+											<input type="checkbox"  name="ck_${actVO.actID} " id="switch${actVO.actID} " /><label class="cclabel" for="switch${actVO.actID} ">推</label>
 										</td>
-										<td>${actMngVO.actAdr}</td>
+										<td>${actVO.actPost}</td>
 										<td><a href="#" class="btn btn-info btn-sm">詳情</a></td>
 									</tr>
 								</c:forEach>

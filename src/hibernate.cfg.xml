@@ -7,7 +7,7 @@
 	<session-factory>
 
  		<!-- JNDI連線池 (Apache Tomcat 連線池DBCP)設定 -->
-		<property name="hibernate.connection.datasource">java:/jdbc/BA103G2DB</property>
+		<property name="hibernate.connection.datasource">java:/comp/env/jdbc/BA103G2DB</property>
         
 		<!--SQL方言,以下使用Oracle -->
 		<property name="hibernate.dialect">org.hibernate.dialect.OracleDialect</property>
@@ -26,7 +26,9 @@
 
 		<!--Java物件與資料庫表格的映射檔 -->
 		<mapping resource="com/act/act/model/Act.hbm.xml" />
-<!-- 		<mapping resource="com/act/act/model/ActFiesta.hbm.xml" /> -->
+		<mapping resource="com/act/actMem/model/ActMem.hbm.xml" />
+		<mapping resource="com/act/actPOI/model/ActPOI.hbm.xml" />
+		<mapping resource="com/poi/model/POI.hbm.xml" />
 
 	</session-factory>
 	

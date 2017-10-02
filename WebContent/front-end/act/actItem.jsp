@@ -8,21 +8,21 @@
 <%@ page import="com.member.model.*"%>
 <%@ page import="java.util.*"%>
 
-<%ActFiestaVO actFVO = (ActFiestaVO) request.getAttribute("actFVO");%>
-<c:set var="holder" value="${actFVO.memID}" />
+<%Act_VO actVO = (Act_VO) request.getAttribute("actVO");%>
+<c:set var="holder" value="${actVO.memID}" />
 <c:set var="memNow" value="1"  scope="session"/>
+				
 
 <%
 	ActPOIService actPOISvc = new ActPOIService();
-	List<String> actpoilist = actPOISvc.getPOIByActID(actFVO.getActID());
+	List<String> actpoilist = actPOISvc.getPOIByActID(1);
 	pageContext.setAttribute("actpoilist",actpoilist);
 
 	ActMemService actMemSvc = new ActMemService();
-	HashMap<Integer, String> memInhs = actMemSvc.whosIn(actFVO.getActID());
+	HashMap<Integer, String> memInhs = actMemSvc.whosIn(1);
 	pageContext.setAttribute("memInhs",memInhs);
 	pageContext.setAttribute("memInCount",memInhs.size());
-%>								
-
+%>				
 
 <html>
 <!-- Head BEGIN -->
@@ -63,7 +63,7 @@
         <ul class="breadcrumb">
             <li><a href="<%=request.getContextPath()%>/front-end/index.jsp">ChuMeet!</a></li>
             <li><a href="<%=request.getContextPath()%>/front-end/act/actList.jsp">活動列表</a></li>
-			<li class="active">${actFVO.actName}</li>
+			<li class="active">${actVO.actName}</li>
         </ul>
         
         <!-- BEGIN SIDEBAR & CONTENT -->
@@ -77,9 +77,9 @@
                 <!-- BEGIN LEFT SIDEBAR -->     
                        
                 <div class="col-md-9 col-sm-9 blog-item">
-                            <h1>${actFVO.actName}</h1>
+                            <h1>${actVO.actName}</h1>
                   <div class="row">
-						<div class="col-md-5">   <img src="<%=request.getContextPath()%>/img/showIMG?colName=actIMG&table=ACT&pk=actID&imgFrom=${actFVO.actID}" class="img-responsive margin-bottom-30 img-rounded" alt=""></div>
+						<div class="col-md-5">   <img src="<%=request.getContextPath()%>/img/showIMG?colName=actIMG&table=ACT&pk=actID&imgFrom=${actVO.actID}" class="img-responsive margin-bottom-30 img-rounded" alt=""></div>
 						
                         <div class="col-md-7">
                           		<table  class="table table-hover">
@@ -88,9 +88,9 @@
 
 							<c:when test="${memNow==holder}">活動發起人
 									<c:choose>
-												<c:when test = "${toolman.nowTimestamp() < actFVO.actStartDate}">，等待活動開始 </c:when>
-												<c:when test = "${toolman.nowTimestamp() >= actFVO.actStartDate && toolman.nowTimestamp() <= actFVO.actEndDate}">，活動進行中 </c:when>
-												<c:when test = "${toolman.nowTimestamp() > actFVO.actEndDate}">，活動已結束</c:when>
+												<c:when test = "${toolman.nowTimestamp() < actVO.actStartDate}">，等待活動開始 </c:when>
+												<c:when test = "${toolman.nowTimestamp() >= actVO.actStartDate && toolman.nowTimestamp() <= actVO.actEndDate}">，活動進行中 </c:when>
+												<c:when test = "${toolman.nowTimestamp() > actVO.actEndDate}">，活動已結束</c:when>
 										         <c:otherwise>WAT</c:otherwise>
 									</c:choose>
 							</c:when>
@@ -98,9 +98,9 @@
 							<c:when test="${memInhs.containsKey(memNow)}">					
 								已參加
 									<c:choose>
-												<c:when test = "${toolman.nowTimestamp() < actFVO.actStartDate}">，等待活動開始 </c:when>
-												<c:when test = "${toolman.nowTimestamp() >= actFVO.actStartDate && toolman.nowTimestamp() <= actFVO.actEndDate}">，活動進行中 </c:when>
-												<c:when test = "${toolman.nowTimestamp() > actFVO.actEndDate}">，活動已結束</c:when>
+												<c:when test = "${toolman.nowTimestamp() < actVO.actStartDate}">，等待活動開始 </c:when>
+												<c:when test = "${toolman.nowTimestamp() >= actVO.actStartDate && toolman.nowTimestamp() <= actVO.actEndDate}">，活動進行中 </c:when>
+												<c:when test = "${toolman.nowTimestamp() > actVO.actEndDate}">，活動已結束</c:when>
 										         <c:otherwise>WAT</c:otherwise>
 									</c:choose>
 							</c:when>
@@ -108,9 +108,9 @@
 						<c:otherwise>
 							尚未參加
 									<c:choose>
-												<c:when test = "${toolman.nowTimestamp() < actFVO.actStartDate}">，等待活動開始 </c:when>
-												<c:when test = "${toolman.nowTimestamp() >= actFVO.actStartDate && toolman.nowTimestamp() <= actFVO.actEndDate}">，活動進行中 </c:when>
-												<c:when test = "${toolman.nowTimestamp() > actFVO.actEndDate}">，活動已結束</c:when>
+												<c:when test = "${toolman.nowTimestamp() < actVO.actStartDate}">，等待活動開始 </c:when>
+												<c:when test = "${toolman.nowTimestamp() >= actVO.actStartDate && toolman.nowTimestamp() <= actVO.actEndDate}">，活動進行中 </c:when>
+												<c:when test = "${toolman.nowTimestamp() > actVO.actEndDate}">，活動已結束</c:when>
 										         <c:otherwise>WAT</c:otherwise>
 									</c:choose>
 						</c:otherwise>
@@ -120,10 +120,10 @@
                           		
                           		
                           		</span></td></tr>
-								<tr><th class="text-danger topstat"><i class="fa fa-user"></i></th><th>活動發起人</th><td><span>${actFVO.memName}</span></td></tr>
-                         		<tr><th class="text-danger topstat"><i class="fa fa-calendar"></i></th><th>活動時間</th><td><span> ${toolman.tsToActStr(actFVO.actStartDate)}起至 ${toolman.tsToActStr(actFVO.actEndDate)}</span></td></tr>
-                         		<tr><th class="text-danger topstat"><i class="fa fa-calendar-check-o"></i></th><th>報名時間</th><td><span> ${toolman.tsToActStr(actFVO.actSignStartDate)} 起至 ${toolman.tsToActStr(actFVO.actSignEndDate)}</span></td></tr>
-                         		<tr><th class="text-danger topstat"><i class="fa fa-users"></i></th><th>目前人數</th><td><span>${memInCount}</span>/<span>${actFVO.actMemMax}</span></td></tr>
+								<tr><th class="text-danger topstat"><i class="fa fa-user"></i></th><th>活動發起人</th><td><span>breadcan</span></td></tr>
+                         		<tr><th class="text-danger topstat"><i class="fa fa-calendar"></i></th><th>活動時間</th><td><span> ${toolman.tsToActStr(actVO.actStartDate)}起至 ${toolman.tsToActStr(actVO.actEndDate)}</span></td></tr>
+                         		<tr><th class="text-danger topstat"><i class="fa fa-calendar-check-o"></i></th><th>報名時間</th><td><span> ${toolman.tsToActStr(actVO.actSignStartDate)} 起至 ${toolman.tsToActStr(actVO.actSignEndDate)}</span></td></tr>
+                         		<tr><th class="text-danger topstat"><i class="fa fa-users"></i></th><th>目前人數</th><td><span>${memInCount}</span>/<span>${actVO.actMemMax}</span></td></tr>
 
                           		</table>
                 			<div class="event-tags">
@@ -142,7 +142,7 @@
                   <h2>活動詳情</h2>
 <div style="margin-left: 1em;  margin-right: 1em;">
                    <p>
-                   ${actFVO.actContent}
+                   ${actVO.actContent}
                   
                   </p>
 </div>
@@ -210,39 +210,39 @@
 					<div>
 						<c:choose>
 							<c:when test="${memNow==holder}">
-								<button id="actMng" <c:if test="${toolman.nowTimestamp() > actFVO.actEndDate}"> disabled </c:if>class="btn btn-block btn-info">管理活動</button>
+								<button id="actMng" <c:if test="${toolman.nowTimestamp() > actVO.actEndDate}"> disabled </c:if>class="btn btn-block btn-info">管理活動</button>
 
 							</c:when>
 							
 							<c:when test="${memInhs.containsKey(memNow)}">					
-								<button type="submit" name="action" value="delete" <c:if test="${toolman.nowTimestamp() > actFVO.actEndDate}"> disabled </c:if> class="btn btn-block btn-warning">退出活動</button>
+								<button type="submit" name="action" value="delete" <c:if test="${toolman.nowTimestamp() > actVO.actEndDate}"> disabled </c:if> class="btn btn-block btn-warning">退出活動</button>
 							</c:when>
 							
 						<c:otherwise>
-							<button type="submit" name="action" value="insert2"  <c:if test="${toolman.nowTimestamp() > actFVO.actEndDate}"> disabled </c:if> class="btn btn-block btn-primary">我要參加</button>
-							<button  type="submit" name="action" value="insert5" <c:if test="${toolman.nowTimestamp() > actFVO.actEndDate}"> disabled </c:if> class="btn btn-block btn-success">追蹤活動</button>
+							<button type="submit" name="action" value="insert2"  <c:if test="${toolman.nowTimestamp() > actVO.actEndDate}"> disabled </c:if> class="btn btn-block btn-primary">我要參加</button>
+							<button  type="submit" name="action" value="insert5" <c:if test="${toolman.nowTimestamp() > actVO.actEndDate}"> disabled </c:if> class="btn btn-block btn-success">追蹤活動</button>
 						</c:otherwise>
 
 
 						</c:choose>
 					</div>
-						<input type="hidden" name="actID" value="${actFVO.actID}">
+						<input type="hidden" name="actID" value="${actVO.actID}">
 						<input type="hidden" name="requestURL"	 value="<%=request.getServletPath()%>">
 					</form>
 <p />
                   <!-- BEGIN map -->
                   <div class="blog-photo-stream margin-bottom-20">
                     <h2>活動地點</h2>
-                        <p>${actFVO.actAdr}</p>
+                        <p>${actVO.actAdr}</p>
                         <c:choose>
-                        <c:when test="${actFVO.actPost==999}">
+                        <c:when test="${actVO.actPost==999}">
                         	 <img src="<%=request.getContextPath()%>/front-end/act/act_assets/img/online.jpg" alt="" class="img-rounded">
                         </c:when>
                         <c:otherwise>
 					  <div id="map"></div>
 						<script>
 						  function initMap() {
-							var uluru = {lat: ${actFVO.actLong}, lng: ${actFVO.actLat}};
+							var uluru = {lat: ${actVO.actLong}, lng: ${actVO.actLat}};
 							var map = new google.maps.Map(document.getElementById('map'), {
 							  zoom: 17,
 							  center: uluru

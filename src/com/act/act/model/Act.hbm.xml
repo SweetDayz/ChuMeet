@@ -3,14 +3,14 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-    <class name="com.act.act.model.act_VO" table="act" >
+    <class name="com.act.act.model.Act_VO" table="ACT" >
         
         <id name="actID" column="actID">
             <generator class="sequence" >
        	       <param name="sequence">act_seq</param>
             </generator>  
         </id>
-
+   			    
 				<property name="memID" column="memID" />
 				<property name="actCreateDate" column="actCreateDate" />
 				<property name="actName" column="actName" />
@@ -24,7 +24,7 @@
 				<property name="actTimeTypeCnt" column="actTimeTypeCnt" />
 				<property name="actMemMax" column="actMemMax" />
 				<property name="actMemMin" column="actMemMin" />
-				<property name="actImg" column="actImg" />
+				<property name="actIMG" column="actIMG" />
 				<property name="actContent" column="actContent" />
 				<property name="actIsHot" column="actIsHot" />
 				<property name="actLong" column="actLong" />
@@ -32,7 +32,20 @@
 				<property name="actPost" column="actPost" />
 				<property name="actLocName" column="actLocName" />
 				<property name="actAdr" column="actAdr" />
-
+				
+		<set name="actMem" table="actMem" lazy="false" cascade="all"  inverse="true">			
+			<key>
+				<column name="actID" />
+			</key>
+			<one-to-many class="com.act.actMem.model.actMemVO" />
+		</set>
+		
+		<set name="actPOI" table="actPOI" lazy="false" cascade="all"  inverse="true"  order-by="poiid">			
+			<key>
+				<column name="actID" />
+			</key>
+			<one-to-many class="com.act.actPOI.model.actPOIVO" />
+		</set>
         
     </class>
 </hibernate-mapping>

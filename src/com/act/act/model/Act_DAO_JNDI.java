@@ -238,7 +238,7 @@ private static final String GET_ACT_BY_CLUBID="select * from act join actclub on
 
 				while (rs.next()) {
 					Act_VO = new Act_VO();
-					Act_VO.setMemName(rs.getString("memName"));					
+//					Act_VO.setMemName(rs.getString("memName"));					
 					Act_VO.setActID(rs.getInt("actID"));
 					Act_VO.setMemID(rs.getInt("memID"));
 					Act_VO.setActCreateDate(rs.getTimestamp("actCreateDate"));
@@ -310,7 +310,7 @@ private static final String GET_ACT_BY_CLUBID="select * from act join actclub on
 
 			while (rs.next()) {
 				Act_VO = new Act_VO();
-				Act_VO.setMemName(rs.getString("memName"));					
+//				Act_VO.setMemName(rs.getString("memName"));					
 				Act_VO.setActID(rs.getInt("actID"));
 				Act_VO.setMemID(rs.getInt("memID"));
 				Act_VO.setActCreateDate(rs.getTimestamp("actCreateDate"));

@@ -1,7 +1,7 @@
-package com.act.act.model;
+package com.act.trashcan;
 import java.util.List;
 
-import com.act.act.model.ActMngVO;
+import com.act.trashcan.ActMngVO;
 
 public class ActMngService {
 		private ActMngDAO_interface dao;

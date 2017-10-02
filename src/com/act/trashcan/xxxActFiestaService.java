@@ -1,13 +1,15 @@
-package com.act.act.model;
+package com.act.trashcan;
 import java.sql.*;
 import java.util.*;
 import java.util.List;
 
+import com.act.act.model.Act_DAO;
 import com.act.act.model.Act_VO;
-public class Act_Service {
+import com.act.act.model.Act_interface;
+public class xxxActFiestaService {
 		private Act_interface dao;
 
-		public Act_Service() {
+		public xxxActFiestaService() {
 			dao = new Act_DAO();
 		}
 

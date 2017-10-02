@@ -29,8 +29,6 @@ import com.act.act.model.Act_VO;
 		@Override
 		public List<String> getPOIByActID(Integer actID) {
 			List<String> POIlist = new ArrayList<String>();
-			Act_VO Act_VO = null;
-
 			Connection con = null;
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
@@ -93,7 +91,6 @@ import com.act.act.model.Act_VO;
 
 				while (rs.next()) {
 					Act_VO = new Act_VO();
-					Act_VO.setMemName(rs.getString("memName"));					
 					Act_VO.setActID(rs.getInt("actID"));
 					Act_VO.setMemID(rs.getInt("memID"));
 					Act_VO.setActCreateDate(rs.getTimestamp("actCreateDate"));

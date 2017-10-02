@@ -1,4 +1,4 @@
-package com.act.act.model;
+package com.act.trashcan;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -16,7 +16,7 @@ import javax.sql.DataSource;
 
 
 public class ActMngDAO implements  ActMngDAO_interface {
-	private static final String GET_ALL_STMT = "SELECT * FROM actmng order by actID";
+	private static final String GET_ALL_STMT = "SELECT * FROM act order by actID";
 //	String driver = "oracle.jdbc.driver.OracleDriver";
 //	String url = "jdbc:oracle:thin:@localhost:1521:XE";
 //	String userid = "BA103G2";
@@ -61,11 +61,10 @@ public class ActMngDAO implements  ActMngDAO_interface {
 				ActMngVO = new ActMngVO();
 				ActMngVO.setActID(rs.getInt("actID"));
 				ActMngVO.setMemID(rs.getInt("memID"));
-				ActMngVO.setMemName(rs.getString("MemName"));
 				ActMngVO.setActCreateDate(rs.getTimestamp("actCreateDate"));
 				ActMngVO.setActName(rs.getString("actName"));
-				ActMngVO.setActStatID(rs.getInt("actStatID"));
-				ActMngVO.setActAdr(rs.getString("actAdr"));
+				ActMngVO.setActStatID(rs.getInt("actStatus"));
+				ActMngVO.setActAdr(rs.getString("actPost"));
 				list.add(ActMngVO); // Store the row in the list
 			}
 

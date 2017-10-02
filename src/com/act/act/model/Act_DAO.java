@@ -31,14 +31,12 @@ import hibernate.util.HibernateUtil;
 import javax.servlet.ServletException;
 
 import com.act.act.model.Act_VO;
+import com.act.actMem.model.ActMemVO;
+import com.act.actPOI.model.ActPOIVO;
 
 
 public class Act_DAO implements Act_interface {
 
-	private static final String GET_ALL_STMT = "from ActFiesta order by actID";
-
-	
-	
 	private void saveOrUpdate(Act_VO actVO){
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
@@ -63,28 +61,29 @@ public class Act_DAO implements Act_interface {
 
 
 	@Override
-	public ActFiestaVO getOne(Integer actID) {
-		ActFiestaVO actFVO = null;
+	public Act_VO getOne(Integer actID) {
+		Act_VO actVO = null;
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
 			session.beginTransaction();
-			actFVO = (ActFiestaVO) session.get(ActFiestaVO.class, actID);
+			actVO = (Act_VO) session.get(Act_VO.class, actID);
 			session.getTransaction().commit();
 		} catch (RuntimeException ex) {
 			session.getTransaction().rollback();
 			throw ex;
 		}
-		return actFVO;
+		return actVO;
 	}
 
 	@Override
-	public List<ActFiestaVO> getAll() {
-		List<ActFiestaVO> list = null;
+	public List<Act_VO> getAll() {
+		List<Act_VO> list = null;
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
 			session.beginTransaction();
-			Query query = session.createQuery(GET_ALL_STMT);
-			list = query.list(); 
+			Query query = session.createQuery("from Act_VO order by actID");
+			SQLQuery queryAdd= session.createSQLQuery("select 1 from act");
+			list = (List<Act_VO>) query.list(); 
 			session.getTransaction().commit();
 		} catch (RuntimeException ex) {
 			session.getTransaction().rollback();
@@ -93,23 +92,24 @@ public class Act_DAO implements Act_interface {
 		return list;
 	}
 
+	
 
 	@Override
-	public List<ActFiestaVO> getActByPOIID(Integer POIID) {
+	public List<Act_VO> getActByPOIID(Integer POIID) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<ActFiestaVO> getActByDate(Timestamp selectDate) {
-		List<ActFiestaVO> list = null;
+	public List<Act_VO> getActByDate(Timestamp selectDate) {
+		List<Act_VO> list = null;
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		
 		try {
 			session.beginTransaction();
 			
 //	       【參數綁定-使用?】
-			Query query = session.createQuery("from actFiestaVO where to_char(actDate,'yyyy/mm/dd')=? order by actID");
+			Query query = session.createQuery("from Act_VO where to_char(actDate,'yyyy/mm/dd')=? order by actID");
 			query.setParameter(0, selectDate);
 
 //        【可分頁】
@@ -132,37 +132,49 @@ public class Act_DAO implements Act_interface {
 	}
 
 	@Override
-	public List<ActFiestaVO> getActByWks(Timestamp actDate) {
+	public List<Act_VO> getActByWks(Timestamp actDate) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<ActFiestaVO> getActByMemIDJoin(Integer memID) {
+	public List<Act_VO> getActByMemIDJoin(Integer memID) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<ActFiestaVO> getActByMemIDCreate(Integer memID) {
+	public List<Act_VO> getActByMemIDCreate(Integer memID) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<ActFiestaVO> getActByMemIDFriend(Integer memID) {
+	public List<Act_VO> getActByMemIDFriend(Integer memID) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<ActFiestaVO> getActByMemIDTrack(Integer memID) {
+	public List<Act_VO> getActByMemIDTrack(Integer memID) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<ActFiestaVO> getActByClub(Integer clubID) {
+	public List<Act_VO> getActByClub(Integer clubID) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Set<ActMemVO> whosin(Integer actID) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Set<ActPOIVO> showthetags(Integer actID) {
 		// TODO Auto-generated method stub
 		return null;
 	}

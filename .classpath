@@ -33,5 +33,6 @@
 	<classpathentry exported="true" kind="lib" path="E:/Dropbox/@BA103/MyLib/slf4j-api-1.5.8.jar"/>
 	<classpathentry exported="true" kind="lib" path="E:/Dropbox/@BA103/MyLib/slf4j-log4j12-1.5.8.jar"/>
 	<classpathentry exported="true" kind="lib" path="E:/Dropbox/@BA103/MyLib/standard.jar"/>
+	<classpathentry exported="true" kind="lib" path="E:/Dropbox/@BA103/MyLib/jsoup-1.10.3.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

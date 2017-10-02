@@ -407,7 +407,7 @@ public class act_DAO_JDBC implements Act_interface {
 
 				while (rs.next()) {
 					Act_VO = new Act_VO();
-					Act_VO.setMemName(rs.getString("memName"));					
+//					Act_VO.setMemName(rs.getString("memName"));					
 					Act_VO.setActID(rs.getInt("actID"));
 					Act_VO.setMemID(rs.getInt("memID"));
 					Act_VO.setActCreateDate(rs.getTimestamp("actCreateDate"));
@@ -486,7 +486,7 @@ public class act_DAO_JDBC implements Act_interface {
 
 			while (rs.next()) {
 				Act_VO = new Act_VO();
-				Act_VO.setMemName(rs.getString("memName"));					
+//				Act_VO.setMemName(rs.getString("memName"));					
 				Act_VO.setActID(rs.getInt("actID"));
 				Act_VO.setMemID(rs.getInt("memID"));
 				Act_VO.setActCreateDate(rs.getTimestamp("actCreateDate"));
@@ -950,6 +950,24 @@ public class act_DAO_JDBC implements Act_interface {
 //			System.out.println();
 //		}
 
+	}
+
+	@Override
+	public List<Act_VO> getActByPOIID(Integer POIID) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Act_VO> getActByDate(Timestamp actDate) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Act_VO> getActByWks(Timestamp actDate) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 

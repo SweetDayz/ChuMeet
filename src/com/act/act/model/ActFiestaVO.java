@@ -6,7 +6,9 @@ public class ActFiestaVO {
 
 	private Integer actID;
 	private Integer memID;
+	
 	private String memName;
+	
 	private Timestamp actCreateDate;
 	private String actName;
 	private Integer actStatus;
@@ -21,7 +23,9 @@ public class ActFiestaVO {
 	private Integer actMemMin;
 	private byte[] actIMG;
 	private String actContent;
+	
 	private String actCnt;
+	
 	private Integer actIsHot;
 	private Double actLong;
 	private Double actLat;
