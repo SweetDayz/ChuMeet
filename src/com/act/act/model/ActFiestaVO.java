@@ -21,6 +21,7 @@ public class ActFiestaVO {
 	private Integer actMemMin;
 	private byte[] actIMG;
 	private String actContent;
+	private String actCnt;
 	private Integer actIsHot;
 	private Double actLong;
 	private Double actLat;
@@ -28,7 +29,12 @@ public class ActFiestaVO {
 	private String actLocName;
 	private String actAdr;
 
-	
+	public String getActCnt() {
+		return actCnt;
+	}
+	public void setActCnt(String actCnt) {
+		this.actCnt = actCnt;
+	}
 	
 	public String getMemName() {
 		return memName;

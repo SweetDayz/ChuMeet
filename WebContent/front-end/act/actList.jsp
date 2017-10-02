@@ -29,15 +29,10 @@
   <div class="container">
   <div class="wd80">
   <br><br><br>
-
+<form action="<%=request.getContextPath()%>/front-end/act/act.do" method="get">
 	<button type="submit" class="btn mybtns" name="actID" value="1">1</button>
-	<button type="submit" class="btn mybtns" name="actID" value="2">2</button>
-	<button type="submit" class="btn mybtns" name="actID" value="3">3</button>
-	<button type="submit" class="btn mybtns" name="actID" value="4">4</button>
-	<button type="submit" class="btn mybtns" name="actID" value="5">5</button>
-	
-	
-	
+	<input type="hidden" class="btn mybtns" name="action" value="showOne">
+</form>
 	<!--主頁面要修改的都在這下面-->
 <div class="main">
 
@@ -188,7 +183,11 @@
 <!-- BEGIN LEFT SIDEBAR -->            
 <div class="col-md-9 col-sm-9 event-posts">
 
-<form action="<%=request.getContextPath()%>/front-end/act/act.do" method="get">               
+        
+
+
+
+       
 <!--      1st card          -->
 	<div class="ec wow fadeInLeft" data-wow-delay=".05s" data-wow-duration=".1">
 		<div class="row">

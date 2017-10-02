@@ -6,9 +6,7 @@
     <class name="com.act.act.model.actFiestaVO" table="actFiesta" >
         
         <id name="actID" column="actID">
-            <generator class="sequence" >
-              <param name="sequence">emp2_seq</param>
-            </generator>  
+            <generator class="native" />
         </id>
         
 <property name="actID" column="actID" />
@@ -27,6 +25,7 @@
 <property name="actMemMin" column="actMemMin" />
 <property name="actImg" column="actImg" />
 <property name="actContent" column="actContent" />
+<property name="actCnt" column="actCnt" />
 <property name="actIsHot" column="actIsHot" />
 <property name="actLong" column="actLong" />
 <property name="actLat" column="actLat" />

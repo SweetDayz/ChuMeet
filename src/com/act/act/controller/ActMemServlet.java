@@ -17,7 +17,7 @@ import com.act.act.model.Act_Service;
 import com.act.act.model.Act_VO;
 import com.act.actMem.model.ActMemService;
 import com.act.actMem.model.ActMemVO;
-import com.act.model.ActPOIService;
+import com.act.actPOI.model.ActPOIService;
 import com.gen.tool.tools;
 
 public class ActMemServlet extends HttpServlet{

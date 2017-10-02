@@ -5,17 +5,9 @@
 <hibernate-configuration>
 
 	<session-factory>
-        
-        <!-- 連線池c3p0設定-->
-		<property name="hibernate.connection.driver_class">oracle.jdbc.driver.OracleDriver</property>
-		<property name="hibernate.connection.url">jdbc:oracle:thin:@localhost:1521:XE</property>
-		<property name="hibernate.connection.username">BA103G2</property>
-		<property name="hibernate.connection.password">a123</property>       
-		<property name="hibernate.connection.provider_class">org.hibernate.connection.C3P0ConnectionProvider</property>
-		<property name="hibernate.c3p0.min_size">5</property>
-		<property name="hibernate.c3p0.max_size">20</property>
-		<property name="hibernate.c3p0.timeout">1800</property>
-		<property name="hibernate.c3p0.max_statements">50</property>
+
+ 		<!-- JNDI連線池 (Apache Tomcat 連線池DBCP)設定 -->
+		<property name="hibernate.connection.datasource">java:/jdbc/BA103G2DB</property>
         
 		<!--SQL方言,以下使用Oracle -->
 		<property name="hibernate.dialect">org.hibernate.dialect.OracleDialect</property>
@@ -33,8 +25,8 @@
 		<property name="hibernate.current_session_context_class">thread</property>
 
 		<!--Java物件與資料庫表格的映射檔 -->
-		<mapping resource="com/emp/model/emp2.hbm.xml" />
-		<mapping resource="com/dept/model/dept2.hbm.xml" />
+		<mapping resource="com/act/act/model/Act.hbm.xml" />
+<!-- 		<mapping resource="com/act/act/model/ActFiesta.hbm.xml" /> -->
 
 	</session-factory>
 	

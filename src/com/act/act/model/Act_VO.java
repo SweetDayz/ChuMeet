@@ -3,7 +3,6 @@ import java.sql.Timestamp;
 
 public class Act_VO {
 	
-	private String memName;
 	private Integer actID;
 	private Integer memID;
 	private Timestamp actCreateDate;
@@ -27,14 +26,7 @@ public class Act_VO {
 	private String actLocName;
 	private String actAdr;
 
-	
-	
-	public String getMemName() {
-		return memName;
-	}
-	public void setMemName(String memName) {
-		this.memName = memName;
-	}
+
 	public Integer getActID() {
 		return actID;
 	}

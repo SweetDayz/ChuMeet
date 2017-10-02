@@ -11,7 +11,7 @@ public class Act_Service {
 			dao = new Act_DAO();
 		}
 
-		public List<Act_VO> getAll() {
+		public List<ActFiestaVO> getAll() {
 				return dao.getAll();
 		}
 		
@@ -20,27 +20,27 @@ public class Act_Service {
 	    };
 	    public void update(Act_VO Act_VO){};
 	    
-	    public Act_VO getOne(Integer actID){
+	    public ActFiestaVO getOne(Integer actID){
 	    	return dao.getOne(actID);
 		};
 		
 			
-	    public List<Act_VO> getActByCat(Integer POIID){
+	    public List<ActFiestaVO> getActByCat(Integer POIID){
 			return null;};
-	    public List<Act_VO> getActByDate(Timestamp actDate){
+	    public List<ActFiestaVO> getActByDate(Timestamp actDate){
 			return null;};
-	    public List<Act_VO> getActByWks(Timestamp actDate){
+	    public List<ActFiestaVO> getActByWks(Timestamp actDate){
 			return null;};
 //	    public List<ActVO> getActByDist(Integer Dist);
-	    public List<Act_VO> getActByMemIDJoin(Integer memID){
+	    public List<ActFiestaVO> getActByMemIDJoin(Integer memID){
 			return null;};
-	    public List<Act_VO> getActByMemIDCreate(Integer memID){
+	    public List<ActFiestaVO> getActByMemIDCreate(Integer memID){
 			return null;};
-	    public List<Act_VO> getActByMemIDFriend(Integer memID){
+	    public List<ActFiestaVO> getActByMemIDFriend(Integer memID){
 			return null;};
-	    public List<Act_VO> getActByMemIDTrack(Integer memID){
+	    public List<ActFiestaVO> getActByMemIDTrack(Integer memID){
 			return null;};
-	    public List<Act_VO> getActByClub(Integer clubID){
+	    public List<ActFiestaVO> getActByClub(Integer clubID){
 			return null;};
 		
 }

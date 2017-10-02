@@ -917,21 +917,21 @@ public class act_DAO_JDBC implements Act_interface {
 //		}
 		
 		// UPLOAD CLOB ok
-//		for (int i=1; i<6; i++){
-//		String path = "E:\\\\actCLOB\\act"+i+".txt";
-//		System.out.println(path);
-//		int actID=i;
-//		dao.updateCnt(path, actID);
-//		}		
+		for (int i=1; i<6; i++){
+		String path = "E:\\\\actCLOB\\act"+i+".txt";
+		System.out.println(path);
+		int actID=i;
+		dao.updateCnt(path, actID);
+		}		
 		
 		
 		// UPLOAD mem	ok
-		for (int i=1; i<13; i++){
-		String path = "E:\\\\memBLOB\\"+i+".jpg";
-		System.out.println(path);
-		int memID=i;
-		dao.updateMemIMG(path, memID);
-		}
+//		for (int i=1; i<13; i++){
+//		String path = "E:\\\\memBLOB\\"+i+".jpg";
+//		System.out.println(path);
+//		int memID=i;
+//		dao.updateMemIMG(path, memID);
+//		}
 		// 刪除	不能刪辣
 //		dao.delete(30);
 
@@ -950,24 +950,6 @@ public class act_DAO_JDBC implements Act_interface {
 //			System.out.println();
 //		}
 
-	}
-
-	@Override
-	public List<Act_VO> getActByPOIID(Integer POIID) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Act_VO> getActByDate(Timestamp actDate) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Act_VO> getActByWks(Timestamp actDate) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 

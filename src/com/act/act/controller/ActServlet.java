@@ -13,12 +13,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.act.act.model.Act_Service;
-import com.act.act.model.Act_VO;
-import com.act.model.ActPOIService;
-import com.act.model.ActPOIVO;
+import com.act.act.model.*;
+import com.act.actPOI.model.*;
 import com.gen.tool.*;
-import com.gen.tool.tools;
+
 
 
 public class ActServlet extends HttpServlet {
@@ -131,13 +129,13 @@ public class ActServlet extends HttpServlet {
 				/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
 				Integer actID=Integer.parseInt(req.getParameter("actID"));
 				/***************************2.開始查詢資料*****************************************/
-				Act_Service act_Svc = new Act_Service();
+				ActFiestaService actF_Svc = new ActFiestaService();
 				ActPOIService actpoiSvc = new ActPOIService();
-				Act_VO Act_VO = act_Svc.getOne(actID);
+				ActFiestaVO actFVO = actF_Svc.getOne(actID);
 				
 				List<String> actpoilist = actpoiSvc.getPOIByActID(actID);
 				Integer memNow=1;						 // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-				if (Act_VO == null) {
+				if (actFVO == null) {
 					errorMsgs.add("查無資料");
 				}
 				// Send the use back to the form, if there were errors
@@ -149,7 +147,7 @@ public class ActServlet extends HttpServlet {
 				}
 				
 				/***************************3.查詢完成,準備轉交(Send the Success view)*************/
-				req.setAttribute("act_VO", Act_VO); // 資料庫取出的act_VO物件,存入req
+				req.setAttribute("act_VO", actFVO); // 資料庫取出的act_VO物件,存入req
 				req.setAttribute("memNow", memNow); // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 				req.setAttribute("actpoilist", actpoilist); // poi
 
@@ -169,10 +167,10 @@ public class ActServlet extends HttpServlet {
         //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
         
         //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-        //@@@@@@@@@@@@@@@@					ShowOne@LIST		@@@@@@@@@@@@@@@@@@@@@
+        //@@@@@@@@@@@@@@@@					ShowFive@LIST		@@@@@@@@@@@@@@@@@@@@@
         //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
         
-		if ("showOneLink".equals(action)) { // 來自actListjsp的請求
+		if ("showList5".equals(action)) { // 來自actListjsp的請求
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
@@ -182,13 +180,13 @@ public class ActServlet extends HttpServlet {
 				/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
 				Integer actID=Integer.parseInt(req.getParameter("actID"));
 				/***************************2.開始查詢資料*****************************************/
-				Act_Service act_Svc = new Act_Service();
+				ActFiestaService actF_Svc = new ActFiestaService();
 				ActPOIService actpoiSvc = new ActPOIService();
-				Act_VO Act_VO = act_Svc.getOne(actID);
+				ActFiestaVO actFVO = actF_Svc.getOne(actID);
 				
 				List<String> actpoilist = actpoiSvc.getPOIByActID(actID);
 				Integer memNow=1;						 // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-				if (Act_VO == null) {
+				if (actFVO == null) {
 					errorMsgs.add("查無資料");
 				}
 				// Send the use back to the form, if there were errors
@@ -200,7 +198,7 @@ public class ActServlet extends HttpServlet {
 				}
 				
 				/***************************3.查詢完成,準備轉交(Send the Success view)*************/
-				req.setAttribute("act_VO", Act_VO); // 資料庫取出的act_VO物件,存入req
+				req.setAttribute("act_VO", actFVO); // 資料庫取出的act_VO物件,存入req
 				req.setAttribute("memNow", memNow); // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 				req.setAttribute("actpoilist", actpoilist); // poi
 
