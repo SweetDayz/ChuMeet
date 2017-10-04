@@ -3,7 +3,7 @@ package com.act.actPOI.model;
 import com.act.act.model.Act_VO;
 import com.poi.model.POIVO;
 
-public class ActPOIVO {
+public class ActPOIVO implements java.io.Serializable  {
 	private Act_VO actVO;
 	private POIVO POIVO;
 	public Act_VO getActVO() {

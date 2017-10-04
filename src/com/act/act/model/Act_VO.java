@@ -6,7 +6,7 @@ import java.util.Set;
 import com.act.actMem.model.ActMemVO;
 import com.act.actPOI.model.ActPOIVO;
 
-public class Act_VO {
+public class Act_VO  implements java.io.Serializable {
 	
 	private Integer actID;
 	private Integer memID;

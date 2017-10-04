@@ -5,14 +5,16 @@
 <hibernate-mapping>
     <class name="com.act.actPOI.model.ActPOIVO" table="actPOI" >
         
-<composite-id>
-			 <key-many-to-one name="Act_VO" class="com.act.act.model.Act_VO" lazy="false">
-	            <column name="actID" />
-	        </key-many-to-one>
-			 <key-many-to-one name="POI_VO" class="com.act.actPOI.model.actPOIVO" lazy="false">
-	            <column name="POIID" />
-	        </key-many-to-one>
-</composite-id>
+		<composite-id>
+					 <key-many-to-one name="Act_VO" class="com.act.act.model.Act_VO" lazy="false">
+			            <column name="actID" />
+			        </key-many-to-one>
+			        
+					 <key-many-to-one name="POIVO" class="com.poi.model.POIVO" lazy="false">
+			            <column name="POIID" />
+			        </key-many-to-one>
+			        
+		</composite-id>
         
         
     </class>

@@ -5,12 +5,15 @@
 <hibernate-mapping>
     <class name="com.act.actMem.model.ActMemVO" table="actMem" >
         
-<composite-id>
-			 <key-many-to-one name="Act_VO" class="com.act.act.model.Act_VO" lazy="false">
-	            <column name="actID" />
-	        </key-many-to-one>
-			<key-property name="memID" column="memID" />
-</composite-id>
+		<composite-id>
+					 <key-many-to-one name="Act_VO" class="com.act.act.model.Act_VO" lazy="false">
+			            <column name="actID" />
+			        </key-many-to-one>
+			        
+			        <key-many-to-one name="MemberHVO" class="com.member.model.MemberHVO" lazy="false">
+			            <column name="memID" />
+			        </key-many-to-one>
+		</composite-id>
 
 			<property name="actMemStatus" column="actMemStatus" />
 			<property name="actJoinDate" column="actJoinDate" />

@@ -33,6 +33,7 @@ import javax.servlet.ServletException;
 import com.act.act.model.Act_VO;
 import com.act.actMem.model.ActMemVO;
 import com.act.actPOI.model.ActPOIVO;
+import com.member.model.MemberHVO;
 
 
 public class Act_DAO implements Act_interface {
@@ -82,7 +83,7 @@ public class Act_DAO implements Act_interface {
 		try {
 			session.beginTransaction();
 			Query query = session.createQuery("from Act_VO order by actID");
-			SQLQuery queryAdd= session.createSQLQuery("select 1 from act");
+
 			list = (List<Act_VO>) query.list(); 
 			session.getTransaction().commit();
 		} catch (RuntimeException ex) {
@@ -178,4 +179,63 @@ public class Act_DAO implements Act_interface {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	public static void main(String[] args) {
+
+		Act_DAO dao = new Act_DAO();
+
+		//● 查詢-findByPrimaryKey (優秀!) (一方dept2.hbm.xml必須設為lazy="false")
+//		DeptVO deptVO3 = dao.findByPrimaryKey(30);
+//		System.out.print(deptVO3.getDeptno() + ",");
+//		System.out.print(deptVO3.getDname() + ",");
+//		System.out.print(deptVO3.getLoc());
+//		System.out.println("\n-----------------");
+//		Set<EmpVO> set3 = deptVO3.getEmps();
+//		for (EmpVO aEmp : set3) {
+//			System.out.print(aEmp.getEmpno() + ",");
+//			System.out.print(aEmp.getEname() + ",");
+//			System.out.print(aEmp.getJob() + ",");
+//			System.out.print(aEmp.getHiredate() + ",");
+//			System.out.print(aEmp.getSal() + ",");
+//			System.out.print(aEmp.getComm() + ",");
+//			System.out.print(aEmp.getDeptVO().getDeptno() + ",");
+//			System.out.print(aEmp.getDeptVO().getDname() + ",");
+//			System.out.print(aEmp.getDeptVO().getLoc());
+//			System.out.println();
+//		}
+
+
+
+		//● 查詢-getAll-1 (一方dept2.hbm.xml不用設為lazy="false",因為沒用到多方的物件)
+//		List<DeptVO> list1 = dao.getAll();
+//		for (DeptVO aDept : list1) {
+//			System.out.print(aDept.getDeptno() + ",");
+//			System.out.print(aDept.getDname() + ",");
+//			System.out.print(aDept.getLoc());
+//			System.out.println();
+//		}
+
+
+
+		//● 查詢-getAll-2 (優秀!!!) (一方dept2.hbm.xml必須設為lazy="false")
+		List<Act_VO> list2 = dao.getAll();
+		for (Act_VO actvo : list2) {
+			System.out.print(actvo.getActID() + ",");
+			System.out.print(actvo.getActName() + ",");
+			System.out.print(actvo.getMemID());
+			System.out.println("\n-----------------");
+			
+			Set<ActMemVO> set2 = actvo.getActMemVO();
+			for (ActMemVO memv : set2) {
+				System.out.print(memv.getActMemStatus() + ",");
+				System.out.print(memv.getActJoinDate() + ",");
+				System.out.println();
+			}
+			System.out.println();
+		}
+
+	
+	
+	
+}
 }

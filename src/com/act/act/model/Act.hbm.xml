@@ -34,17 +34,17 @@
 				<property name="actAdr" column="actAdr" />
 				
 		<set name="actMem" table="actMem" lazy="false" cascade="all"  inverse="true">			
-			<key>
+			<key>  
 				<column name="actID" />
 			</key>
-			<one-to-many class="com.act.actMem.model.actMemVO" />
+			<one-to-many class="com.act.actMem.model.ActMemVO" />
 		</set>
 		
 		<set name="actPOI" table="actPOI" lazy="false" cascade="all"  inverse="true"  order-by="poiid">			
 			<key>
 				<column name="actID" />
 			</key>
-			<one-to-many class="com.act.actPOI.model.actPOIVO" />
+			<one-to-many class="com.act.actPOI.model.ActPOIVO" />
 		</set>
         
     </class>

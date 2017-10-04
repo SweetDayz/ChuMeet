@@ -134,6 +134,8 @@ public class ActServlet extends HttpServlet {
 				Act_VO act_VO = act_Svc.getOne(actID);
 				
 				List<String> actpoilist = actpoiSvc.getPOIByActID(actID);
+				
+				
 				Integer memNow=1;						 // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 				if (act_VO == null) {
 					errorMsgs.add("查無資料");

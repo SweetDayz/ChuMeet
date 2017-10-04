@@ -2,7 +2,7 @@ package com.act.act.model;
 
 import java.sql.Timestamp;
 
-public class ActFiestaVO {
+public class ActFiestaVO implements java.io.Serializable  {
 
 	private Integer actID;
 	private Integer memID;

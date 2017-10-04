@@ -29,7 +29,8 @@
 		<mapping resource="com/act/actMem/model/ActMem.hbm.xml" />
 		<mapping resource="com/act/actPOI/model/ActPOI.hbm.xml" />
 		<mapping resource="com/poi/model/POI.hbm.xml" />
-
+		<mapping resource="com/member/model/MemberH.hbm.xml" />
+		
 	</session-factory>
 	
 </hibernate-configuration>

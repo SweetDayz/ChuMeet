@@ -18,10 +18,6 @@
 	List<String> actpoilist = actPOISvc.getPOIByActID(1);
 	pageContext.setAttribute("actpoilist",actpoilist);
 
-	ActMemService actMemSvc = new ActMemService();
-	HashMap<Integer, String> memInhs = actMemSvc.whosIn(1);
-	pageContext.setAttribute("memInhs",memInhs);
-	pageContext.setAttribute("memInCount",memInhs.size());
 %>				
 
 <html>

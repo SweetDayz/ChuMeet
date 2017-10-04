@@ -21,8 +21,9 @@
 		<set name="actPOI" table="actPOI" lazy="false" cascade="all"  inverse="true"  order-by="POIID">			
 			<key>
 				<column name="POIID" />
+				<column name="actID" />
 			</key>
-			<one-to-many class="com.act.actPOI.model.actPOIVO" />
+			<one-to-many class="com.act.actPOI.model.ActPOIVO" />
 		</set>
         
     </class>
