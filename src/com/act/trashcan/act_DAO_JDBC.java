@@ -1,4 +1,4 @@
-package com.act.act.model;
+package com.act.trashcan;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -7,6 +7,7 @@ import java.sql.*;
 import java.util.*;
 
 import com.act.act.model.Act_VO;
+import com.act.act.model.Act_interface;
 import com.gen.tool.tools;
 
 import oracle.sql.BLOB;

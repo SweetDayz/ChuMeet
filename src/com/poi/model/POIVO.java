@@ -1,5 +1,11 @@
 package com.poi.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import com.act.actMem.model.ActMemVO;
+import com.act.actPOI.model.ActPOIVO;
+
 public class POIVO {
 	private Integer POIID;
 	private String POINameC;
@@ -7,6 +13,17 @@ public class POIVO {
 	private String POIAbr;
 	private Integer POIStatus;
 	private byte[] POIImg;
+	private Set<ActPOIVO> actPOIs = new HashSet<ActPOIVO>();
+ 
+	
+	
+	public Set<ActPOIVO> getActPOIs() {
+		return actPOIs;
+	}
+	public void setActPOIs(Set<ActPOIVO> actPOIs) {
+		this.actPOIs = actPOIs;
+	}
+	
 	public Integer getPOIID() {
 		return POIID;
 	}

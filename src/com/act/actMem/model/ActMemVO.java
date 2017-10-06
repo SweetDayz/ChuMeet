@@ -16,7 +16,7 @@ public class ActMemVO implements java.io.Serializable{
 	private Timestamp actStarDate;
 
 	
-	
+//	查多時，帶出一
 	public MemberHVO getMemberHVO() {
 		return memberHVO;
 	}

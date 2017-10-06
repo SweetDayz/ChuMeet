@@ -32,7 +32,7 @@
 		<property name="memPriv" column="memPriv" />
 		<property name="memStatus" column="memStatus" />
 
-		<set name="actMem" table="actMem" lazy="false" cascade="all"  inverse="true" order-by="actJoinDate asc">			
+		<set name="actMems" table="actMem" lazy="false" cascade="all"  inverse="true" order-by="actJoinDate asc">			
 			<key>
 				<column name="memID" />
 			</key>

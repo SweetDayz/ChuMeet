@@ -10,7 +10,6 @@ import javax.sql.DataSource;
 
 import org.jsoup.Jsoup;
 
-import com.act.act.model.ActFiestaVO;
 import com.act.act.model.Act_VO;
 
 public class actCodeTrans {
@@ -23,44 +22,7 @@ public class actCodeTrans {
 			e.printStackTrace();
 		}
 	}
-	
-	public static List<ActFiestaVO> actFiesta(List<Act_VO> actlist){
 		
-		List<ActFiestaVO> actFlist=null;
-
-		for (Act_VO actVO: actlist){
-			ActFiestaVO actFVO=new ActFiestaVO();
-				actFVO.setMemName(whoRU(actVO.getMemID()));
-				actFVO.setActCnt(Jsoup.parse(actVO.getActContent()).text().substring(0,200));
-				actFVO.setActID(actVO.getActID());
-				actFVO.setMemID(actVO.getMemID());
-				actFVO.setActCreateDate(actVO.getActCreateDate());
-				actFVO.setActName(actVO.getActName());
-				actFVO.setActStatus(actVO.getActStatus());
-				actFVO.setActPriID(actVO.getActPriID());
-				actFVO.setActStartDate(actVO.getActStartDate());
-				actFVO.setActEndDate(actVO.getActEndDate());
-				actFVO.setActSignStartDate(actVO.getActSignStartDate());
-				actFVO.setActSignEndDate(actVO.getActSignEndDate());
-				actFVO.setActTimeTypeID(actVO.getActTimeTypeID());
-				actFVO.setActTimeTypeCnt(actVO.getActTimeTypeCnt());
-				actFVO.setActMemMax(actVO.getActMemMax());
-				actFVO.setActMemMin(actVO.getActMemMin());
-				actFVO.setActIMG(actVO.getActIMG());
-				actFVO.setActContent(actVO.getActContent());
-				actFVO.setActIsHot(actVO.getActIsHot());
-				actFVO.setActLong(actVO.getActLong());
-				actFVO.setActLat(actVO.getActLat());
-				actFVO.setActPost(actVO.getActPost());
-				actFVO.setActLocName(actVO.getActLocName());
-				actFVO.setActAdr(actVO.getActAdr());
-
-				actFlist.add(actFVO);
-		}
-	
-		return actFlist;
-	}
-	
 	public static String whoRU(int memID){
 		String memName = null;
 		
@@ -70,11 +32,11 @@ public class actCodeTrans {
 
 		try {
 			con = ds.getConnection();
-			pstmt = con.prepareStatement("select mamName from member where memID=?");
+			pstmt = con.prepareStatement("select memName from member where memID=?");
 			pstmt.setInt(1, memID);
 			rs = pstmt.executeQuery();
-
-				memName=rs.getString("memName");
+			rs.next();
+			memName=rs.getString("memName");
 			// Handle any driver errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
@@ -105,7 +67,49 @@ public class actCodeTrans {
 		return memName;
 	}
 		
-	
+	public static Integer actMemCount(int actID){
+		int memCount;
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement("select count(*) as count from actmem where actid=? and actmemstatus<3");
+			pstmt.setInt(1, actID);
+			rs = pstmt.executeQuery();
+			rs.next();
+			memCount=rs.getInt("count");
+			// Handle any driver errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return memCount;
+	}
 	
 		public static String actStattoString(int actStatID){
 			String Str=null;

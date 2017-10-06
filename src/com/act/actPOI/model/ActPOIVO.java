@@ -6,6 +6,7 @@ import com.poi.model.POIVO;
 public class ActPOIVO implements java.io.Serializable  {
 	private Act_VO actVO;
 	private POIVO POIVO;
+	
 	public Act_VO getActVO() {
 		return actVO;
 	}

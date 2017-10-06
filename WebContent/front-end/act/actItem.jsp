@@ -11,14 +11,8 @@
 <%Act_VO actVO = (Act_VO) request.getAttribute("actVO");%>
 <c:set var="holder" value="${actVO.memID}" />
 <c:set var="memNow" value="1"  scope="session"/>
-				
 
-<%
-	ActPOIService actPOISvc = new ActPOIService();
-	List<String> actpoilist = actPOISvc.getPOIByActID(1);
-	pageContext.setAttribute("actpoilist",actpoilist);
 
-%>				
 
 <html>
 <!-- Head BEGIN -->
@@ -69,7 +63,8 @@
 
             <div class="content-page">
               <div class="row">
-		<jsp:useBean id="toolman" scope="session" class="com.gen.tool.tools"/> 
+		<jsp:useBean id="toolman" scope="session" class="com.gen.tool.tools"/>
+		<jsp:useBean id="transman" scope="session" class="com.gen.tool.actCodeTrans"/>  
                 <!-- BEGIN LEFT SIDEBAR -->     
                        
                 <div class="col-md-9 col-sm-9 blog-item">
@@ -116,17 +111,17 @@
                           		
                           		
                           		</span></td></tr>
-								<tr><th class="text-danger topstat"><i class="fa fa-user"></i></th><th>活動發起人</th><td><span>breadcan</span></td></tr>
+								<tr><th class="text-danger topstat"><i class="fa fa-user"></i></th><th>活動發起人</th><td><span>${transman.whoRU(actVO.memID)}</span></td></tr>
                          		<tr><th class="text-danger topstat"><i class="fa fa-calendar"></i></th><th>活動時間</th><td><span> ${toolman.tsToActStr(actVO.actStartDate)}起至 ${toolman.tsToActStr(actVO.actEndDate)}</span></td></tr>
                          		<tr><th class="text-danger topstat"><i class="fa fa-calendar-check-o"></i></th><th>報名時間</th><td><span> ${toolman.tsToActStr(actVO.actSignStartDate)} 起至 ${toolman.tsToActStr(actVO.actSignEndDate)}</span></td></tr>
-                         		<tr><th class="text-danger topstat"><i class="fa fa-users"></i></th><th>目前人數</th><td><span>${memInCount}</span>/<span>${actVO.actMemMax}</span></td></tr>
+                         		<tr><th class="text-danger topstat"><i class="fa fa-users"></i></th><th>目前人數</th><td><span>${transman.actMemCount(actVO.actID)}</span>/<span>${actVO.actMemMax}</span></td></tr>
 
                           		</table>
                 			<div class="event-tags">
-                          		<c:forEach var="actpoilist" items="${actpoilist}">
+                          		<c:forEach var="actPOIVO" items="${actVO.actPOIs}">
                           		<li>
                           		<a href="#"><i class="fa fa-tags"></i>
-                          			${actpoilist}
+                          			${actPOIVO.POIVO.POINameC}
                           		</a></li>
                           		</c:forEach>
 							</div>	
@@ -143,54 +138,24 @@
                   </p>
 </div>
                      <hr class="colorgraph">
-                  <h2>Comments</h2>
+                  <h2>留言區</h2>
                   <div class="comments">
+<!--                   start mb1 -->
                     <div class="media">                    
                       <a href="javascript:;" class="pull-left">
                       <img src="../assets/pages/img/people/img1-small.jpg" alt="" class="media-object">
                       </a>
                       <div class="media-body">
-                        <h4 class="media-heading">Media heading <span>5 hours ago / <a href="javascript:;">Reply</a></span></h4>
-                        <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-                        <!-- Nested media object -->
-                        <div class="media">
-                          <a href="javascript:;" class="pull-left">
-                          <img src="../assets/pages/img/people/img2-small.jpg" alt="" class="media-object">
-                          </a>
-                          <div class="media-body">
-                            <h4 class="media-heading">Media heading <span>17 hours ago / <a href="javascript:;">Reply</a></span></h4>
-                            <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-                          </div>
-                        </div>
-                        <!--end media-->                      
-                        <div class="media">
-                          <a href="javascript:;" class="pull-left">
-                          <img src="../assets/pages/img/people/img3-small.jpg" alt="" class="media-object">
-                          </a>
-                          <div class="media-body">
-                            <h4 class="media-heading">Media heading <span>2 days ago / <a href="javascript:;">Reply</a></span></h4>
-                            <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-                          </div>
-                        </div>
-                        <!--end media-->
+                        <h4 class="media-heading">breadcan <span>timestamp[] 5 hours ago / <a href="javascript:;">Reply</a></span></h4>
+                        <p>哇！化妝品！</p>
                       </div>
                     </div>
-                    <!--end media-->
-                    <div class="media">
-                      <a href="javascript:;" class="pull-left">
-                      <img src="../assets/pages/img/people/img4-small.jpg" alt="" class="media-object">
-                      </a>
-                      <div class="media-body">
-                        <h4 class="media-heading">Media heading <span>July 25,2013 / <a href="javascript:;">Reply</a></span></h4>
-                        <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-                      </div>
-                    </div>
-                    <!--end media-->
+ <!--end media-->
                   </div>
 
                   <div class="post-comment padding-top-40">
                     <h3>活動留言</h3>
-                    <form role="form">
+                    <form role="form" action="act.do">
                       <div class="form-group">
                         <textarea class="form-control" rows="8"></textarea>
                       </div>
@@ -210,7 +175,7 @@
 
 							</c:when>
 							
-							<c:when test="${memInhs.containsKey(memNow)}">					
+							<c:when test="${actVO.actMems.memberHVO.memID			.containsKey(memNow)}">					
 								<button type="submit" name="action" value="delete" <c:if test="${toolman.nowTimestamp() > actVO.actEndDate}"> disabled </c:if> class="btn btn-block btn-warning">退出活動</button>
 							</c:when>
 							
@@ -261,9 +226,11 @@
                   <div class="blog-photo-stream margin-bottom-20">
                     <h2>已參加的成員</h2>
                     <ul class="list-unstyled">
-                          		<c:forEach var="memInhs" items="${memInhs}">
+                             <c:forEach var="actMemVO" items="${actVO.actMems}">
                           		<li>
-                          		<a href="#"><img src="<%=request.getContextPath()%>/img/showIMG?colName=MEMAVATAR&table=MEMBER&pk=MEMID&imgFrom=${memInhs.getKey()}"  title="${memInhs.getValue()}">
+                          		<a href="#">
+								<img src="<%=request.getContextPath()%>/img/showIMG?colName=MEMAVATAR&table=MEMBER&pk=MEMID&imgFrom=${actMemVO.memberHVO.memID}"  title="${actMemVO.memberHVO.memName}}">
+                          			
                           		</a></li>
                           		</c:forEach>
                     </ul>                    

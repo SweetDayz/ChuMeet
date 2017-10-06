@@ -38,4 +38,13 @@ public class ActMemDAO implements ActMem_Interface {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	public HashMap<Integer, ActMemVO[]> memPackage(int actID){
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		HashMap<Integer, ActMemVO[]> memPack=null;
+			Query q1=session.createSQLQuery("select * from actmem where actid="+actID+"where actMemStatus = 1");
+			
+		return memPack;
+	
+	}
 }

@@ -251,17 +251,10 @@ public class tools {
 	         
 	         Pattern p_html=Pattern.compile(regEx_html,Pattern.CASE_INSENSITIVE); 
 	         Matcher m_html=p_html.matcher(htmlStr); 
-	         htmlStr=m_html.replaceAll(""); //-HTML 
-
-	        return htmlStr.trim(); //return
+	         htmlStr=m_html.replaceAll(" "); //-HTML 
+	         
+	        return htmlStr.trim().substring(0,170); //return
 	     } 
 		
-
-//		只取XX字
-	    public static String strshorter(String str, int len){ 
-	    	String strCut=str.substring(0, len);
-	        return strCut; //return
-	     } 
-
 	    
 }

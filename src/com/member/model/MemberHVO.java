@@ -2,6 +2,10 @@ package com.member.model;
 import java.sql.Blob;
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.HashSet;
+import java.util.Set;
+
+import com.act.actMem.model.ActMemVO;
 
 public class MemberHVO implements java.io.Serializable {
 	private Integer memID;
@@ -25,6 +29,18 @@ public class MemberHVO implements java.io.Serializable {
 	private Integer memLat;
 	private Integer memPriv;
 	private Integer memStatus;
+	
+	
+	private Set<ActMemVO> actMems = new HashSet<ActMemVO>();
+	
+	
+	
+	public Set<ActMemVO> getActMems() {
+		return actMems;
+	}
+	public void setActMems(Set<ActMemVO> actMems) {
+		this.actMems = actMems;
+	}
 	public Integer getMemID() {
 		return memID;
 	}

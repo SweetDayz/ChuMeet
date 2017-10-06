@@ -33,6 +33,7 @@ import javax.servlet.ServletException;
 import com.act.act.model.Act_VO;
 import com.act.actMem.model.ActMemVO;
 import com.act.actPOI.model.ActPOIVO;
+import com.gen.tool.tools;
 import com.member.model.MemberHVO;
 
 
@@ -68,6 +69,14 @@ public class Act_DAO implements Act_interface {
 		try {
 			session.beginTransaction();
 			actVO = (Act_VO) session.get(Act_VO.class, actID);
+//			Query queryF = session.createSQLQuery("select * from actmem where actid=? and actmemstatus <3");
+//			Set<String> actMemberSet=null;
+//			for (ActPOIVO actp: actVO.getActPOIs()){
+//				actp.getPOIVO().getPOINameC();
+//			}
+			
+			
+//			Query.set			Query queryF = session.createSQLQuery("select * from actmem where actid=? and actmemstatus <3");
 			session.getTransaction().commit();
 		} catch (RuntimeException ex) {
 			session.getTransaction().rollback();
@@ -83,8 +92,36 @@ public class Act_DAO implements Act_interface {
 		try {
 			session.beginTransaction();
 			Query query = session.createQuery("from Act_VO order by actID");
-
-			list = (List<Act_VO>) query.list(); 
+			list = (List<Act_VO>) query.list();
+			List<ActFiestaVO> listf=null; 
+			for (Act_VO actVO: list){
+				ActFiestaVO actf=new ActFiestaVO();
+					actf.setMemName(actVO.getActName());
+					actf.setActCnt(tools.delHTMLTag(actVO.getActContent()));
+					
+					actf.setMemID(actVO.getMemID());
+					actf.setActCreateDate(actVO.getActCreateDate());
+					actf.setActName(actVO.getActName());
+					actf.setActStatus(actVO.getActStatus());
+					actf.setActPriID(actVO.getActPriID());
+					actf.setActStartDate(actVO.getActStartDate());
+					actf.setActEndDate(actVO.getActEndDate());
+					actf.setActSignStartDate(actVO.getActSignStartDate());
+					actf.setActSignEndDate(actVO.getActSignEndDate());
+					actf.setActTimeTypeID(actVO.getActTimeTypeID());
+					actf.setActTimeTypeCnt(actVO.getActTimeTypeCnt());
+					actf.setActMemMax(actVO.getActMemMax());
+					actf.setActMemMin(actVO.getActMemMin());
+					actf.setActIMG(actVO.getActIMG());
+					actf.setActContent(actVO.getActContent());
+					actf.setActIsHot(actVO.getActIsHot());
+					actf.setActLong(actVO.getActLong());
+					actf.setActLat(actVO.getActLat());
+					actf.setActPost(actVO.getActPost());
+					actf.setActLocName(actVO.getActLocName());
+					actf.setActAdr(actVO.getActAdr());
+				
+			}
 			session.getTransaction().commit();
 		} catch (RuntimeException ex) {
 			session.getTransaction().rollback();
@@ -218,21 +255,21 @@ public class Act_DAO implements Act_interface {
 
 
 		//● 查詢-getAll-2 (優秀!!!) (一方dept2.hbm.xml必須設為lazy="false")
-		List<Act_VO> list2 = dao.getAll();
-		for (Act_VO actvo : list2) {
-			System.out.print(actvo.getActID() + ",");
-			System.out.print(actvo.getActName() + ",");
-			System.out.print(actvo.getMemID());
-			System.out.println("\n-----------------");
-			
-			Set<ActMemVO> set2 = actvo.getActMemVO();
-			for (ActMemVO memv : set2) {
-				System.out.print(memv.getActMemStatus() + ",");
-				System.out.print(memv.getActJoinDate() + ",");
-				System.out.println();
-			}
-			System.out.println();
-		}
+//		List<Act_VO> list2 = dao.getAll();
+//		for (Act_VO actvo : list2) {
+//			System.out.print(actvo.getActID() + ",");
+//			System.out.print(actvo.getActName() + ",");
+//			System.out.print(actvo.getMemID());
+//			System.out.println("\n-----------------");
+//			
+//			Set<ActMemVO> set2 = actvo.getActMems();
+//			for (ActMemVO memv : set2) {
+//				System.out.print(memv.getActMemStatus() + ",");
+//				System.out.print(memv.getActJoinDate() + ",");
+//				System.out.println();
+//			}
+//			System.out.println();
+//		}
 
 	
 	

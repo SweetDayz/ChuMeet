@@ -18,10 +18,9 @@
 			<property name="POIImg" column="POIImg" />
         
         
-		<set name="actPOI" table="actPOI" lazy="false" cascade="all"  inverse="true"  order-by="POIID">			
-			<key>
-				<column name="POIID" />
-				<column name="actID" />
+		<set name="actPOIs" table="actPOI" lazy="false" cascade="all"  inverse="true"  order-by="POIID">			
+			<key>				
+			<column name="POIID" />			
 			</key>
 			<one-to-many class="com.act.actPOI.model.ActPOIVO" />
 		</set>

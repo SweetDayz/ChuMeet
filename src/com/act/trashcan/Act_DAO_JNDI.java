@@ -1,4 +1,4 @@
-package com.act.act.model;
+package com.act.trashcan;
 import java.sql.*;
 import java.sql.Timestamp;
 import java.util.*;
@@ -7,6 +7,9 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
+
+import com.act.act.model.Act_VO;
+import com.act.act.model.Act_interface;
 
 public class Act_DAO_JNDI implements Act_interface {
 	private static DataSource ds = null;

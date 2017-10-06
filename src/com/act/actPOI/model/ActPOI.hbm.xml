@@ -6,7 +6,7 @@
     <class name="com.act.actPOI.model.ActPOIVO" table="actPOI" >
         
 		<composite-id>
-					 <key-many-to-one name="Act_VO" class="com.act.act.model.Act_VO" lazy="false">
+					 <key-many-to-one name="actVO" class="com.act.act.model.Act_VO" lazy="false">
 			            <column name="actID" />
 			        </key-many-to-one>
 			        

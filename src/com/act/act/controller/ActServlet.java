@@ -128,16 +128,17 @@ public class ActServlet extends HttpServlet {
 //			try {
 				/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
 				Integer actID=Integer.parseInt(req.getParameter("actID"));
+				System.out.println(actID);
 				/***************************2.開始查詢資料*****************************************/
-				Act_Service act_Svc = new Act_Service();
+				Act_Service actSvc = new Act_Service();
 				ActPOIService actpoiSvc = new ActPOIService();
-				Act_VO act_VO = act_Svc.getOne(actID);
+				Act_VO actVO = actSvc.getOne(actID);
 				
 				List<String> actpoilist = actpoiSvc.getPOIByActID(actID);
 				
 				
 				Integer memNow=1;						 // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-				if (act_VO == null) {
+				if (actVO == null) {
 					errorMsgs.add("查無資料");
 				}
 				// Send the use back to the form, if there were errors
@@ -149,7 +150,7 @@ public class ActServlet extends HttpServlet {
 				}
 				
 				/***************************3.查詢完成,準備轉交(Send the Success view)*************/
-				req.setAttribute("act_VO", act_VO); // 資料庫取出的act_VO物件,存入req
+				req.setAttribute("actVO", actVO); // 資料庫取出的act_VO物件,存入req
 				req.setAttribute("memNow", memNow); // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 				req.setAttribute("actpoilist", actpoilist); // poi
 

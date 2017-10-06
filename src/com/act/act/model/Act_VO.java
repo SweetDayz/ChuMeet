@@ -30,21 +30,24 @@ public class Act_VO  implements java.io.Serializable {
 	private Integer actPost;
 	private String actLocName;
 	private String actAdr;
-
-	private Set<ActMemVO> actMemVO = new HashSet<ActMemVO>();
-	private Set<ActPOIVO> actPOIVO = new HashSet<ActPOIVO>();
 	
-	public Set<ActPOIVO> getActPOIVO() {
-		return actPOIVO;
+//	查一時，查出一群多(actMem) => set
+	private Set<ActMemVO> actMems = new HashSet<ActMemVO>();
+	private Set<ActPOIVO> actPOIs = new HashSet<ActPOIVO>();
+
+	
+	
+	public Set<ActMemVO> getActMems() {
+		return actMems;
 	}
-	public void setActPOIVO(Set<ActPOIVO> actPOIVO) {
-		this.actPOIVO = actPOIVO;
+	public void setActMems(Set<ActMemVO> actMems) {
+		this.actMems = actMems;
 	}
-	public Set<ActMemVO> getActMemVO() {
-		return actMemVO;
+	public Set<ActPOIVO> getActPOIs() {
+		return actPOIs;
 	}
-	public void setActMemVO(Set<ActMemVO> actMemVO) {
-		this.actMemVO = actMemVO;
+	public void setActPOIs(Set<ActPOIVO> actPOIs) {
+		this.actPOIs = actPOIs;
 	}
 	public Integer getActID() {
 		return actID;
