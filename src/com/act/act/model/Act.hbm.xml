@@ -32,6 +32,9 @@
 				<property name="actPost" column="actPost" />
 				<property name="actLocName" column="actLocName" />
 				<property name="actAdr" column="actAdr" />
+				<property name="actRef" column="actRef" />
+				<property name="actRefUID" column="actRefUID" />
+				<property name="actType" column="actType" />
 
 
 <!--	查一可以帶出多，也可以不要 -->

@@ -7,7 +7,14 @@ import com.act.actMem.model.ActMemVO;
 import com.act.actPOI.model.ActPOIVO;
 
 public class Act_VO  implements java.io.Serializable {
-	
+	private Integer actType;
+	public Integer getActType() {
+		return actType;
+	}
+	public void setActType(Integer actType) {
+		this.actType = actType;
+	}
+
 	private Integer actID;
 	private Integer memID;
 	private Timestamp actCreateDate;
@@ -31,6 +38,7 @@ public class Act_VO  implements java.io.Serializable {
 	private String actLocName;
 	private String actAdr;
 	private String actRef;	
+	private String actRefUID;
 	
 	public String getActRef() {
 		return actRef;
@@ -188,6 +196,12 @@ public class Act_VO  implements java.io.Serializable {
 	}
 	public void setActAdr(String actAdr) {
 		this.actAdr = actAdr;
+	}
+	public String getActRefUID() {
+		return actRefUID;
+	}
+	public void setActRefUID(String actRefUID) {
+		this.actRefUID = actRefUID;
 	}
 
 

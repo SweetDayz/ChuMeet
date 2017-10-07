@@ -4,6 +4,7 @@ import com.act.act.model.Act_VO;
 import com.poi.model.POIVO;
 
 public class ActPOIVO implements java.io.Serializable  {
+	
 	private Act_VO actVO;
 	private POIVO POIVO;
 	

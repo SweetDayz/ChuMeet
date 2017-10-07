@@ -99,8 +99,7 @@ public class Act_DAO implements Act_interface {
 				ActFiestaVO actf=new ActFiestaVO();
 					actf.setMemName(actCodeTrans.whoRU(actVO.getMemID()));
 					actf.setActCnt(tools.delHTMLTag(actVO.getActContent()).trim());
-					
-					
+	
 					actf.setMemID(actVO.getMemID());
 					actf.setActCreateDate(actVO.getActCreateDate());
 					actf.setActName(actVO.getActName());

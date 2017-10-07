@@ -8,8 +8,10 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.io.Reader;
+import java.net.URL;
 import java.sql.Blob;
 import java.sql.Clob;
 import java.sql.Connection;
@@ -94,6 +96,23 @@ public class tools {
 		return baos.toByteArray();
 	}
 
+	public static byte[] getUrlPictureByteArray(String Urll) throws IOException {
+	    URL url = new URL(Urll);
+	    InputStream is = url.openStream();
+
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		byte[] buffer = new byte[8192];
+		int i;
+		while ((i = is.read(buffer)) != -1) {
+			baos.write(buffer, 0, i);
+		}
+		baos.close();
+		is.close();
+
+		return baos.toByteArray();
+	}
+	
+	
 	//BLOB轉byte
 	public static byte[] blobToBytes(Blob blob) {
 
@@ -203,7 +222,17 @@ public class tools {
 	        return new java.sql.Timestamp(utDate.getTime());
 	    }
 
-	    
+	    public static java.sql.Timestamp strToTimestampGson(String strDate) {
+	        java.util.Date utDate;
+	        try {
+	            SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+	            sdf.setLenient(false);
+	            utDate = sdf.parse(strDate);
+	        } catch (Exception e) {
+	            return null;
+	        }
+	        return new java.sql.Timestamp(utDate.getTime());
+	    }
 	    
 	    
 		public static byte[] sendPicture(String path) throws IOException {
@@ -252,6 +281,9 @@ public class tools {
 	         Pattern p_html=Pattern.compile(regEx_html,Pattern.CASE_INSENSITIVE); 
 	         Matcher m_html=p_html.matcher(htmlStr); 
 	         htmlStr=m_html.replaceAll(" "); //-HTML 
+	         htmlStr=m_html.replaceAll(""); //-HTML
+	         htmlStr=m_html.replaceAll("\n"); //-HTML 
+	         htmlStr=m_html.replaceAll("\r"); //-HTML
 	         
 	        return htmlStr.trim().substring(0,170); //return
 	     } 

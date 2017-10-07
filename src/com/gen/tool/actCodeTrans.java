@@ -3,6 +3,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 
 import javax.naming.*;
@@ -11,6 +13,7 @@ import javax.sql.DataSource;
 import org.jsoup.Jsoup;
 
 import com.act.act.model.Act_VO;
+import com.act.actMem.model.ActMemVO;
 
 public class actCodeTrans {
 	private static DataSource ds = null;
@@ -111,7 +114,7 @@ public class actCodeTrans {
 		return memCount;
 	}
 	
-		public static String actStattoString(int actStatID){
+	public static String actStattoString(int actStatID){
 			String Str=null;
 				switch(actStatID){
 				case 1:Str="籌辦中";break;
@@ -136,8 +139,7 @@ public class actCodeTrans {
 			return Str;
 		}
 
-		
-			public static String actPosttoString(int postNo){
+	public static String actPosttoString(int postNo){
 				String Str=null;
 				switch(postNo){
 						case 999:Str="線上";break;
@@ -458,7 +460,57 @@ public class actCodeTrans {
 						}
 					return Str;
 				}
+	
+	public static HashMap<Integer, ActMemVO[]> memPackage(int actID){
+		HashMap<Integer, ActMemVO[]> hm=new HashMap<Integer, ActMemVO[]>();
+	
+				Connection con = null;
+				PreparedStatement pstmt = null;
+				ResultSet rs = null;
+
+				try {
+					con = ds.getConnection();
+					for (int i=1; i<6; i++) {
+						pstmt = con.prepareStatement("select * from actmem where actid="+actID+" and actmemstatus="+i);
+						rs = pstmt.executeQuery();
+						LinkedHashSet <ActMemVO> actmVOs=new LinkedHashSet<ActMemVO>();
+						while (rs.next()){
+							ActMemVO actmVO=new ActMemVO();
+							actmVO.setActVO(actVO);
+							rs.getInt(actID);
+						}
+					}
+					// Handle any driver errors
+				} catch (SQLException se) {
+					throw new RuntimeException("A database error occured. "
+							+ se.getMessage());
+				} finally {
+					if (rs != null) {
+						try {
+							rs.close();
+						} catch (SQLException se) {
+							se.printStackTrace(System.err);
+						}
+					}
+					if (pstmt != null) {
+						try {
+							pstmt.close();
+						} catch (SQLException se) {
+							se.printStackTrace(System.err);
+						}
+					}
+					if (con != null) {
+						try {
+							con.close();
+						} catch (Exception e) {
+							e.printStackTrace(System.err);
+						}
+					}
+				}
+				return memCount;
+			}
 			
+	}
 	
 			
 }
