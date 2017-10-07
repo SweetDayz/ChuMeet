@@ -1,6 +1,8 @@
 package com.act.actMem.model;
 import org.hibernate.*;
 
+import com.act.act.model.Act_VO;
+
 import hibernate.util.HibernateUtil;
 
 import java.sql.Connection;
@@ -34,8 +36,13 @@ public class ActMemDAO implements ActMem_Interface {
 	}
 
 	@Override
-	public List<ActMemVO> myActList(Integer actID, Integer memID) {
-		// TODO Auto-generated method stub
+	public List<ActMemVO> myActList(Integer memID) {
+		List<ActMemVO> list = null;
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		
+		Query query = session.createQuery("from ActMemVO where memid="+memID+" order by actID");
+		list = (List<ActMemVO>) query.list();
+		HashMap<Integer, ActMemVO[]> memPack=null;
 		return null;
 	}
 	

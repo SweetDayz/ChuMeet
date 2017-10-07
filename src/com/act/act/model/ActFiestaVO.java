@@ -1,4 +1,5 @@
 package com.act.act.model;
+
 import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
@@ -6,7 +7,11 @@ import java.util.Set;
 import com.act.actMem.model.ActMemVO;
 import com.act.actPOI.model.ActPOIVO;
 
-public class Act_VO  implements java.io.Serializable {
+public class ActFiestaVO implements java.io.Serializable  {
+
+	private String memName;
+	private String actCnt;
+	private int memPack;
 	
 	private Integer actID;
 	private Integer memID;
@@ -32,13 +37,12 @@ public class Act_VO  implements java.io.Serializable {
 	private String actAdr;
 	private String actRef;	
 	
-	public String getActRef() {
+public String getActRef() {
 		return actRef;
 	}
 	public void setActRef(String actRef) {
 		this.actRef = actRef;
 	}
-	
 	//	查一時，查出一群多(actMem) => set
 	private Set<ActMemVO> actMems = new HashSet<ActMemVO>();
 	private Set<ActPOIVO> actPOIs = new HashSet<ActPOIVO>();
@@ -189,7 +193,24 @@ public class Act_VO  implements java.io.Serializable {
 	public void setActAdr(String actAdr) {
 		this.actAdr = actAdr;
 	}
+	public String getMemName() {
+		return memName;
+	}
+	public void setMemName(String memName) {
+		this.memName = memName;
+	}
+	public String getActCnt() {
+		return actCnt;
+	}
+	public void setActCnt(String actCnt) {
+		this.actCnt = actCnt;
+	}
+	public int getMemPack() {
+		return memPack;
+	}
+	public void setMemPack(int memPack) {
+		this.memPack = memPack;
+	}
 
 
-	
 }

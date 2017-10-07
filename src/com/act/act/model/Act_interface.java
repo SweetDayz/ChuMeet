@@ -17,7 +17,6 @@ public interface Act_interface {
     
     public Set<ActMemVO> whosin(Integer actID);
     public Set<ActPOIVO> showthetags(Integer actID);
-    
         
     public List<Act_VO> getActByPOIID(Integer POIID);
     public List<Act_VO> getActByDate(Timestamp actDate);

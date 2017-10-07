@@ -33,6 +33,7 @@ import javax.servlet.ServletException;
 import com.act.act.model.Act_VO;
 import com.act.actMem.model.ActMemVO;
 import com.act.actPOI.model.ActPOIVO;
+import com.gen.tool.actCodeTrans;
 import com.gen.tool.tools;
 import com.member.model.MemberHVO;
 
@@ -96,8 +97,9 @@ public class Act_DAO implements Act_interface {
 			List<ActFiestaVO> listf=null; 
 			for (Act_VO actVO: list){
 				ActFiestaVO actf=new ActFiestaVO();
-					actf.setMemName(actVO.getActName());
-					actf.setActCnt(tools.delHTMLTag(actVO.getActContent()));
+					actf.setMemName(actCodeTrans.whoRU(actVO.getMemID()));
+					actf.setActCnt(tools.delHTMLTag(actVO.getActContent()).trim());
+					
 					
 					actf.setMemID(actVO.getMemID());
 					actf.setActCreateDate(actVO.getActCreateDate());
@@ -275,4 +277,6 @@ public class Act_DAO implements Act_interface {
 	
 	
 }
+
+
 }
