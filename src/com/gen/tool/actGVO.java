@@ -1,7 +1,5 @@
-
 package com.gen.tool;
 
-import java.util.ArrayList;
 import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -20,13 +18,9 @@ private String title;
 @SerializedName("category")
 @Expose
 private String category;
-
-
 @SerializedName("showInfo")
 @Expose
-private ArrayList<ShowInfo> showInfo = null;
-
-
+private List<ShowInfo> showInfo = null;
 @SerializedName("showUnit")
 @Expose
 private String showUnit;
@@ -114,11 +108,11 @@ public void setCategory(String category) {
 this.category = category;
 }
 
-public ArrayList<ShowInfo> getShowInfo() {
+public List<ShowInfo> getShowInfo() {
 return showInfo;
 }
 
-public void setShowInfo(ArrayList<ShowInfo> showInfo) {
+public void setShowInfo(List<ShowInfo> showInfo) {
 this.showInfo = showInfo;
 }
 

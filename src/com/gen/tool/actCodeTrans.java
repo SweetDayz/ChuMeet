@@ -461,56 +461,6 @@ public class actCodeTrans {
 					return Str;
 				}
 	
-	public static HashMap<Integer, ActMemVO[]> memPackage(int actID){
-		HashMap<Integer, ActMemVO[]> hm=new HashMap<Integer, ActMemVO[]>();
-	
-				Connection con = null;
-				PreparedStatement pstmt = null;
-				ResultSet rs = null;
 
-				try {
-					con = ds.getConnection();
-					for (int i=1; i<6; i++) {
-						pstmt = con.prepareStatement("select * from actmem where actid="+actID+" and actmemstatus="+i);
-						rs = pstmt.executeQuery();
-						LinkedHashSet <ActMemVO> actmVOs=new LinkedHashSet<ActMemVO>();
-						while (rs.next()){
-							ActMemVO actmVO=new ActMemVO();
-							actmVO.setActVO(actVO);
-							rs.getInt(actID);
-						}
-					}
-					// Handle any driver errors
-				} catch (SQLException se) {
-					throw new RuntimeException("A database error occured. "
-							+ se.getMessage());
-				} finally {
-					if (rs != null) {
-						try {
-							rs.close();
-						} catch (SQLException se) {
-							se.printStackTrace(System.err);
-						}
-					}
-					if (pstmt != null) {
-						try {
-							pstmt.close();
-						} catch (SQLException se) {
-							se.printStackTrace(System.err);
-						}
-					}
-					if (con != null) {
-						try {
-							con.close();
-						} catch (Exception e) {
-							e.printStackTrace(System.err);
-						}
-					}
-				}
-				return memCount;
-			}
-			
-	}
-	
 			
 }

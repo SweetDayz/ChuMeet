@@ -1,4 +1,3 @@
-
 package com.gen.tool;
 
 import com.google.gson.annotations.Expose;
@@ -71,6 +70,21 @@ public void setPrice(String price) {
 this.price = price;
 }
 
+public Double getLatitude() {
+return latitude;
+}
+
+public void setLatitude(Double latitude) {
+this.latitude = latitude;
+}
+
+public Double getLongitude() {
+return longitude;
+}
+
+public void setLongitude(Double longitude) {
+this.longitude = longitude;
+}
 
 public String getEndTime() {
 return endTime;
@@ -78,22 +92,6 @@ return endTime;
 
 public void setEndTime(String endTime) {
 this.endTime = endTime;
-}
-
-public Double getLatitude() {
-	return latitude;
-}
-
-public Double getLongitude() {
-	return longitude;
-}
-
-public void setLatitude(Double latitude) {
-	this.latitude = latitude;
-}
-
-public void setLongitude(Double longitude) {
-	this.longitude = longitude;
 }
 
 }
