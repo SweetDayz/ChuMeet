@@ -14,8 +14,21 @@ public class ActMemVO implements java.io.Serializable{
 	private Timestamp actJoinDate;
 	private Integer actStar;
 	private Timestamp actStarDate;
+	private Integer QRStatus;
 
+public ActMemVO(){}	
 	
+public ActMemVO(Act_VO actVO, MemberHVO memberHVO, Integer actMemStatus, Timestamp actJoinDate, Integer actStar,
+			Timestamp actStarDate) {
+		super();
+		this.actVO = actVO;
+		this.memberHVO = memberHVO;
+		this.actMemStatus = actMemStatus;
+		this.actJoinDate = actJoinDate;
+		this.actStar = actStar;
+		this.actStarDate = actStarDate;
+	}
+
 //	查多時，帶出一
 	public MemberHVO getMemberHVO() {
 		return memberHVO;
@@ -53,6 +66,14 @@ public class ActMemVO implements java.io.Serializable{
 	}
 	public void setActStarDate(Timestamp actStarDate) {
 		this.actStarDate = actStarDate;
+	}
+
+	public Integer getQRStatus() {
+		return QRStatus;
+	}
+
+	public void setQRStatus(Integer qRStatus) {
+		QRStatus = qRStatus;
 	}
 
 }

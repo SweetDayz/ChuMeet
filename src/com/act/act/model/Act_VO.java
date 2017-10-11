@@ -8,13 +8,6 @@ import com.act.actPOI.model.ActPOIVO;
 
 public class Act_VO  implements java.io.Serializable {
 	private Integer actType;
-	public Integer getActType() {
-		return actType;
-	}
-	public void setActType(Integer actType) {
-		this.actType = actType;
-	}
-
 	private Integer actID;
 	private Integer memID;
 	private Timestamp actCreateDate;
@@ -37,16 +30,14 @@ public class Act_VO  implements java.io.Serializable {
 	private Integer actPost;
 	private String actLocName;
 	private String actAdr;
-	private String actRef;	
-	private String actRefUID;
-	
-	public String getActRef() {
-		return actRef;
-	}
-	public void setActRef(String actRef) {
-		this.actRef = actRef;
-	}
-	
+	private String actUID;
+	private String actShowUnit;
+	private String actMasterUnit;
+	private String actWebSales;
+	private String actSourceWebName;
+	private String actOnSale;
+	private String actPrice;
+
 	//	查一時，查出一群多(actMem) => set
 	private Set<ActMemVO> actMems = new HashSet<ActMemVO>();
 	private Set<ActPOIVO> actPOIs = new HashSet<ActPOIVO>();
@@ -197,13 +188,59 @@ public class Act_VO  implements java.io.Serializable {
 	public void setActAdr(String actAdr) {
 		this.actAdr = actAdr;
 	}
-	public String getActRefUID() {
-		return actRefUID;
+	
+	
+	public Integer getActType() {
+		return actType;
 	}
-	public void setActRefUID(String actRefUID) {
-		this.actRefUID = actRefUID;
+	public void setActType(Integer actType) {
+		this.actType = actType;
+	}
+	
+	public String getActUID() {
+		return actUID;
+	}
+	public void setActUID(String actUID) {
+		this.actUID = actUID;
 	}
 
+	public String getActMasterUnit() {
+		return actMasterUnit;
+	}
+	public void setActMasterUnit(String actMasterUnit) {
+		this.actMasterUnit = actMasterUnit;
+	}
+	public String getActWebSales() {
+		return actWebSales;
+	}
+	public void setActWebSales(String actWebSales) {
+		this.actWebSales = actWebSales;
+	}
+	public String getActSourceWebName() {
+		return actSourceWebName;
+	}
+	public void setActSourceWebName(String actSourceWebName) {
+		this.actSourceWebName = actSourceWebName;
+	}
+	public String getActOnSale() {
+		return actOnSale;
+	}
+	public void setActOnSale(String actOnSale) {
+		this.actOnSale = actOnSale;
+	}
+	public String getActPrice() {
+		return actPrice;
+	}
+	public void setActPrice(String actPrice) {
+		this.actPrice = actPrice;
+	}
+	public String getActShowUnit() {
+		return actShowUnit;
+	}
+	public void setActShowUnit(String actShowUnit) {
+		this.actShowUnit = actShowUnit;
+	}
 
+	
 	
 }

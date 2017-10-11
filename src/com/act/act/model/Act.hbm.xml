@@ -32,8 +32,13 @@
 				<property name="actPost" column="actPost" />
 				<property name="actLocName" column="actLocName" />
 				<property name="actAdr" column="actAdr" />
-				<property name="actRef" column="actRef" />
-				<property name="actRefUID" column="actRefUID" />
+				<property name="actUID" column="actUID" />
+				<property name="actShowUnit" column="actShowUnit" />
+				<property name="actMasterUnit" column="actMasterUnit" />
+				<property name="actWebSales" column="actWebSales" />
+				<property name="actSourceWebName" column="actSourceWebName" />
+				<property name="actOnSale" column="actOnSale" />
+				<property name="actPrice" column="actPrice" />
 				<property name="actType" column="actType" />
 
 

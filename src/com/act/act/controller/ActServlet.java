@@ -2,10 +2,13 @@ package com.act.act.controller;
 
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,8 +17,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.act.act.model.*;
+import com.act.actMem.model.ActMemVO;
 import com.act.actPOI.model.*;
 import com.gen.tool.*;
+import com.member.model.MemberHVO;
+import com.poi.model.POIVO;
 
 
 
@@ -37,6 +43,7 @@ public class ActServlet extends HttpServlet {
 			req.setAttribute("errorMsgs", errorMsgs);
 
 			try {
+				Integer actType = Integer.parseInt(req.getParameter("actType"));
 				Integer actID = Integer.parseInt(req.getParameter("actID"));
 				Integer memID = Integer.parseInt(req.getParameter("memID"));
 				Timestamp actCreateDate = tools.strToTimestamp(req.getParameter("actCreateDate"));
@@ -59,35 +66,73 @@ public class ActServlet extends HttpServlet {
 				Integer actPost = Integer.parseInt(req.getParameter("actPost"));
 				String actLocName = req.getParameter("actLocName");
 				String actAdr = req.getParameter("actAdr");
+				String actUID = req.getParameter("actUID");
+				String actShowUni = req.getParameter("actShowUni");
+				String actMasterUnit = req.getParameter("actMasterUnit");
+				String actWebSales = req.getParameter("actWebSales");
+				String actSourceWebName = req.getParameter("actSourceWebName");
+				String actOnSale = req.getParameter("actOnSale");
+				String actPrice = req.getParameter("actPrice");
 
-
+				String[] values=req.getParameter("pois").split(", ");
+				Set<String> hs = new HashSet<String>(Arrays.asList(values));	
+				Set<Integer> poiincome= new HashSet<>(hs.size());
+				hs.forEach(i -> poiincome.add(Integer.parseInt(i)));
 
 //為了回傳用的
-				Act_VO Act_VO = new Act_VO();
-				Act_VO.setActID(actID);
-				Act_VO.setMemID(memID);
-				Act_VO.setActCreateDate(actCreateDate);
-				Act_VO.setActName(actName);
-				Act_VO.setActStatus(actStatus);
-				Act_VO.setActPriID(actPriID);
-				Act_VO.setActStartDate(actStartDate);
-				Act_VO.setActEndDate(actEndDate);
-				Act_VO.setActSignStartDate(actSignStartDate);
-				Act_VO.setActSignEndDate(actSignEndDate);
-				Act_VO.setActTimeTypeID(actTimeTypeID);
-				Act_VO.setActTimeTypeCnt(actTimeTypeCnt);
-				Act_VO.setActMemMax(actMemMax);
-				Act_VO.setActMemMin(actMemMin);
-				Act_VO.setActIMG(actIMG);
-				Act_VO.setActContent(actContent);
-				Act_VO.setActIsHot(actIsHot);
-				Act_VO.setActLong(actLong);
-				Act_VO.setActLat(actLat);
-				Act_VO.setActPost(actPost);
-				Act_VO.setActLocName(actLocName);
-				Act_VO.setActAdr(actAdr);
+				Act_VO actVO = new Act_VO();
+				
+				Set<ActMemVO> amset = new HashSet<ActMemVO>();
+				Set<ActPOIVO> apset = new HashSet<ActPOIVO>();
+				
+				ActMemVO amVO=new ActMemVO();
+						MemberHVO mvo=new MemberHVO();
+						mvo.setMemID(memID);
+					amVO.setMemberHVO(mvo);
+					amVO.setActJoinDate(tools.nowTimestamp());
+					amVO.setActMemStatus(1);
 
-
+				for (Integer poiID:poiincome){
+					ActPOIVO apVO=new ActPOIVO();  
+					POIVO pv=new POIVO();
+					pv.setPOIID(poiID);
+					apVO.setPOIVO(pv);
+					apset.add(apVO);
+				}
+				
+				actVO.setActPOIs(apset);
+				actVO.setActMems(amset);
+				actVO.setActType(actType);
+				actVO.setActID(actID);
+				actVO.setMemID(memID);
+				actVO.setActCreateDate(actCreateDate);
+				actVO.setActName(actName);
+				actVO.setActStatus(actStatus);
+				actVO.setActPriID(actPriID);
+				actVO.setActStartDate(actStartDate);
+				actVO.setActEndDate(actEndDate);
+				actVO.setActSignStartDate(actSignStartDate);
+				actVO.setActSignEndDate(actSignEndDate);
+				actVO.setActTimeTypeID(actTimeTypeID);
+				actVO.setActTimeTypeCnt(actTimeTypeCnt);
+				actVO.setActMemMax(actMemMax);
+				actVO.setActMemMin(actMemMin);
+				actVO.setActIMG(actIMG);
+				actVO.setActContent(actContent);
+				actVO.setActIsHot(actIsHot);
+				actVO.setActLong(actLong);
+				actVO.setActLat(actLat);
+				actVO.setActPost(actPost);
+				actVO.setActLocName(actLocName);
+				actVO.setActAdr(actAdr);
+				actVO.setActUID(actUID);
+				actVO.setActShowUnit(actShowUni);
+				actVO.setActMasterUnit(actMasterUnit);
+				actVO.setActWebSales(actWebSales);
+				actVO.setActSourceWebName(actSourceWebName);
+				actVO.setActOnSale(actOnSale);
+				actVO.setActPrice(actPrice);
+				
 				
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
@@ -99,10 +144,12 @@ public class ActServlet extends HttpServlet {
 				
 				/***************************2.開始新增資料***************************************/
 				Act_Service actSrv = new Act_Service();
-				actSrv.insert(Act_VO);
+				Integer actIDNo=actSrv.insert(actVO);
+				
 				
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
-				String url = "/emp/listAllEmp.jsp";
+				
+				String url = "";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 				successView.forward(req, res);				
 				

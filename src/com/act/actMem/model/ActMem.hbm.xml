@@ -22,6 +22,7 @@
 			<property name="actJoinDate" column="actJoinDate" />
 			<property name="actStar" column="actStar" />
 			<property name="actStarDate" column="actStarDate" />
+			<property name="QRStatus" column="QRSTATUS" />
 
     </class>
 </hibernate-mapping>

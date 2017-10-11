@@ -88,7 +88,7 @@ public class actJSON {
 					    	actGVO actg = (actGVO) gson.fromJson(obj , actGVO.class);
 					    	System.out.println(actg.getTitle()+" start======================================");
 					    	
-					    	int showCount=actg.getShowInfo().size();
+					    	int showCount=7;
 					    	for (int i=0; i <showCount; i++) {
 					    		String subtitle;
 					    			if(showCount>1) {

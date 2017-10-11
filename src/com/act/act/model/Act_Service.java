@@ -15,9 +15,10 @@ public class Act_Service {
 				return dao.getAll();
 		}
 		
-	    public void insert(Act_VO Act_VO){
-			dao.insert(Act_VO);
+	    public Integer insert(Act_VO Act_VO){
+	    	return dao.insert(Act_VO);
 	    };
+	    
 	    public void update(Act_VO Act_VO){};
 	    
 	    public Act_VO getOne(Integer actID){

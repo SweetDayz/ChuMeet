@@ -9,7 +9,7 @@ import com.act.actPOI.model.ActPOIVO;
 
 
 public interface Act_interface {
-    public void insert(Act_VO actVO);
+    public Integer insert(Act_VO actVO);
     public void update(Act_VO actVO);
 
     public List<Act_VO> getAll();
