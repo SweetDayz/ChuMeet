@@ -46,7 +46,7 @@
 <!--  actMems是一群actMems的set @ actVO-->
 <!-- 先看class，再看table，再看Name -->
 <!-- lazy很重喔 阿飄的故事 -->
-		<set name="actMems" table="actMem" lazy="true" cascade="all"  inverse="true">			
+		<set name="actMems" table="actMem" lazy="false" cascade="all"  inverse="true">			
 			<key>  
 				<column name="actID" />
 			</key>

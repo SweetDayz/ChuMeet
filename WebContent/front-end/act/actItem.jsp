@@ -85,7 +85,7 @@
 									</c:choose>
 							</c:when>
 
-							<c:when test="${actfVO.actMemPackJ.contains(memNow)}">					
+							<c:when test="${actfVO.actVO.actMems.contains(memNow)}">					
 								已參加
 									<c:choose>
 												<c:when test = "${toolman.nowTimestamp() < actfVO.actVO.actStartDate}">，等待活動開始 </c:when>
@@ -111,7 +111,7 @@
                           		
                           		</span></td></tr>
 								<tr><th class="text-danger topstat"><i class="fa fa-user"></i></th><th>活動發起人</th><td><span>${transman.whoRU(actfVO.actVO.memID)}</span></td></tr>
-                         		<tr><th class="text-danger topstat"><i class="fa fa-calendar"></i></th><th>活動時間</th><td><span> ${toolman.tsToActStr(actfVO.actVO.actStartDate)}起至 ${toolman.tsToActStr(actfVO.actVO.actEndDate)}</span></td></tr>
+                         		<tr><th class="text-danger topstat"><i class="fa fa-calendar"></i></th><th>活動時間</th><td><span> ${toolman.tsToActStr(actfVO.actVO.actStartDate)}起至 ${toolman.tsToActStrOT(actfVO.actVO.actEndDate)}</span></td></tr>
 <c:if test="${actfVO.actVO.actType==1}">>
                          		<tr><th class="text-danger topstat"><i class="fa fa-users"></i></th><th>目前人數</th><td><span>${transman.actMemCount(actfVO.actVO.actID)}</span>/<span>${actfVO.actVO.actMemMax}</span></td></tr>
 </c:if>
@@ -132,6 +132,21 @@
                   <h2>活動詳情</h2>
 <div style="margin-left: 1em;  margin-right: 1em;">
                    <p>
+                   <c:if test="${actfVO.actVO.actType==2}">
+                   
+                   <table style="border-width: 0px">
+                   <tr><th>主辦單位：</th><td>${actfVO.actVO.actMasterUnit}</td></tr>
+                   <tr><th>是否售票：</th><td>
+                   <c:choose>
+                   <c:when test="${actfVO.actVO.actOnSale}=='Y'">是</td></tr>
+                   		<tr><th>售票網址：</th><td><a href="${actfVO.actVO.actWebSales}">${actfVO.actVO.actWebSales}</a></td></tr>
+                   		<tr><th>票價：</th><td>${actfVO.actVO.actPrice}/td></tr>
+                   </c:when>                 
+                    <c:otherwise>免費</td></tr></c:otherwise>
+                   </c:choose>             
+                   </table>
+                   <hr>
+                   </c:if>
                    ${actfVO.actVO.actContent}
                   
                   </p>
@@ -173,11 +188,7 @@
 								<button id="actMng" <c:if test="${toolman.nowTimestamp() > actfVO.actVO.actEndDate}"> disabled </c:if>class="btn btn-block btn-info">管理活動</button>
 
 							</c:when>
-							<c:foreach var="memberHVO" items="${actfVO.actVO.actMems}">
-								<c:when test="${memberHVO.memID}">					
-									<button type="submit" name="action" value="delete" <c:if test="${toolman.nowTimestamp() > actfVO.actVO.actEndDate}"> disabled </c:if> class="btn btn-block btn-warning">退出活動</button>
-								</c:when>
-							</c:foreach>
+
 						<c:otherwise>
 							<button type="submit" name="action" value="insert2"  <c:if test="${toolman.nowTimestamp() > actfVO.actVO.actEndDate}"> disabled </c:if> class="btn btn-block btn-primary">我要參加</button>
 							<button  type="submit" name="action" value="insert5" <c:if test="${toolman.nowTimestamp() > actfVO.actVO.actEndDate}"> disabled </c:if> class="btn btn-block btn-success">追蹤活動</button>
@@ -202,7 +213,7 @@
 					  <div id="map"></div>
 						<script>
 						  function initMap() {
-							var uluru = {lat: ${actfVO.actVO.actLong}, lng: ${actfVO.actVO.actLat}};
+							var uluru = {lat:${actfVO.actVO.actLat}, lng:  ${actfVO.actVO.actLong}};
 							var map = new google.maps.Map(document.getElementById('map'), {
 							  zoom: 17,
 							  center: uluru

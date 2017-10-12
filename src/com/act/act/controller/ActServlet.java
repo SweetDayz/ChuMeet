@@ -178,12 +178,7 @@ public class ActServlet extends HttpServlet {
 				System.out.println(actID);
 				/***************************2.開始查詢資料*****************************************/
 				Act_Service actSvc = new Act_Service();
-
 				ActFiestaVO actfVO = actSvc.getOne(actID);
-				
-				
-				
-				
 				Integer memNow=1;						 // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 				if (actfVO == null) {
 					errorMsgs.add("查無資料");

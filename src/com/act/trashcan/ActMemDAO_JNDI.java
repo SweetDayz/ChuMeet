@@ -45,7 +45,7 @@ public class ActMemDAO_JNDI implements ActMem_Interface{
 			"INSERT INTO ACTMEM (actID, memID, actMemStatus, actJoinDate) VALUES (?,?,?,SYSTIMESTAMP)";
 	
 	
-	@Override
+
 	public HashMap<Integer, String> whosIn(Integer actID) {
 		HashMap<Integer, String> hm = new HashMap<Integer, String>();
 
@@ -150,8 +150,8 @@ public class ActMemDAO_JNDI implements ActMem_Interface{
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(INSERT);
 
-			pstmt.setInt(1, actmVO.getActID());
-			pstmt.setInt(2, actmVO.getMemID());
+			pstmt.setInt(1, actmVO.getActVO().getActID());
+			pstmt.setInt(2, actmVO.getMemberHVO().getMemID());
 			pstmt.setInt(3, actmVO.getActMemStatus());
 
 			pstmt.executeUpdate();
@@ -179,23 +179,13 @@ public class ActMemDAO_JNDI implements ActMem_Interface{
 		}
 
 	}
+
 	@Override
-	public List<Integer> amIIn(Integer actID, Integer memID) {
+	public List<ActMemVO> myActList(Integer memID) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
-	public List<Integer> amITracking(Integer actID, Integer memID) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Integer> amIRated(Integer actID, Integer memID) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 //	public static void main(String[] args) throws IOException {
 //		ActMemDAO dao = new ActMemDAO();
 

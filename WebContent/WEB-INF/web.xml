@@ -84,7 +84,7 @@
 <!-- ********************Actm Start************************* -->
   	<servlet>
 		<servlet-name>ActMemServlet</servlet-name>
-		<servlet-class>com.act.actMem.controller.ActMemServlet</servlet-class>
+		<servlet-class>com.act.act.controller.ActMemServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>ActMemServlet</servlet-name>

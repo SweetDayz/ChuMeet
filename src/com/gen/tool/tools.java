@@ -208,7 +208,20 @@ public class tools {
 		  }
 
 	  }
-	  
+		//Timestamp轉String@Act
+	  public static String tsToActStrOT(Timestamp timestamp){
+		  
+		  if(timestamp==null){
+			  return "null";
+		  }else{
+			  SimpleDateFormat df = new SimpleDateFormat("HH:mm");// 
+				 // Timestamp now = new Timestamp(System.currentTimeMillis());/ 
+				  String str = df.format(timestamp); 
+				  System.out.println(str); 
+			        return str;
+		  }
+
+	  }
 	//String轉Timestamp時間,可自訂,如 2014-09-23 21:34:12""
 	    public static java.sql.Timestamp strToTimestamp(String strDate) {
 	        java.util.Date utDate;

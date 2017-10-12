@@ -19,6 +19,7 @@ import com.act.actMem.model.ActMemService;
 import com.act.actMem.model.ActMemVO;
 import com.act.actPOI.model.ActPOIService;
 import com.gen.tool.tools;
+import com.member.model.MemberHVO;
 
 public class ActMemServlet extends HttpServlet{
 	public void doGet(HttpServletRequest req, HttpServletResponse res)
@@ -76,15 +77,20 @@ public class ActMemServlet extends HttpServlet{
 				Integer memID = 1; //@@@@@@@@@@@@@@@@@@@@@@@@
 				Integer actID=new Integer(req.getParameter("actID"));
 				
-				ActMemVO actmVO = new ActMemVO();
-				actmVO.setMemID(memID);
-				actmVO.setActID(actID);
-				actmVO.setActMemStatus(2);
 
+					ActMemVO amVO=new ActMemVO();
+						MemberHVO mvo=new MemberHVO();
+						mvo.setMemID(memID);
+					amVO.setMemberHVO(mvo);
+					amVO.setActJoinDate(tools.nowTimestamp());
+					amVO.setActMemStatus(2);
+						Act_VO av=new Act_VO();
+						av.setActID(actID);
+					amVO.setActVO(av);
 	
 				/***************************2.開始new資料***************************************/
 				ActMemService actmSvc = new ActMemService();
-				actmSvc.insert(actmVO);
+				actmSvc.insert(amVO);
 			
 				/***************************3.new完成,準備轉接***********/
 				
@@ -115,15 +121,19 @@ public class ActMemServlet extends HttpServlet{
 				Integer memID = 1; //@@@@@@@@@@@@@@@@@@@@@@@@
 				Integer actID=new Integer(req.getParameter("actID"));
 				
-				ActMemVO actmVO = new ActMemVO();
-				actmVO.setMemID(memID);
-				actmVO.setActID(actID);
-				actmVO.setActMemStatus(5);
+				ActMemVO amVO=new ActMemVO();
+				MemberHVO mvo=new MemberHVO();
+				mvo.setMemID(memID);
+				amVO.setMemberHVO(mvo);
+				amVO.setActJoinDate(tools.nowTimestamp());
+				amVO.setActMemStatus(5);
+					Act_VO av=new Act_VO();
+					av.setActID(actID);
+				amVO.setActVO(av);
 
-	
-				/***************************2.開始new資料***************************************/
-				ActMemService actmSvc = new ActMemService();
-				actmSvc.insert(actmVO);
+		/***************************2.開始new資料***************************************/
+		ActMemService actmSvc = new ActMemService();
+		actmSvc.insert(amVO);
 			
 				/***************************3.new完成,準備轉接***********/
 				

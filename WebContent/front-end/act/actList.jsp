@@ -88,8 +88,8 @@
 					<select>
 						<option>依距離排列</option>
 						<option selected>依時間排列</option>
-						<option>依人數排列</option>
-						<option>依熱門度排列</option>
+<!-- 						<option>依人數排列</option> -->
+<!-- 						<option>依熱門度排列</option> -->
 					</select>
 				</div>
        </div> 
@@ -102,7 +102,7 @@
               
                 <div class="col-md-3 col-sm-3">
                   <ul class="tabbable actl-tabbable">
-                   	<li><a href="#tab_3" data-toggle="tab">開個揪揪團</a></li>
+                   	<li><a href="actStart.jsp" data-toggle="tab">開個揪揪團</a></li>
                     <li data-toggle="collapse" data-target="#myAct" class="collapsed">
                            <a href="#tab_1" data-toggle="tab">我的活動 <span class="arrow"></span></a></li>
                             <ul class="sub-menu collapse" id="myAct">
@@ -121,17 +121,14 @@
                           <ul class="sub-menu collapse" id="actPOI">
                           		<li><a href="#">熱門</a></li>
 								<li><a href="#">運動</a></li>
-								<li><a href="#">手作</a></li>
 								<li><a href="#">學習</a></li>
 								<li><a href="#">餐聚</a></li>
 								<li><a href="#">藝文活動</a></li>
 								<li><a href="#">電影</a></li>
-								<li><a href="#">電動遊戲</a></li>
 								<li><a href="#">線上活動</a></li>
 								<li><a href="#">戶外</a></li>
 								<li><a href="#">寵物</a></li>
 								<li><a href="#">展覽</a></li>
-								<li><a href="#">讀書會</a></li>
 								<li><a href="#">其他</a></li>
 							</ul>
 					<li><a href="#tab_2" data-toggle="tab">揪揪地圖</a></li>
@@ -204,49 +201,34 @@
 				<a href="<%=request.getContextPath()%>/front-end/act/act.do?action=showOne&actID=${afVO.actVO.actID}">
 					<img alt="Person Of Interest" class="img-responsive img-rounded" src="<%=request.getContextPath()%>/img/showIMG?colName=actIMG&table=ACT&pk=actID&imgFrom=${afVO.actVO.actID}"">
 				</a>
+								<span class="label label-info"><i class="fa fa-star" aria-hidden="true"></i> 已參加</span>
+								<span class="label label-info"><i class="fa fa-star" aria-hidden="true"></i> 已追蹤</span>
+
 			</div>
 			
 			<div class="col-md-8 col-sm-8">
 				<h2><a href="actItem.html">${afVO.actVO.actName}</a></h2>
 				<ul class="event-info">
-					<li><i class="fa fa-calendar"></i>${toolman.tsToActStr(afVO.actVO.actStartDate)}起至 ${toolman.tsToActStr(afVO.actVO.actEndDate)}</li>
+					<li><i class="fa fa-calendar"></i>${toolman.tsToActStr(afVO.actVO.actStartDate)}起至 ${toolman.tsToActStrOT(afVO.actVO.actEndDate)}</li>
 					<li><i class="fa fa-map-marker"></i><a href="#">${transman.actPosttoString(afVO.actVO.actPost)}</a></li>
-					<li><i class="fa fa-users"></i>222</li>
 					<li><i class="fa fa-user"></i><a href="#">${afVO.memName}</a></li>
 				</ul>
-				<div class="ecContent"><p>${afVO.actCnt}</p>	</div>
-				<div class="row">
-					<span class="col-sm-4">
-					<form action="<%=request.getContextPath()%>/front-end/act/act.do" method="get">
-							<input type="hidden" class="btn mybtns" name="action" value="showOne">
-							<button type="submit" class="btn btn-link" name="actID" value="1">詳細資訊 <i class="icon-angle-right"></i></button>
-							<input type="hidden" name="actID" value=${actVO.actID}>
-					</form>
-					</span> 
-					
-					
-					<span class="col-sm-8 ecbtn">
-					<form action="<%=request.getContextPath()%>/front-end/act/act.do" method="get">
-						<c:choose>
-							<c:when test="${memInhs.containsKey(memNow)}">
-								<button type="button" class="btn btn-primary mybtns"><i class="fa fa-star" aria-hidden="true"></i> 已參加</button>
-							</c:when>
-							<c:otherwise>
-								<button type="button" class="btn btn-default mybtns"><i class="fa fa-star-o" aria-hidden="true"></i> 追蹤活動</button>
-								<button type="button" class="btn btn-default mybtns"><i class="fa fa-check-circle-o" aria-hidden="true"></i> 我要參加</button>
-							</c:otherwise>
-							
-						</c:choose>
-					</form>
+				<div class="ecContent"><p>${afVO.actCnt}<span>...</span></p>	</div>
 
-					</span>
-				</div>
-				
-				<div class="event-tags">
+				<div class="row"></div>
+				<div class="event-tags col-md-8" style="margin-top: 0; verticle-align:top;">
 				<c:forEach var="actpoi" items="${afVO.actVO.actPOIs}">
-						<li><a href="#"><i class="fa fa-tags"></i>${actpoi.POIVO.POINameC}</a></li>
+						<li style="font-size:14px"><a href="#"><i class="fa fa-tags"></i>${actpoi.POIVO.POINameC}</a></li>
 				</c:forEach>
 				</div>
+				<div class="col-md-4 pull-right" style="text-align: right">
+						<form action="<%=request.getContextPath()%>/front-end/act/act.do" method="get">
+							<input type="hidden" class="btn mybtns" name="action" value="showOne">
+							<button type="submit" class="btn btn-default" name="actID" value="1">詳細資訊 <i class="icon-angle-right"></i></button>
+							<input type="hidden" name="actID" value=${actVO.actID}>
+						  </form>
+				</div>
+				
 			</div>
 		</div>
 	</div>
