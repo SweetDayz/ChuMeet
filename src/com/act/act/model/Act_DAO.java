@@ -53,7 +53,6 @@ public class Act_DAO implements Act_interface {
 			throw ex;
 		}
 		System.out.println(actID);
-
 		return actID;
 	}
 
@@ -144,18 +143,18 @@ public class Act_DAO implements Act_interface {
 	
 	@Override
 	public List<ActFiestaVO> getActByPOIID(Integer POIID) {
-		List<Act_VO> list = new ArrayList<Act_VO>();
+		List<ActPOIVO> list = new ArrayList<ActPOIVO>();
 		List<ActFiestaVO> listf =  new ArrayList<ActFiestaVO>();
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
 			session.beginTransaction();
-			Query query = session.createQuery("from ActPOIVO where POIID="+POIID+" order by actStartDate");
-			query.setMaxResults(50);
+			Query query = session.createQuery("from ActPOIVO where actVO.actStartDate>systimestamp and POIID="+POIID);
+//			query.setMaxResults(50);
 			list = query.list();
 					System.out.println(list.size());
 					if(!(list.size()==0)) {
-							for (Act_VO actVO : list) {
-									ActFiestaVO actf = new ActFiestaVO(actVO);
+							for (ActPOIVO apVO : list) {
+									ActFiestaVO actf = new ActFiestaVO(apVO.getActVO());
 									listf.add(actf); 
 							}
 					}else {

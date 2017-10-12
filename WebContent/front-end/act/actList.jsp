@@ -20,6 +20,9 @@
 			if(request.getAttribute("actie").equals("QueryWks")){
 				pageContext.setAttribute("pageName", "QueryWks");
 			}
+			if(request.getAttribute("actie").equals("QueryPOI")){
+				pageContext.setAttribute("pageName", "QueryPOI");
+			}
 	}
 %>
 <!-- @@@@@@@@@@@@@@@@@@@@@@@@@ -->
@@ -97,7 +100,7 @@
            <div class="row">
            	<div class="col-md-8">
            	  <h1>揪咪推薦</h1>
-           	      <h1><%=pageContext.getAttribute("pageName") %></h1>
+           	      <h3>目前搜尋條件：<%=transman.POItoString((Integer)request.getAttribute("poiID")) %></h3>
         </div>
        <div class="col-md-4 padding-top-10">
         		<div class="actFilter pull-right">
@@ -129,32 +132,28 @@
 								<li><a href="#">社團活動</a></li>
 								<li><a href="#">好友活動</a></li>
 							</ul>
-                    <li <%if (pageContext.getAttribute("pageName").equals("ref")){%>class="active"<%} %>
-                    ><a href="<%=request.getContextPath()%>/front-end/act/actList.jsp" >揪咪推薦</a></li>
 
-                    <li <%if (pageContext.getAttribute("pageName").equals("QueryWks")){%>
-                    	class="active"
-                    		<%} %>><a href="<%=request.getContextPath()%>/front-end/act/act.do?action=QueryWks">周末特調</a></li>
+                    <li><a href="<%=request.getContextPath()%>/front-end/act/actList.jsp" >揪咪推薦</a></li>
+
+                    <li><a href="<%=request.getContextPath()%>/front-end/act/act.do?action=QueryWks">周末特調</a></li>
                     <li data-toggle="collapse" data-target="#actPOI" class="collapsed">
                          <a href="#tab_2" data-toggle="tab">活動分類 <span class="arrow"></span></a></li>
                           <ul class="sub-menu collapse" id="actPOI">
-								<li <%if (pageContext.getAttribute("pageName").equals("poisport")){%>class="active"<%} %>>
-							<a href="<%=request.getContextPath()%>/front-end/act/act.do?action=POI?POIID=9">運動</a></li>
-								<li <%if (pageContext.getAttribute("pageName").equals("poieat")){%>class="active"<%} %>>
-                    		<a href="<%=request.getContextPath()%>/front-end/act/act.do?action=POI?POIID=18">餐聚</a></li>
-								<li <%if (pageContext.getAttribute("pageName").equals("poiart")){%>class="active"<%} %>>
-                    		<a href="<%=request.getContextPath()%>/front-end/act/act.do?action=POI?POIID=20">藝文</a></li>
-								<li <%if (pageContext.getAttribute("pageName").equals("poimovie")){%>class="active"<%} %>>
-                    		<a href="<%=request.getContextPath()%>/front-end/act/act.do?action=POI?POIID=8">電影</a></li>
-								<li <%if (pageContext.getAttribute("pageName").equals("online")){%>class="active"<%} %>>
-                    		<a href="<%=request.getContextPath()%>/front-end/act/act.do?action=POI?POIID=22">線上活動</a></li>
-								<li <%if (pageContext.getAttribute("pageName").equals("outdoor")){%>class="active"<%} %>>
-                    		<a href="<%=request.getContextPath()%>/front-end/act/act.do?action=POI?POIID=23">戶外</a></li>
-								<li <%if (pageContext.getAttribute("pageName").equals("poipet")){%>class="active"<%} %>>
-                    		<a href="<%=request.getContextPath()%>/front-end/act/act.do?action=POI?POIID=24">寵物</a></li>
-								<li <%if (pageContext.getAttribute("pageName").equals("poiex")){%>class="active"<%} %>>
-                    		<a href="<%=request.getContextPath()%>/front-end/act/act.do?action=POI?POIID=6">展覽</a></li>
-								<li <%if (pageContext.getAttribute("pageName").equals("poiother")){%>class="active"<%} %>>
+								  <li>
+							<a href="<%=request.getContextPath()%>/front-end/act/act.do?action=QueryPOI&poiID=9">運動</a></li>
+								  <li>
+                    		<a href="<%=request.getContextPath()%>/front-end/act/act.do?action=QueryPOI&poiID=1">音樂</a></li>
+								  <li>
+                    		<a href="<%=request.getContextPath()%>/front-end/act/act.do?action=QueryPOI&poiID=2">戲劇</a></li>
+								  <li>
+                    		<a href="<%=request.getContextPath()%>/front-end/act/act.do?action=QueryPOI&poiID=3">舞蹈</a></li>
+							  <li>
+                    		<a href="<%=request.getContextPath()%>/front-end/act/act.do?action=QueryPOI&poiID=6">展覽</a></li>
+								  <li>
+                    		<a href="<%=request.getContextPath()%>/front-end/act/act.do?action=QueryPOI&poiID=7">講座</a></li>
+							  <li>
+                    		<a href="<%=request.getContextPath()%>/front-end/act/act.do?action=QueryPOI&poiID=8">電影</a></li>
+								  <li>
                     		<a href="<%=request.getContextPath()%>/front-end/act/actPOIs.jsp">其他</a></li>
 							</ul>
 					<li><a href="#tab_2" data-toggle="tab">揪揪地圖</a></li>
@@ -167,7 +166,7 @@
                    
                    
 <!--                  card start -->
-                    <div class="wow fadeInUp" data-wow-duration=".3" data-wow-delay=".2s">
+                    <div class="wow fadeInUp">
                         <div class="card">
 							<img class="card-img-top cardImg" src="act_assets/img/eventSamples/Cap-Commandos.jpg" alt="Card image cap">
 							<div class="card-block">
@@ -221,7 +220,7 @@
 <%@ include file="pages/page1.file" %> 
 <c:forEach var="afVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 <!--      1st card          -->
-	<div class="ec wow fadeInLeft" data-wow-delay=".05s" data-wow-duration=".1">
+	<div class="ec wow fadeInLeft">
 		<div class="row">
 			<div class="col-md-4 col-sm-4">
 
@@ -256,7 +255,7 @@
 				<div class="col-md-4 pull-right" style="text-align: right">
 						<form action="<%=request.getContextPath()%>/front-end/act/act.do" method="get">
 							<input type="hidden" class="btn mybtns" name="action" value="showOne">
-							<button type="submit" class="btn btn-default" name="actID" value="1">詳細資訊 <i class="icon-angle-right"></i></button>
+							<a href="<%=request.getContextPath()%>/front-end/act/act.do?action=showOne&actID=${afVO.actVO.actID}"><span type="submit" class="btn btn-default" name="actID" value="1">詳細資訊 <i class="icon-angle-right"></i></span></a>
 							<input type="hidden" name="actID" value=${actVO.actID}>
 						  </form>
 				</div>

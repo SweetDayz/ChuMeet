@@ -141,6 +141,45 @@ public class actCodeTrans {
 			return Str;
 		}
 
+	
+	public static String POItoString(int POIID){
+		String Str=null;
+		switch(POIID){
+case 1:Str="音樂";break;
+case 2:Str="戲劇";break;
+case 3:Str="舞蹈";break;
+case 4:Str="親子";break;
+case 5:Str="獨立音樂";break;
+case 6:Str="展覽";break;
+case 7:Str="講座";break;
+case 8:Str="電影";break;
+case 9:Str="運動";break;
+case 10:Str="手作";break;
+case 11:Str="綜藝";break;
+case 12:Str="學習";break;
+case 13:Str="競賽";break;
+case 14:Str="徵選";break;
+case 15:Str="其他";break;
+case 16:Str="未知分類";break;
+case 17:Str="演唱會";break;
+case 18:Str="餐聚";break;
+case 19:Str="研習課程";break;
+case 20:Str="藝文";break;
+case 21:Str="電競";break;
+case 22:Str="線上活動";break;
+case 23:Str="戶外";break;
+case 24:Str="寵物";break;
+case 25:Str="讀書會";break;
+		}
+		return Str;
+	}
+	
+	
+	
+	
+	
+	
+	
 	public static String actPosttoString(int postNo){
 				String Str=null;
 				switch(postNo){

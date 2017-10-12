@@ -46,36 +46,25 @@ public class ActServlet extends HttpServlet {
 			req.setAttribute("errorMsgs", errorMsgs);
 
 			try {
-				Integer actType = Integer.parseInt(req.getParameter("actType"));
-				Integer actID = Integer.parseInt(req.getParameter("actID"));
-				Integer memID = Integer.parseInt(req.getParameter("memID"));
-				Timestamp actCreateDate = tools.strToTimestamp(req.getParameter("actCreateDate"));
+				Integer actType = 1;
+				Integer memID = 1;
+				Timestamp actCreateDate = tools.nowTimestamp();
 				String actName = req.getParameter("actName");
-				Integer actStatus = Integer.parseInt(req.getParameter("actStatus"));
-				Integer actPriID = Integer.parseInt(req.getParameter("actPriID"));
+		
+				
 				Timestamp actStartDate = tools.strToTimestamp(req.getParameter("actStartDate"));
 				Timestamp actEndDate = tools.strToTimestamp(req.getParameter("actEndDate"));
-				Timestamp actSignStartDate = tools.strToTimestamp(req.getParameter("actSignStartDate"));
-				Timestamp actSignEndDate = tools.strToTimestamp(req.getParameter("actSignEndDate"));
-				Integer actTimeTypeID = Integer.parseInt(req.getParameter("actTimeTypeID"));
+
 				String actTimeTypeCnt = req.getParameter("actTimeTypeCnt");
-				Integer actMemMax = Integer.parseInt(req.getParameter("actMemMax"));
-				Integer actMemMin = Integer.parseInt(req.getParameter("actMemMin"));
-				byte[] actIMG = req.getParameter("actImg").getBytes();
+
+				byte[] actIMG = tools.decodeToImage(req.getParameter("image-data"));
 				String actContent = req.getParameter("actContent");
-				Integer actIsHot = Integer.parseInt(req.getParameter("actIsHot"));
-				Double actLong = Double.parseDouble(req.getParameter("actLong"));
-				Double actLat = Double.parseDouble(req.getParameter("actLat"));
-				Integer actPost = Integer.parseInt(req.getParameter("actPost"));
-				String actLocName = req.getParameter("actLocName");
-				String actAdr = req.getParameter("actAdr");
-				String actUID = req.getParameter("actUID");
-				String actShowUni = req.getParameter("actShowUni");
-				String actMasterUnit = req.getParameter("actMasterUnit");
-				String actWebSales = req.getParameter("actWebSales");
-				String actSourceWebName = req.getParameter("actSourceWebName");
-				String actOnSale = req.getParameter("actOnSale");
-				String actPrice = req.getParameter("actPrice");
+
+				Double actLong = Double.parseDouble(req.getParameter("lng"));
+				Double actLat = Double.parseDouble(req.getParameter("lat"));
+				Integer actPost = Integer.parseInt(req.getParameter("postal_code"));
+				String actLocName = req.getParameter("name");
+				String actAdr = req.getParameter("formatted_address");
 
 				String[] values=req.getParameter("pois").split(", ");
 				Set<String> hs = new HashSet<String>(Arrays.asList(values));	
@@ -103,38 +92,23 @@ public class ActServlet extends HttpServlet {
 					apset.add(apVO);
 				}
 				
-				actVO.setActPOIs(apset);
+//				actVO.setActPOIs(apset);
 				actVO.setActMems(amset);
 				actVO.setActType(actType);
-				actVO.setActID(actID);
 				actVO.setMemID(memID);
 				actVO.setActCreateDate(actCreateDate);
 				actVO.setActName(actName);
-				actVO.setActStatus(actStatus);
-				actVO.setActPriID(actPriID);
 				actVO.setActStartDate(actStartDate);
-				actVO.setActEndDate(actEndDate);
-				actVO.setActSignStartDate(actSignStartDate);
-				actVO.setActSignEndDate(actSignEndDate);
-				actVO.setActTimeTypeID(actTimeTypeID);
-				actVO.setActTimeTypeCnt(actTimeTypeCnt);
-				actVO.setActMemMax(actMemMax);
-				actVO.setActMemMin(actMemMin);
+				actVO.setActTimeTypeCnt("");
+
 				actVO.setActIMG(actIMG);
 				actVO.setActContent(actContent);
-				actVO.setActIsHot(actIsHot);
+
 				actVO.setActLong(actLong);
 				actVO.setActLat(actLat);
 				actVO.setActPost(actPost);
 				actVO.setActLocName(actLocName);
 				actVO.setActAdr(actAdr);
-				actVO.setActUID(actUID);
-				actVO.setActShowUnit(actShowUni);
-				actVO.setActMasterUnit(actMasterUnit);
-				actVO.setActWebSales(actWebSales);
-				actVO.setActSourceWebName(actSourceWebName);
-				actVO.setActOnSale(actOnSale);
-				actVO.setActPrice(actPrice);
 				
 				
 				// Send the use back to the form, if there were errors
@@ -147,12 +121,12 @@ public class ActServlet extends HttpServlet {
 				
 				/***************************2.開始新增資料***************************************/
 				Act_Service actSrv = new Act_Service();
-				Integer actIDNo=actSrv.insert(actVO);
+				actSrv.insert(actVO);
 				
 				
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
 				
-				String url = "";
+				String url = "/front-end/act/act.do?action=showOne&actID="+actVO.getActID();
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 				successView.forward(req, res);				
 				
@@ -160,7 +134,7 @@ public class ActServlet extends HttpServlet {
 			} catch (Exception e) {
 				errorMsgs.put("Exception",e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/emp/addEmp.jsp");
+						.getRequestDispatcher("/actStart.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -260,7 +234,50 @@ public class ActServlet extends HttpServlet {
 		
         //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@       
         
-        
+		if ("QueryPOI".equals(action)) { // 來自actListjsp的請求
+			List<String> errorMsgs = new LinkedList<String>();
+			// Store this set in the request scope, in case we need to
+			// send the ErrorPage view.
+			req.setAttribute("errorMsgs", errorMsgs);
+
+//			try {
+				/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
+				Integer poiID=Integer.parseInt(req.getParameter("poiID"));
+				/***************************2.開始查詢資料*****************************************/
+				Act_Service act_Svc = new Act_Service();
+				List<ActFiestaVO> actfVOs = act_Svc.getActByPOIID(poiID);
+
+				Integer memNow=1;						 // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+				if (actfVOs.size() == 0) {
+					errorMsgs.add("查無資料");
+				}
+				// Send the use back to the form, if there were errors
+				if (!errorMsgs.isEmpty()) {
+					RequestDispatcher failureView = req
+							.getRequestDispatcher("/error");
+					failureView.forward(req, res);
+					return;//程式中斷
+				}
+				
+				/***************************3.查詢完成,準備轉交(Send the Success view)*************/
+				req.setAttribute("actie", "QueryPOI");
+				req.setAttribute("poiID", poiID);
+				req.setAttribute("actfVOs", actfVOs); // 資料庫取出的act_VO物件,存入req
+				String url = "/front-end/act/actList.jsp?actie=QueryPOI";
+				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交listOneEmp.jsp
+				successView.forward(req, res);
+
+				/***************************其他可能的錯誤處理*************************************/
+//			} catch (Exception e) {
+//				errorMsgs.add("無法取得資料:" + e.getMessage());
+//				RequestDispatcher failureView = req
+//						.getRequestDispatcher("/error2");
+//				failureView.forward(req, res);
+//			}
+		}
+		
+        //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@       
+          
         
         
         

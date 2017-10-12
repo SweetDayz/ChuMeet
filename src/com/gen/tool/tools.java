@@ -20,12 +20,15 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Base64;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import javax.sql.rowset.serial.SerialBlob;
 
 import oracle.sql.BLOB;
 import oracle.sql.CLOB;
@@ -197,6 +200,13 @@ public class tools {
 		  }
 
 	  }
+	  
+	  
+	  public static byte[]  decodeToImage(String imageString) {
+			byte[] imageByteArray = Base64.getDecoder().decode(imageString);
+			return imageByteArray;
+		}
+	  
 	  
 		//Timestamp轉String@Act
 	  public static String tsToActStr(Timestamp timestamp){

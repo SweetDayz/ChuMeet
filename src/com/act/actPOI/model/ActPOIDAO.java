@@ -156,8 +156,8 @@ import com.act.act.model.Act_VO;
 				con = ds.getConnection();
 				pstmt = con.prepareStatement(INSERT_STMT);
 
-				pstmt.setInt(1, actPOIVO.getActID());
-				pstmt.setInt(2, actPOIVO.getPOIID());
+				pstmt.setInt(1, actPOIVO.getActVO().getActID());
+				pstmt.setInt(2, actPOIVO.getPOIVO().getPOIID());
 
 				pstmt.executeUpdate();
 

@@ -34,7 +34,7 @@ public class Act_Service implements Act_interface{
 	};
 
 	public List<ActFiestaVO> getActByDate(Timestamp actDate) {
-		return null;
+		return dao.getActByDate(actDate);
 	};
 
 	public List<ActFiestaVO> getActByWks() {
@@ -61,7 +61,7 @@ public class Act_Service implements Act_interface{
 	@Override
 	public List<ActFiestaVO> getActByPOIID(Integer POIID) {
 		// TODO Auto-generated method stub
-		return null;
+		return dao.getActByPOIID(POIID);
 	};
 
 }

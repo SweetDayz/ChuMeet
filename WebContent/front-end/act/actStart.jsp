@@ -71,7 +71,7 @@
 <!-- BEGIN CONTENT -->
 <!-- MultiStep Form -->
 
-        <form id="msform" action="<%=request.getContextPath()%>/front-end/act/act.do" method="get">
+        <div id="msform">
             <!-- progressbar -->
             <ul id="progressbar">
                 <li class="active">基本資料</li>
@@ -101,7 +101,7 @@
 						<div class="wrapper inputSp">
 								<div class="group">
 
-							  	<input class="is" type="text" required="required" id="aName"/>
+							  	<input class="is" type="text" ="" id="aName" value="Act Title"/>
 								<span class="highlight"></span><span class="bar"></span>
 							  	<label class="la"><i class="fa fa-caret-right pull-left" aria-hidden="true"></i>活動主題是...</label>
 								</div>
@@ -154,7 +154,7 @@
 													
 								<div class="group margin-bottom-20">
 
-							  	<input id="showAddress" class="is hns" type="text" required="required"/>
+							  	<input id="showAddress" class="is hns" type="text" =""/>
 								<span class="highlight"></span><span class="bar"></span>
 							  	<label class="la"><i class="fa fa-caret-right pull-left" aria-hidden="true"></i>舉辦地點為...</label>
 							  	
@@ -180,7 +180,7 @@
 
       <input id="geocomplete" style="opacity: 0" type="text" placeholder="xxx" />
 	<div class="input-group">
-      <input id="inputmap" class="form-control ui-front" type="text" placeholder="請輸入地址" value="TibaMe" />
+      <input id="inputmap" class="form-control ui-front" type="text" placeholder="請輸入地址" value="TibaM" />
          <div class="input-group-btn">
       			<input id="find" class="form-control" type="button" value="定位" />
    		 </div>
@@ -226,9 +226,9 @@
 </div>	   
 
 						   	<br>
-						   									<div class="group">
+						   	<div class="group">
 
-							  	<input id="showpois" class="is hns" type="textarea" required="required" />
+							  	<input id="showpois" class="is hns" type="textarea" ="" />
 							  	<div id="poiappend" class="event-tags" style="text-align: left; margin-top: 0"></div>
 							  								  	
 								<span class="highlight"></span><span class="bar"></span>
@@ -345,7 +345,10 @@
                 <input type="button" id="conf" name="next" class="next action-button" value="下一步"/>
             </fieldset>
             
+  <div id="ffform" action="<%=request.getContextPath()%>/front-end/act/act.do" method="get" novalidate>
+
             
+        	<input name="action" type="hidden" value="insert">    
             <fieldset>
                 <h2 class="fs-title">活動內容確認</h2>
                 <h3 class="fs-subtitle">Your presence on the social network</h3>
@@ -452,7 +455,7 @@
       			<input id="ckfinal" type="checkbox"> 我同意<a href="#"> 《使用條款》 </a><p />
                 <input type="button" name="previous" class="previous action-button-previous" value="上一步"/>
                 <button type="submit" name="submit" class="action-button">建立活動</button>
-
+				<button type="submit" id="finala">123</button>
             </fieldset>
            
             
@@ -503,7 +506,7 @@
 <script src="act_assets/js/actStart/jquery.geocomplete.js"></script>
 <!-- END CORE PLUGINS --> 
 
-<!-- BEGIN PAGE LEVEL JAVASCRIPTS (REQUIRED ONLY FOR CURRENT PAGE) --> 
+<!-- BEGIN PAGE LEVEL JAVASCRIPTS ( ONLY FOR CURRENT PAGE) --> 
 <!--@@@@@@@@@@@@@@@@@@@@@@@@@ 頁面專屬JS，JS擺在最後有益身心健康，可以刪改 @@@@@@@@@@@@@@@@@@@@@@@@-->
 <script src="<%=request.getContextPath()%>/HTML/assets/plugins/owl.carousel/owl.carousel.min.js" type="text/javascript"></script>
 <script src="<%=request.getContextPath()%>/front-end/act/act_assets/trumbowyg/plugins/colors/trumbowyg.colors.min.js"></script>
@@ -526,8 +529,11 @@ jQuery(document).ready(function() {
 			maxDate: 60 // +30 days from today
 		});
 		
-
+		$("#finala").click(function(){
+			$("#ffform").submit();
+		});
 		
+
 		
 		$('#editor').trumbowyg({
 			
