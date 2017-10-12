@@ -8,7 +8,7 @@
 <%@ page import="java.util.*"%>
 <%
 	Act_Service actS = new Act_Service();
-	List<Act_VO> list = actS.getAll();
+	List<ActFiestaVO> list = actS.getAllFromNow();
 	pageContext.setAttribute("list",list);
 %>
 
@@ -195,26 +195,26 @@
          
   
 
-
-<c:forEach var="actVO" items="${list}">
+<%@ include file="pages/page1.file" %> 
+<c:forEach var="afVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 <!--      1st card          -->
 	<div class="ec wow fadeInLeft" data-wow-delay=".05s" data-wow-duration=".1">
 		<div class="row">
 			<div class="col-md-4 col-sm-4">
-				<a href="<%=request.getContextPath()%>/front-end/act/act.do?action=showOne&actID=${actVO.actID}">
-					<img alt="Person Of Interest" class="img-responsive img-rounded" src="<%=request.getContextPath()%>/img/showIMG?colName=actIMG&table=ACT&pk=actID&imgFrom=${actVO.actID}"">
+				<a href="<%=request.getContextPath()%>/front-end/act/act.do?action=showOne&actID=${afVO.actVO.actID}">
+					<img alt="Person Of Interest" class="img-responsive img-rounded" src="<%=request.getContextPath()%>/img/showIMG?colName=actIMG&table=ACT&pk=actID&imgFrom=${afVO.actVO.actID}"">
 				</a>
 			</div>
 			
 			<div class="col-md-8 col-sm-8">
-				<h2><a href="actItem.html">${actVO.actName}</a></h2>
+				<h2><a href="actItem.html">${afVO.actVO.actName}</a></h2>
 				<ul class="event-info">
-					<li><i class="fa fa-calendar"></i>${toolman.tsToActStr(actVO.actStartDate)}起至 ${toolman.tsToActStr(actVO.actEndDate)}</li>
-					<li><i class="fa fa-map-marker"></i><a href="#">${transman.actPosttoString(actVO.actPost)}</a></li>
+					<li><i class="fa fa-calendar"></i>${toolman.tsToActStr(afVO.actVO.actStartDate)}起至 ${toolman.tsToActStr(afVO.actVO.actEndDate)}</li>
+					<li><i class="fa fa-map-marker"></i><a href="#">${transman.actPosttoString(afVO.actVO.actPost)}</a></li>
 					<li><i class="fa fa-users"></i>222</li>
-					<li><i class="fa fa-user"></i><a href="#">${actVO.memID}</a></li>
+					<li><i class="fa fa-user"></i><a href="#">${afVO.memName}</a></li>
 				</ul>
-				<div class="ecContent"><p>${toolman.delHTMLTag(actVO.actContent)}</p>	</div>
+				<div class="ecContent"><p>${afVO.actCnt}</p>	</div>
 				<div class="row">
 					<span class="col-sm-4">
 					<form action="<%=request.getContextPath()%>/front-end/act/act.do" method="get">
@@ -241,11 +241,11 @@
 
 					</span>
 				</div>
+				
 				<div class="event-tags">
-						<li><a href="#"><i class="fa fa-tags"></i>線上</a></li>
-						<li><a href="#"><i class="fa fa-tag"></i>專業</a></li>
-						<li><a href="#"><i class="fa fa-tag"></i>技術宅</a></li>
-						<li><a href="#"><i class="fa fa-tag"></i>帥</a></li>
+				<c:forEach var="actpoi" items="${afVO.actVO.actPOIs}">
+						<li><a href="#"><i class="fa fa-tags"></i>${actpoi.POIVO.POINameC}</a></li>
+				</c:forEach>
 				</div>
 			</div>
 		</div>
@@ -258,16 +258,9 @@
 
 
 	<hr class="event-post-sep">
-                 
-                  <ul class="pagination">
-                    <li><a href="javascript:;">上一頁</a></li>
-                    <li><a href="javascript:;">1</a></li>
-                    <li><a href="javascript:;">2</a></li>
-                    <li class="active"><a href="javascript:;">3</a></li>
-                    <li><a href="javascript:;">4</a></li>
-                    <li><a href="javascript:;">5</a></li>
-                    <li><a href="javascript:;">下一頁</a></li>
-                  </ul>               
+	
+       <%@ include file="pages/page2.file" %>          
+    
                 </div>
 
                 <!-- END LEFT SIDEBAR -->

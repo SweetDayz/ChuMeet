@@ -242,7 +242,7 @@ public class Uploads_JDBC {
 		}
 		
 		// UPLOAD CLOB ok
-		for (int i=1; i<6; i++){
+		for (int i=1; i<14; i++){
 		String path = "E:\\\\DB\\\\actCLOB\\act"+i+".txt";
 		System.out.println(path);
 		int actID=i;

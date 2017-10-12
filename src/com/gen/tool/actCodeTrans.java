@@ -6,6 +6,8 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.naming.*;
 import javax.sql.DataSource;
@@ -461,6 +463,33 @@ public class actCodeTrans {
 					return Str;
 				}
 	
-
+//	去除HTML標籤
+    public static String delHTMLTag(String htmlStr){ 
+//         String regEx_script="<script[^>]*?>[\\s\\S]*?<\\/script>"; //定義script 
+//         String regEx_style="<style[^>]*?>[\\s\\S]*?<\\/style>"; //定義CSS 
+         String regEx_html="<[^>]+>"; //定義HTML
+         
+//         Pattern p_script=Pattern.compile(regEx_script,Pattern.CASE_INSENSITIVE); 
+//         Matcher m_script=p_script.matcher(htmlStr); 
+//         htmlStr=m_script.replaceAll(""); //-JS 
+//         
+//         Pattern p_style=Pattern.compile(regEx_style,Pattern.CASE_INSENSITIVE); 
+//         Matcher m_style=p_style.matcher(htmlStr); 
+//         htmlStr=m_style.replaceAll(""); //-CSS
+         
+         Pattern p_html=Pattern.compile(regEx_html,Pattern.CASE_INSENSITIVE); 
+         Matcher m_html=p_html.matcher(htmlStr); 
+         htmlStr=m_html.replaceAll(" "); //-HTML 
+         htmlStr=m_html.replaceAll(""); //-HTML
+         htmlStr=m_html.replaceAll("\n"); //-HTML 
+         htmlStr=m_html.replaceAll("\r"); //-HTML
+         int limit=170;
+         if(htmlStr.trim().length()<170) {
+        	 limit=htmlStr.trim().length();
+         }
+         System.out.println("limit="+limit);
+        return htmlStr.trim().substring(0,limit); //return
+     } 
+	
 			
 }

@@ -13,7 +13,7 @@ public interface Act_interface {
     public void update(Act_VO actVO);
 
     public List<Act_VO> getAll();
-    public Act_VO getOne(Integer actID);
+    public ActFiestaVO getOne(Integer actID);
     
     public Set<ActMemVO> whosin(Integer actID);
     public Set<ActPOIVO> showthetags(Integer actID);
@@ -27,4 +27,5 @@ public interface Act_interface {
     public List<Act_VO> getActByMemIDFriend(Integer memID);
     public List<Act_VO> getActByMemIDTrack(Integer memID);
     public List<Act_VO> getActByClub(Integer clubID);
+	public List<ActFiestaVO> getAllFromNow();
 }

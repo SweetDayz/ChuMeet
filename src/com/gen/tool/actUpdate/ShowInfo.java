@@ -1,4 +1,4 @@
-package com.gen.tool;
+package com.gen.tool.actUpdate;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

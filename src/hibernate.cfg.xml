@@ -7,17 +7,17 @@
 	<session-factory>
 
  		<!-- JNDI連線池 (Apache Tomcat 連線池DBCP)設定 -->
-<!-- 		<property name="hibernate.connection.datasource">java:/comp/env/jdbc/BA103G2DB</property> -->
+		<property name="hibernate.connection.datasource">java:/comp/env/jdbc/BA103G2DB</property> 
 
-		<property name="hibernate.connection.driver_class">oracle.jdbc.driver.OracleDriver</property>
-		<property name="hibernate.connection.url">jdbc:oracle:thin:@localhost:1521:XE</property>
-		<property name="hibernate.connection.username">BA103G2</property>
-		<property name="hibernate.connection.password">a123</property>       
-		<property name="hibernate.connection.provider_class">org.hibernate.connection.C3P0ConnectionProvider</property>
-		<property name="hibernate.c3p0.min_size">5</property>
-		<property name="hibernate.c3p0.max_size">20</property>
-		<property name="hibernate.c3p0.timeout">1800</property>
-		<property name="hibernate.c3p0.max_statements">50</property>
+<!-- 		<property name="hibernate.connection.driver_class">oracle.jdbc.driver.OracleDriver</property> -->
+<!-- 		<property name="hibernate.connection.url">jdbc:oracle:thin:@localhost:1521:XE</property> -->
+<!-- 		<property name="hibernate.connection.username">BA103G2</property> -->
+<!-- 		<property name="hibernate.connection.password">a123</property>        -->
+<!-- 		<property name="hibernate.connection.provider_class">org.hibernate.connection.C3P0ConnectionProvider</property> -->
+<!-- 		<property name="hibernate.c3p0.min_size">5</property> -->
+<!-- 		<property name="hibernate.c3p0.max_size">20</property> -->
+<!-- 		<property name="hibernate.c3p0.timeout">1800</property> -->
+<!-- 		<property name="hibernate.c3p0.max_statements">50</property> -->
 
         
 		<!--SQL方言,以下使用Oracle -->

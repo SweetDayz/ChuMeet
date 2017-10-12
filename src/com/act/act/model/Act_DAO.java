@@ -75,27 +75,20 @@ public class Act_DAO implements Act_interface {
 	
 	
 	@Override
-	public Act_VO getOne(Integer actID) {
+	public ActFiestaVO getOne(Integer actID) {
 		Act_VO actVO = null;
+		ActFiestaVO actfVO=null;
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
 			session.beginTransaction();
 			actVO = (Act_VO) session.get(Act_VO.class, actID);
-			// Query queryF = session.createSQLQuery("select * from actmem where
-			// actid=? and actmemstatus <3");
-			// Set<String> actMemberSet=null;
-			// for (ActPOIVO actp: actVO.getActPOIs()){
-			// actp.getPOIVO().getPOINameC();
-			// }
-
-			// Query.set Query queryF = session.createSQLQuery("select * from
-			// actmem where actid=? and actmemstatus <3");
+			actfVO=new ActFiestaVO(actVO);			
 			session.getTransaction().commit();
 		} catch (RuntimeException ex) {
 			session.getTransaction().rollback();
 			throw ex;
 		}
-		return actVO;
+		return actfVO;
 	}
 
 	@Override
@@ -104,44 +97,13 @@ public class Act_DAO implements Act_interface {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
 			session.beginTransaction();
-			Query query = session.createQuery("from Act_VO order by actID");
+			Query query = session.createQuery("from Act_VO  order by actID");
 			list = (List<Act_VO>) query.list();
+			System.out.println(list.get(0).getActName());
 			List<ActFiestaVO> listf = null;
 			for (Act_VO actVO : list) {
-				ActFiestaVO actf = new ActFiestaVO();
-				actf.setMemName(actCodeTrans.whoRU(actVO.getMemID()));
-				actf.setActCnt(tools.delHTMLTag(actVO.getActContent()).trim());
-				actf.setActType(actVO.getActType());
-				actf.setActID(actVO.getActID());
-				actf.setMemID(actVO.getMemID());
-				actf.setActCreateDate(actVO.getActCreateDate());
-				actf.setActName(actVO.getActName());
-				actf.setActStatus(actVO.getActStatus());
-				actf.setActPriID(actVO.getActPriID());
-				actf.setActStartDate(actVO.getActStartDate());
-				actf.setActEndDate(actVO.getActEndDate());
-				actf.setActSignStartDate(actVO.getActSignStartDate());
-				actf.setActSignEndDate(actVO.getActSignEndDate());
-				actf.setActTimeTypeID(actVO.getActTimeTypeID());
-				actf.setActTimeTypeCnt(actVO.getActTimeTypeCnt());
-				actf.setActMemMax(actVO.getActMemMax());
-				actf.setActMemMin(actVO.getActMemMin());
-				actf.setActIMG(actVO.getActIMG());
-				actf.setActContent(actVO.getActContent());
-				actf.setActIsHot(actVO.getActIsHot());
-				actf.setActLong(actVO.getActLong());
-				actf.setActLat(actVO.getActLat());
-				actf.setActPost(actVO.getActPost());
-				actf.setActLocName(actVO.getActLocName());
-				actf.setActAdr(actVO.getActAdr());
-				actf.setActUID(actVO.getActUID());
-				actf.setActShowUnit(actVO.getActShowUnit());
-				actf.setActMasterUnit(actVO.getActMasterUnit());
-				actf.setActWebSales(actVO.getActWebSales());
-				actf.setActSourceWebName(actVO.getActSourceWebName());
-				actf.setActOnSale(actVO.getActOnSale());
-				actf.setActPrice(actVO.getActPrice());
-
+				ActFiestaVO actf = new ActFiestaVO(actVO);
+				System.out.println(actf.toString());
 				listf.add(actf);
 			}
 			session.getTransaction().commit();
@@ -152,6 +114,40 @@ public class Act_DAO implements Act_interface {
 		return list;
 	}
 
+	@Override
+	public List<ActFiestaVO> getAllFromNow() {
+		List<Act_VO> list = new ArrayList<Act_VO>();
+		List<ActFiestaVO> listf =  new ArrayList<ActFiestaVO>();
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		try {
+			session.beginTransaction();
+			Query query = session.createQuery("from Act_VO where actStartDate>systimestamp order by actStartDate");
+
+			list = query.list();
+
+					System.out.println(list.get(1).getActName());		//@@@@@@@@@@@@@@@@@
+					System.out.println(list.size());
+					if(!(list.size()==0)) {
+							for (Act_VO actVO : list) {
+									ActFiestaVO actf = new ActFiestaVO(actVO);
+									System.out.println(actf.getMemName());
+									System.out.println(actf.getActVO().getActID()+" start");
+									listf.add(actf); 
+									System.out.println(actf.getActVO().getActID()+" end");
+							}
+					}else {
+						System.out.println("null x_x");
+					}
+			session.getTransaction().commit();
+		} catch (RuntimeException ex) {
+			session.getTransaction().rollback();
+			throw ex;
+		}
+		return listf;
+	}
+
+	
+	
 	@Override
 	public List<Act_VO> getActByPOIID(Integer POIID) {
 		// TODO Auto-generated method stub

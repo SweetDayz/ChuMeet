@@ -1,4 +1,4 @@
-package com.gen.tool;
+package com.gen.tool.actUpdate;
 
 
 	import java.net.URLConnection;

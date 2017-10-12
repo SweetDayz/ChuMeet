@@ -178,14 +178,14 @@ public class ActServlet extends HttpServlet {
 				System.out.println(actID);
 				/***************************2.開始查詢資料*****************************************/
 				Act_Service actSvc = new Act_Service();
-				ActPOIService actpoiSvc = new ActPOIService();
-				Act_VO actVO = actSvc.getOne(actID);
+
+				ActFiestaVO actfVO = actSvc.getOne(actID);
 				
-				List<String> actpoilist = actpoiSvc.getPOIByActID(actID);
+				
 				
 				
 				Integer memNow=1;						 // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-				if (actVO == null) {
+				if (actfVO == null) {
 					errorMsgs.add("查無資料");
 				}
 				// Send the use back to the form, if there were errors
@@ -197,9 +197,8 @@ public class ActServlet extends HttpServlet {
 				}
 				
 				/***************************3.查詢完成,準備轉交(Send the Success view)*************/
-				req.setAttribute("actVO", actVO); // 資料庫取出的act_VO物件,存入req
+				req.setAttribute("actfVO", actfVO); // 資料庫取出的act_VO物件,存入req
 				req.setAttribute("memNow", memNow); // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-				req.setAttribute("actpoilist", actpoilist); // poi
 
 				String url = "/front-end/act/actItem.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交listOneEmp.jsp
@@ -232,11 +231,11 @@ public class ActServlet extends HttpServlet {
 				/***************************2.開始查詢資料*****************************************/
 				Act_Service act_Svc = new Act_Service();
 				ActPOIService actpoiSvc = new ActPOIService();
-				Act_VO act_VO = act_Svc.getOne(actID);
+				ActFiestaVO actfVO = act_Svc.getOne(actID);
 				
 				List<String> actpoilist = actpoiSvc.getPOIByActID(actID);
 				Integer memNow=1;						 // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-				if (act_VO == null) {
+				if (actfVO == null) {
 					errorMsgs.add("查無資料");
 				}
 				// Send the use back to the form, if there were errors
@@ -248,8 +247,8 @@ public class ActServlet extends HttpServlet {
 				}
 				
 				/***************************3.查詢完成,準備轉交(Send the Success view)*************/
-				req.setAttribute("act_VO", act_VO); // 資料庫取出的act_VO物件,存入req
-				System.out.println(act_VO);
+				req.setAttribute("act_VO", actfVO); // 資料庫取出的act_VO物件,存入req
+				System.out.println(actfVO);
 				System.out.println(123);
 				req.setAttribute("memNow", memNow); // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 				req.setAttribute("actpoilist", actpoilist); // poi

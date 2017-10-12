@@ -234,6 +234,17 @@ public class tools {
 	        return new java.sql.Timestamp(utDate.getTime());
 	    }
 	    
+	    public static java.sql.Timestamp strToTimestampGsonDO(String strDate) {
+	        java.util.Date utDate;
+	        try {
+	            SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+	            sdf.setLenient(false);
+	            utDate = sdf.parse(strDate);
+	        } catch (Exception e) {
+	            return null;
+	        }
+	        return new java.sql.Timestamp(utDate.getTime());
+	    }
 	    
 		public static byte[] sendPicture(String path) throws IOException {
 			
@@ -264,29 +275,6 @@ public class tools {
 		}
 		
 		
-//		去除HTML標籤
-	    public static String delHTMLTag(String htmlStr){ 
-//	         String regEx_script="<script[^>]*?>[\\s\\S]*?<\\/script>"; //定義script 
-//	         String regEx_style="<style[^>]*?>[\\s\\S]*?<\\/style>"; //定義CSS 
-	         String regEx_html="<[^>]+>"; //定義HTML
-	         
-//	         Pattern p_script=Pattern.compile(regEx_script,Pattern.CASE_INSENSITIVE); 
-//	         Matcher m_script=p_script.matcher(htmlStr); 
-//	         htmlStr=m_script.replaceAll(""); //-JS 
-//	         
-//	         Pattern p_style=Pattern.compile(regEx_style,Pattern.CASE_INSENSITIVE); 
-//	         Matcher m_style=p_style.matcher(htmlStr); 
-//	         htmlStr=m_style.replaceAll(""); //-CSS
-	         
-	         Pattern p_html=Pattern.compile(regEx_html,Pattern.CASE_INSENSITIVE); 
-	         Matcher m_html=p_html.matcher(htmlStr); 
-	         htmlStr=m_html.replaceAll(" "); //-HTML 
-	         htmlStr=m_html.replaceAll(""); //-HTML
-	         htmlStr=m_html.replaceAll("\n"); //-HTML 
-	         htmlStr=m_html.replaceAll("\r"); //-HTML
-	         
-	        return htmlStr.trim().substring(0,170); //return
-	     } 
-		
+
 	    
 }

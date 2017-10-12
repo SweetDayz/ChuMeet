@@ -1,5 +1,6 @@
 package com.act.act.model;
 import java.sql.Timestamp;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -38,6 +39,20 @@ public class Act_VO  implements java.io.Serializable {
 	private String actOnSale;
 	private String actPrice;
 
+	@Override
+	public String toString() {
+		return "Act_VO [actType=" + actType + ", actID=" + actID + ", memID=" + memID + ", actCreateDate="
+				+ actCreateDate + ", actName=" + actName + ", actStatus=" + actStatus + ", actPriID=" + actPriID
+				+ ", actStartDate=" + actStartDate + ", actEndDate=" + actEndDate + ", actSignStartDate="
+				+ actSignStartDate + ", actSignEndDate=" + actSignEndDate + ", actTimeTypeID=" + actTimeTypeID
+				+ ", actTimeTypeCnt=" + actTimeTypeCnt + ", actMemMax=" + actMemMax + ", actMemMin=" + actMemMin
+				+ ", actIMG=" + Arrays.toString(actIMG) + ", actContent=" + actContent + ", actIsHot=" + actIsHot
+				+ ", actLong=" + actLong + ", actLat=" + actLat + ", actPost=" + actPost + ", actLocName=" + actLocName
+				+ ", actAdr=" + actAdr + ", actUID=" + actUID + ", actShowUnit=" + actShowUnit + ", actMasterUnit="
+				+ actMasterUnit + ", actWebSales=" + actWebSales + ", actSourceWebName=" + actSourceWebName
+				+ ", actOnSale=" + actOnSale + ", actPrice=" + actPrice + ", actMems=" + actMems + ", actPOIs="
+				+ actPOIs + "]";
+	}
 	//	查一時，查出一群多(actMem) => set
 	private Set<ActMemVO> actMems = new HashSet<ActMemVO>();
 	private Set<ActPOIVO> actPOIs = new HashSet<ActPOIVO>();
