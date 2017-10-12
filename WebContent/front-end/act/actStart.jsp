@@ -451,7 +451,7 @@
                 <h3 class="fs-subtitle">揪咪是一個熱情友善的網站。請同意我們的使用條款</h3>
       			<input id="ckfinal" type="checkbox"> 我同意<a href="#"> 《使用條款》 </a><p />
                 <input type="button" name="previous" class="previous action-button-previous" value="上一步"/>
-                <button type="submit" name="submit" class="submit action-button">建立活動</button>
+                <button type="submit" name="submit" class="action-button">建立活動</button>
 
             </fieldset>
            
