@@ -46,7 +46,7 @@
     detailsAttribute: "name",
     detailsScope: null,
     autoselect: true,
-    location: [24.967742,121.191700],
+    location: false,
 
     mapOptions: {
       zoom: 14,
@@ -58,7 +58,7 @@
       draggable: false
     },
 
-    maxZoom: 20,
+    maxZoom: 16,
     types: ['geocode'],
     blur: false,
     geocodeAfterResult: false,

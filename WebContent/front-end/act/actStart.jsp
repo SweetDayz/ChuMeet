@@ -2,127 +2,207 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<html>
-<!-- Head BEGIN -->
-<head>
-	<!-- 共用Header -->
-<c:import url="/front-end/head.jsp">
-</c:import>
-	<!-- 共用Header -->
-  <!--  my styles  -->
+<%@ page import="com.act.actMem.model.*"%>
+<%@ page import="com.act.act.model.*"%>
+<%@ page import="com.act.actPOI.model.*"%>
+<%@ page import="java.util.*"%>
+
+<html lang="en"><head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../chumeet_icon.ico">
+    <title>ChuMeetStart</title>
+    
+<!-- 共用Header -->
+
+<link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700|PT+Sans+Narrow|Source+Sans+Pro:200,300,400,600,700,900&amp;subset=all" rel="stylesheet" type="text/css">
+ <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="<%=request.getContextPath()%>/HTML/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="<%=request.getContextPath()%>/HTML/assets/pages/css/base.css" rel="stylesheet">
+  <!-- Global styles END -->
+
+  <!-- Page level plugin styles START -->
+  <link href="<%=request.getContextPath()%>/HTML/assets/plugins/owl.carousel/assets/owl.carousel.css" rel="stylesheet">
+  <link href="<%=request.getContextPath()%>/HTML/assets/plugins/fancybox/source/jquery.fancybox.css" rel="stylesheet">
+  <link href="<%=request.getContextPath()%>/HTML/assets/pages/css/animate.css" rel="stylesheet">
+<link href="<%=request.getContextPath()%>/front-end/act/act_assets/jui.custom/jquery-ui.css" rel="stylesheet">
+<link href="<%=request.getContextPath()%>/front-end/act/act_assets/dp/jquery-ui.multidatespicker.css" rel="stylesheet">
+
+ <!-- Theme styles START -->
+  <link href="<%=request.getContextPath()%>/HTML/assets/pages/css/components.css" rel="stylesheet">
+  <link href="<%=request.getContextPath()%>/HTML/assets/corporate/css/style.css" rel="stylesheet">
+  <link href="<%=request.getContextPath()%>/HTML/assets/corporate/css/style-responsive.css" rel="stylesheet">
+  <link href="<%=request.getContextPath()%>/HTML/assets/corporate/css/themes/red.css" rel="stylesheet" id="style-color">
+  <!-- Theme styles END -->
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <!-- Custom styles -->
+ <link href="<%=request.getContextPath()%>/front-end/act/act_assets/css/mtf.css" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+    <!-- Fonts START -->
+<!-- Theme styles END -->
 <link href="<%=request.getContextPath()%>/front-end/act/act_assets/css/actMain.css" rel="stylesheet">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/act/act_assets/trumbowyg/ui/trumbowyg.min.css">
 <link href="<%=request.getContextPath()%>/front-end/act/act_assets/css/actStart.css" media="screen" rel="stylesheet" type="text/css">
-      
-    <style type="text/css" media="screen">
-/*      .map_canvas { float: left; }*/
-      form { width: 100%;}
-      fieldset { width: 320px; margin-top: 20px}
-      fieldset label { display: block; margin: 0.5em 0 0em; }
-      fieldset input { width: 95%; }
-    </style>
-    <script src="<%=request.getContextPath()%>/front-end/act/act_assets/js/nicEdit.js" type="text/javascript"></script>
-    <script type="text/javascript">
-			bkLib.onDomLoaded(function() {
-			new nicEditor({fullPanel : true,iconsPath : 'act_assets/js/nicEditorIcons.gif',buttonList : ['fontSize','bold','italic','underline','strikeThrough','subscript','superscript','html','image']}).panelInstance('actCntTA');
-		});
-	</script>
 
-  
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBktVb6UZUJi0f3ySJlXHz3wqWL4nMI6Us&libraries=places" async defer>
-	</script>
-  
+	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCBiHKk-5rL3ARP2SmZvtcQ5poVS97N_7A&libraries=places"></script>
 </head>
-<!-- Head END -->
-
 <!-- Body BEGIN -->
-<body class="chumeet">
-<!-- userHeader Start -->
-  <c:import url="/front-end/userHeader.jsp">
-</c:import>
-<!-- userHeader Start -->
-  <!-- Header Start -->
-  <c:import url="/front-end/header.jsp">
+<body class="corporate">
+
+<  <!-- Header Start -->
+  <c:import url="../../front-end/header.jsp">
 </c:import>
   <!-- Header END -->
-  <!--主頁面要修改的都在這下面-->
+
+<!--主頁面要修改的都在這下面-->
 
 
-<div class="main">
+
+
+<div class="center-block" style="max-width: 1350px; text-align: center;">
 <!-- BEGIN CONTENT -->
-<!-- BEGIN LEFT SIDEBAR -->            
-      <div class="container">
-    
-    
-      <div class="wd80">
+<!-- MultiStep Form -->
 
-      
-<form action="https://www.google.com.tw/" method="get">
-   
-<!--     		start of row-->
-<!--     		======================actName HERE-->
-      		<div class="row" id="step1">
-      			<div class="col-md-1"><img src="act_assets/img/start/stick-man.png"></div>
-      			<div class="col-md-11">
-      				<div class="startHead">step 1/6</div>
-      				<div class="startTitle"><h3>先幫活動取個好聽的名字吧！</h3></div>
-      				<div class="warningText" id="w1">　</div>
-      				<input type="text"  class="form-control" id="actName" name="actName" value="啾啾揪揪團"  onkeydown="if(event.keyCode==13)return false;">
-      				<a href="#next1" class="btn btn-primary actNext toscroll" id="next1" type="button">下一步</a>
-      			</div>
-      			
-      		</div>
-      		<hr class="stratLine" id="line1"/>
-<!--      		end of row-->
-   		
-    		<div id="step2" class="hns">
-     		<!--     		start of row-->
-<!--     		======================actLocID actLong actLat actLocName actAdr HERE-->
-      		<div class="row">
-      			<div class="col-md-1"><img src="act_assets/img/start/location.png"></div>
-      			<div class="col-md-6">
-      				<div class="startHead">step 2/6</div>
-      				<div class="startTitle"><h3>舉辦地點在哪兒呢？</h3></div>
-      				
-				<div class="warningText" id="w2">　</div>
-  			  
-  			      <div class="input-group">
-    				<input id="geocomplete" class="form-control" type="text" placeholder="請輸入地址" value="台灣桃園市中壢區TibaMe" />
-					  <span class="input-group-btn">
-						<button class="btn btn-info" type="button" id="find">定位</button>
-					  </span>
-					</div><!-- /input-group -->
+        <form id="msform">
+            <!-- progressbar -->
+            <ul id="progressbar">
+                <li class="active">基本資料</li>
+                <li>地點與分類</li>
+                <li>時間</li>
+                <li>詳細內容</li>
+
+                <li>創建活動</li>
+            </ul>
+            
+            <div class="container-fluid">
+  
+
+                                               
+                                                                 
+<!--1st page start  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@            -->            
+            <fieldset>
+				<div class="startRight">
+               <img src="act_assets/img/start/bg3.jpg" class="img-responsive">
+               </div>
+				<div class="startLeft">
+                <h1 class="fs-title">活動基本資料</h1>
+                <h3 class="fs-subtitle">Your presence on the social network</h3>
+                <div class="wd80">
+						<div class="wrapper inputSp">
+								<div class="group">
+
+							  	<input class="is" type="text" required="required"/>
+								<span class="highlight"></span><span class="bar"></span>
+							  	<label class="la"><i class="fa fa-caret-right pull-left" aria-hidden="true"></i>活動主題是...</label>
+								</div>
+
+<!--cover start-->
 
 
-          <div>
-          	     <a href="#tg2" class="btn btn-primary actNext toscroll" id="next2" type="button">下一步</a>
-          	
-          </div>
-           </div>
-            <div class="col-md-5">
-          <div class="map_canvas">
-          	
-          </div>
 
-			<div id="tg2"></div>
-      <fieldset>
+								<div class="image-editor" style="text-align: center;">
+					  	 		
+				  	 			  <label for="file-upload" class="custom-file-upload">
+										<i class="fa fa-cloud-upload" aria-hidden="true"></i>選擇活動封面
+									</label>
+									<input id="file-upload" type="file" accept="image/png,image/gif,image/jpeg,image/jpg" class="cropit-image-input"/>
+							<div class="row">
+							<div class="col-md-11">
+										<div id="imgprev" style="width: 400px; text-align: center;margin-left: auto; margin-right: auto">
+										<div class="cropit-preview" style="margin-left: auto; margin-right: auto"></div>
+							</div>  	 			  
+							<div class="col-md-1">
+										<input type="range" class="cropit-image-zoom-input">
+										<input type="hidden" name="image-data" id="actImg" class="hidden-image-data" />
+								</div>
+								</div>
+							</div>
+						  	 	</div>
+						  <!--						  end of cover-->
+					
+               </div></div></div>
+      	   <input type="button" name="next" class="next action-button" value="下一步"/>
+                
+            </fieldset>
+            
+            
+<!--1st page end  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@            -->
+            
+            <!-- fieldsets -->
+<!--2nd page start@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
+            <fieldset>
+				<div class="startRight">
+               <img src="act_assets/img/start/bg4.jpg" class="img-responsive">
+               </div>
+				<div class="startLeft">
+                <h1 class="fs-title">活動分類</h1>
+                <h3 class="fs-subtitle">Your presence on the social network</h3>
+                								
 
-        <input class="adruse" name="name" id="prename" type="hidden" value="">
-        <input class="adruse" name="lat" id="prelat" type="hidden" value="">
-        <input class="adruse" name="lng" id="prelong" type="hidden" value="">
-        <input class="adruse" name="formatted_address" id="preadr" type="hidden" value="">
-        <input class="adruse" name="postal_code" id="prepost" type="hidden" value="">
-        
-        <input name="actLocName" id="actLocName" type="hidden" value="">
-        <input name="actLong" id="actLong" type="hidden" value="">
-        <input name="actLat" id="actLat" type="hidden" value="">
-        <input name="actAdr" id="actAdr" type="hidden" value="">
-        <input name="actLocID" id="actLocID" type="hidden" value="">
+				   <div class="wrapper inputSp">     
+       		        
+													
+								<div class="group margin-bottom-20">
+
+							  	<input id="showAddress" class="is hns" type="text" required="required"/>
+								<span class="highlight"></span><span class="bar"></span>
+							  	<label class="la"><i class="fa fa-caret-right pull-left" aria-hidden="true"></i>舉辦地點為...</label>
+							  	
+							  	
+									<div class="pull-left gms margin-top-10;" style="color: dimgrey"><small>請選擇：</small>
+							  	<span id="onlinebtn" class="btn btn-sm btn-default">線上活動</span>
+									<a href="#myModal" class="trigger-btn" data-toggle="modal"><span class="btn btn-sm btn-default">實體活動</span></a>
+									</div>
+								</div>				
+
+			
+<!-- Modal HTML -->
+<div id="myModal" class="modal fade">
+	<div class="modal-dialog modal-login">
+		<div class="modal-content">
+			<div class="modal-header">
+                <div class="avatar"><img src="act_assets/img/start/map.png" class="img-responsive"></div>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			</div>
+			<div class="modal-body">
+
+
+
+      <input id="geocomplete" style="opacity: 0" type="text" placeholder="xxx" />
+	<div class="input-group">
+      <input id="inputmap" class="form-control ui-front" type="text" placeholder="請輸入地址" value="TibaMe" />
+         <div class="input-group-btn">
+      			<input id="find" class="form-control" type="button" value="定位" />
+   		 </div>
+	</div>
+         <div class="map_canvas"></div>
+         
+         <button id="mapok" type="button" class="btn btn-info margin-top-10">地點OK</button>
+         
+         
+        <input name="name" type="hidden" value="">
+        <input name="point_of_interest" type="hidden" value="">
+        <input name="lat" type="hidden" value="">
+        <input name="lng" type="hidden" value="">
         <input name="location" type="hidden" value="">
         <input name="location_type" type="hidden" value="">
+        <input name="formatted_address" type="hidden" value="">
         <input name="bounds" type="hidden" value="">
         <input name="viewport" type="hidden" value="">
         <input name="route" type="hidden" value="">
         <input name="street_number" type="hidden" value="">
+        <input name="postal_code" type="hidden" value="">
         <input name="locality" type="hidden" value="">
         <input name="sublocality" type="hidden" value="">
         <input name="country" type="hidden" value="">
@@ -131,521 +211,392 @@
         <input name="place_id" type="hidden" value="">
         <input name="id" type="hidden" value="">
         <input name="reference" type="hidden" value="">
-        <input name="url" type="hidden" value=""> 
-        <input name="point_of_interest" type="hidden" value="">
+        <input name="url" type="hidden" value="">
         <input name="website" type="hidden" value="">
-      </fieldset>
-
-     				
-
-      			</div>
-      		</div>
-      		<hr class="stratLine"/>
-<!--      		end of row-->
-     		</div>
-     		<div id="step3" class="hns">
-     		<!--     		start of row-->
-<!--     		======================POI HERE-->
-      		<div class="row">
-      			<div class="col-md-1"><img src="act_assets/img/start/gift-tag.png"></div>
-      			<div class="col-md-11">
-      				<div class="startHead">step 3/6</div>
-      				<div class="startTitle"><h3>活動分類是？</h3></div>
-      				<div class="warningText" id="w3">　</div>
-     					   	<div class="event-tags">
-								<li id="t1"><a href="#"><i class="fa fa-tag"></i>運動</a></li>
-								<li id="t3"><a href="#"><i class="fa fa-tag"></i>學習</a></li>
-								<li id="t4"><a href="#"><i class="fa fa-tag"></i>餐聚</a></li>
-								<li id="t5"><a href="#"><i class="fa fa-tag"></i>藝文</a></li>
-								<li id="t6"><a href="#"><i class="fa fa-tag"></i>電影</a></li>
-								<li id="t7"><a href="#"><i class="fa fa-tag"></i>電競</a></li>
-								<li id="t9"><a href="#"><i class="fa fa-tag"></i>戶外</a></li>
-								<li id="t10"><a href="#"><i class="fa fa-tag"></i>寵物</a></li>
-								<li id="t14"><a href="#"><i class="fa fa-tag"></i>其他</a></li>
-							</div>
-      					      <div class="margin-top-10">
-       					      <span class="catadiv">
-								<input id="sports" class="checkbox-custom" name="cata" type="checkbox">
-								<label for="sports" value="1">運動</label>
-							  </span>
-       					      <span class="catadiv">
-								<input id="learning" class="checkbox-custom" name="cata" type="checkbox">
-								<label for="learning" value="3">學習</label>
-							  </span>
-       					      <span class="catadiv">
-								<input id="eat" class="checkbox-custom" name="cata" type="checkbox">
-								<label for="eat" value="4">餐聚</label>
-							  </span>
-       					      <span class="catadiv">
-								<input id="arts" class="checkbox-custom" name="cata" type="checkbox">
-								<label for="arts" value="5">藝文</label>
-							  </span>
-       					      <span class="catadiv">
-								<input id="movie" class="checkbox-custom" name="cata" type="checkbox">
-								<label for="movie" value="6">電影</label>
-							  </span>
-       					      <span class="catadiv">
-								<input id="game" class="checkbox-custom" name="cata" type="checkbox">
-								<label for="game" value="7">電競</label>
-							  </span>
-       					      <span class="catadiv">
-								<input id="outdoors" class="checkbox-custom" name="cata" type="checkbox">
-								<label for="outdoors" value="9">戶外</label>
-							  </span>
-       					      <span class="catadiv">
-								<input id="pets" class="checkbox-custom" name="cata" type="checkbox">
-								<label for="pets" value="10">寵物</label>
-							  </span>
-       					      <span class="catadiv">
-								<input id="others" class="checkbox-custom" name="cata" type="checkbox">
-								<label for="others" value="14">其他</label>
-							  </span>
-      					
-       					
-       					
-     				</div>
-      				<a href="#tg3" class="btn btn-primary actNext toscroll" id="next3" type="button">下一步</a>
-      				<div id="tg3"></div>
-      			</div>
-      		</div>
-      		<hr class="stratLine"/>
-<!--      		end of row-->
-    		</div>
-
-    		<div id="step4" class="hns">
-<!--     		======================actStartDate actEndDate actSignStartDate actSignEndDate actTimeID actITVType HERE-->
-     		<!--     		start of row-->
-      		<div class="row">
-      			<div class="col-md-1"><img src="act_assets/img/start/cal.png"></div>
-      			<div class="col-md-11">
-      				<div class="startHead">step 4/6</div>
-      				<div class="startTitle"><h3>活動時間設定</h3></div>
-      				<div class="warningText" id="w4">　</div>
-      				<div>
-						<table class="table">
-							  <tr>
-								<th class="col-md-3">活動舉辦時間</th>
-								<td class="col-md-3">
-									<input type="datetime-local" name="actStartDate" onkeydown="if(event.keyCode==13)return false;" value="2017-10-20T15:00:00">
-								</td>
-								<th class="col-md-3">活動結束時間</th>
-								<td class="col-md-3">
-									<input type="datetime-local" name="actEndDate" onkeydown="if(event.keyCode==13)return false;" value="2017-10-21T15:00:00">
-								</td>
-							  </tr>
-							  <tr>
-								<th>開始報名時間</th>
-								<td>
-									<input type="datetime-local" name="actSignStartDate" onkeydown="if(event.keyCode==13)return false;" value="2017-9-16T23:00:00">
-								</td>
-								<th>截止報名時間</th>
-								<td>
-									<input type="datetime-local" name="actSignEndDate" onkeydown="if(event.keyCode==13)return false;" value="2017-10-18T23:59:00">
-								</td>
-							  </tr>
-							  <tr>
-								<th>重複設定</th>
-								 <td>
-									<label class="radio-inline">
-										<input type="radio" name="actITVType" class="option-input radio" value="0" id="oneTime" checked>一次
-									</label>
-									<label class="radio-inline">
-										<input type="radio" name="actITVType" class="option-input radio" value="1" id="repTime">重複
-									</label>
+</div>		
+				
+			</div>
+		</div>
+	
+ 
 							
-									
-								</td>
-								<td colspan="2">
-								</td>
-								<td></td>
-							  </tr>
-							  <session id="papprep hns">
-							  <tr>
-							  	<th>單位</th>
-							  	<td colspan="3">
+</div>	   
 
-									<div style="display: inline-block; background-color: white;">
-										<ul class="nav nav-tabs">
-										  <li class="active"><a data-toggle="tab" href="#home">日</a></li>
-										  <li><a data-toggle="tab" href="#menu1">週</a></li>
-										  <li><a data-toggle="tab" href="#menu2">月</a></li>
-										  <li><a data-toggle="tab" href="#menu3">年</a></li>
-										</ul>
+						   	<br>
+								<div class="group">
 
-										<div class="tab-content">
-										  <div id="home" class="tab-pane fade in active">
-											每<select name="cal" id="cal">
-												<option value="1">1</option>
-												<option value="2">2</option>
-												<option value="3">3</option>
-											</select>日重複
-										  </div>
-										  <div id="menu1" class="tab-pane fade">
-				<label class="checkbox-inline"><input type="checkbox" value="">週日</label>
-				<label class="checkbox-inline"><input type="checkbox" value="">週一</label>
-				<label class="checkbox-inline"><input type="checkbox" value="">週二</label>
-				<label class="checkbox-inline"><input type="checkbox" value="">週三</label>
-				<label class="checkbox-inline"><input type="checkbox" value="">週四</label>
-				<label class="checkbox-inline"><input type="checkbox" value="">週五</label>
-				<label class="checkbox-inline"><input type="checkbox" value="">週六</label>
+							  	<input id="showpois" class="is hns" type="textarea" required="required" />
+							  	<div id="poiappend" class="event-tags" style="text-align: left; margin-top: 0"></div>
+							  								  	
+								<span class="highlight"></span><span class="bar"></span>
+							  	<label class="la"><i class="fa fa-caret-right pull-left" aria-hidden="true"></i>活動分類有...</label>
+							  	</div>
+								
+							   <div id="showcat" class="event-tags_st" style="text-align: left;">
+					   
+								   <span class="selectPOIs"><li><a href="#"><span class="poicnt"><small>音樂</small></span></a></li></span>
+								   <span class="selectPOIs"><li><a href="#"><span class="poicnt"><small>戲劇</small></span></a></li></span>
+								   <span class="selectPOIs"><li><a href="#"><span class="poicnt"><small>舞蹈</small></span></a></li></span>
+								   <span class="selectPOIs"><li><a href="#"><span class="poicnt"><small>親子</small></span></a></li></span>
+								   <span class="selectPOIs"><li><a href="#"><span class="poicnt"><small>獨立音樂</small></span></a></li></span>
+								   <span class="selectPOIs"><li><a href="#"><span class="poicnt"><small>展覽</small></span></a></li></span>
+								   <span class="selectPOIs"><li><a href="#"><span class="poicnt"><small>講座</small></span></a></li></span>
+								   <span class="selectPOIs"><li><a href="#"><span class="poicnt"><small>電影</small></span></a></li></span>
+								   <span class="selectPOIs"><li><a href="#"><span class="poicnt"><small>運動</small></span></a></li></span>
+								   <span class="selectPOIs"><li><a href="#"><span class="poicnt"><small>手作</small></span></a></li></span>
+								   <span class="selectPOIs"><li><a href="#"><span class="poicnt"><small>綜藝</small></span></a></li></span>
+								   <span class="selectPOIs"><li><a href="#"><span class="poicnt"><small>學習</small></span></a></li></span>
+								   <span class="selectPOIs"><li><a href="#"><span class="poicnt"><small>競賽</small></span></a></li></span>
+								   <span class="selectPOIs"><li><a href="#"><span class="poicnt"><small>徵選</small></span></a></li></span>
+								   <span class="selectPOIs"><li><a href="#"><span class="poicnt"><small>演唱會</small></span></a></li></span>
+								   <span class="selectPOIs"><li><a href="#"><span class="poicnt"><small>餐聚</small></span></a></li></span>
+								   <span class="selectPOIs"><li><a href="#"><span class="poicnt"><small>研習課程</small></span></a></li></span>
+								   <span class="selectPOIs"><li><a href="#"><span class="poicnt"><small>藝文</small></span></a></li></span>
+								   <span class="selectPOIs"><li><a href="#"><span class="poicnt"><small>電競</small></span></a></li></span>
+								   <span class="selectPOIs"><li><a href="#"><span class="poicnt"><small>線上活動</small></span></a></li></span>
+								   <span class="selectPOIs"><li><a href="#"><span class="poicnt"><small>戶外</small></span></a></li></span>
+								   <span class="selectPOIs"><li><a href="#"><span class="poicnt"><small>寵物</small></span></a></li></span>
+								   <span class="selectPOIs"><li><a href="#"><span class="poicnt"><small>讀書會</small></span></a></li></span>
+								   <span class="selectPOIs"><li><a href="#"><span class="poicnt"><small>其他</small></span></a></li></span>
+    					
+						  
+						
+              		  </div>
+              		  
+              		  </div></div>
+                <input type="button" name="previous" class="previous action-button-previous" value="上一步"/>
+                <input type="button" name="next" class="next action-button" value="下一步"/>
+            </fieldset>
+<!--2nd page end@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->            
 
-										  </div>
-										  <div id="menu2" class="tab-pane fade">
-											每<select name="cal3" id="cal2">
-												<option value="1">1</option>
-												<option value="2">2</option>
-												<option value="3">3</option>
-											</select>月重複
-										  </div>
-										  <div id="menu3" class="tab-pane fade">
-											<p>每年重覆</p>
-										  </div>
-										</div>
+<!--3rd page start@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@-->
+            <fieldset>
+				<div class="startRight">
+               		<img src="act_assets/img/start/bg2.jpg" class="img-responsive">
+               </div>
+				<div class="startLeft">
+                <h1 class="fs-title">時間設定</h1>
+                <h3 class="fs-subtitle">Your presence on the social network</h3>
+						<div style="text-align: left">
+							<h3><i class="fa fa-caret-right pull-left" aria-hidden="true"></i>預定時間為...</h3>
+							<p></p>
+							<div style="margin-left: 1em;">
+								<div class="form-inline">
+								  <div class="form-group">
+									<input type="datetime-local" min="2017-10-19" name="actStartDate" class="form-control" onkeydown="if(event.keyCode==13)return false;" value="2017-10-20T15:00:00">
+									  </div>
+									<div class="form-group">
+									至<input type="time" name="actStartDate" class="form-control" onkeydown="if(event.keyCode==13)return false;" value="17:00:00">
 									</div>
-							  		
-							  		
-							  		
-							  	</td>
-							  </tr>
-							  </session>
-						  </table>
+									</div>
+							</div>
+            		 	 	<br>
+             		 	 	<h3><i class="fa fa-caret-right pull-left" aria-hidden="true"></i>重複設定</h3>
+             		 	 	<span class="margin-left-20"><button class="btn btn-sm btn-default" id="onetime">一次</button>
+             		 	 	<button class="btn btn-sm btn-default" data-toggle="modal" data-target="#timeModal" id="rept">重複</button></span>
+							
+							<!-- Modal -->
+							<div id="timeModal" class="modal fade" role="dialog">
+							  <div class="modal-dialog">
 
-      				</div>
-
-      	 			<a href="#tg4" class="btn btn-primary actNext toscroll" id="next4" type="button">下一步</a>
-      	 			<div id="tg4"></div>
-      			</div>
-      		</div>
-      		<hr class="stratLine"/>
-      		</div>
-<!--      		end of row-->
-   		
-    		<div id="step5" class="hns">
-     		<!--     		start of row-->
-<!--     		======================actMemMax actMemMin actContent actImg actPriID HERE-->
-      		<div class="row">
-      			<div class="col-md-1"><img src="act_assets/img/start/electronic.png"></div>
-      			<div class="col-md-11">
-      				<div class="startHead">step 5/6</div>
-      				<div class="startTitle"><h3>活動詳細說明</h3></div>
-      				<div class="warningText" id="w5">　</div>
-      				<div>
-						<table class="table table-striped">
-							<tr>
-								<th style="width:8em;">人數設定</th>
-								<td>
-							  <div class="form-inline">
-							  		<span class="input-group input-group-sm pp">
-									  <span class="input-group-addon">下限</span>
-									  <input type="number" class="form-control" name="actMemMin" value="2">
-									</span>
-								  	<span class="input-group input-group-sm pp">
-									  <span class="input-group-addon">上限</span>
-									  <input type="number" class="form-control" name="actMemMax" value="15">
-									</span>
-
+								<!-- Modal content-->
+								<div class="modal-content">
+								  <div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal">&times;</button>
+									<h4 class="modal-title">Modal Header</h4>
+								  </div>
+								  <div class="modal-body">
+									<p><input id="mdp-demo"></p>
+								  </div>
+								  <div class="modal-footer">
+									<button type="button" class="btn btn-default" data-dismiss="modal" id="reptclose">Close</button>
+								  </div>
 								</div>
-								</td>
-							</tr>
-							  <tr>
-							  	<th>隱私設定</th>
-							  	<td>
-<!--"隱私狀態
-1 公開
-2 僅限社團
-3.僅限限定社團(社團聯誼)
-4 僅限邀請 XXXXX
-5.僅限邀請(被邀請人可以邀請其他人)
-6-16限定等級以上參加"
--->
-							  	
-							  	<div>
-							  		<label class="radio-inline">
-										<input type="radio" class="actPriSS option-input radio" name="actPriS" value="PUBLIC">公開</label>
-									<label class="radio-inline">
-										<input type="radio" class="actPriSS option-input radio" name="actPriS" value="CLUB">僅限社團</label>
-<!--					  			TODO:選社團-->
-									<label class="radio-inline">
-										<input type="radio" class="actPriSS option-input radio" name="actPriS" value="CLUBS">社團聯誼</label>
-<!--						  		TODO:選人-->
-					  			
-						  			<label class="radio-inline">
-										<input type="radio" class="actPriSS option-input radio" name="actPriS" value="INV">邀請制</label>
-<!--						  		TODO:選人-->
 
-						  			<label class="radio-inline">
-									<input type="radio" class="actPriSS option-input radio" name="actPriS" id="LVLVLV" value="LV">
-									限制等級
-						  			<span id="priLVshow">						  		
-							  		　LV
-							  			<select id="priLVsel">
-							  				<option value="0"></option>
-							  				<option value="6">1</option>
-							  				<option value="7">2</option>
-							  				<option value="8">3</option>
-							  				<option value="9">4</option>
-							  				<option value="10">5</option>
-							  				<option value="11">6</option>
-							  				<option value="12">7</option>
-							  				<option value="13">8</option>
-							  				<option value="14">9</option>
-							  				<option value="15">10</option>
-							  			</select>以上
-							  		</span>
-							  		</label>
-							  		
-									<input type="hidden" id="actPriID" name="actPriID">
-									</div>
-							  	</td>
-							  </tr>
-							  <tr>
-							  <th colspan="4">詳細內容
-							  <div class="margin-top-10">
-							  	<textarea class="form-control" name="actContent" rows="15" cols="50" id="actCntTA"></textarea>
-							  	
 							  </div>
-							  </th>
-							  </tr>
-								<tr>
-							  	 <th>上傳活動照片
-						  	 		</th>
-						  	 		<td>
-						  	 		<div class="image-editor">
-						  	 		<span class="filebeauty">
-									<input type="file" id="imguploader" accept="image/png,image/gif,image/jpeg,image/jpg" class="cropit-image-input">
-									<i class="fa fa-cloud-upload" aria-hidden="true"></i> 選擇圖片
-									</span>
-										<div id="imgprev" style="width: 400px;">
-										<div class="cropit-preview"></div>
-										<div class="image-size-label">
-										  <p class="small">調整圖片大小</p>
-										</div>
-										<input type="range" class="cropit-image-zoom-input">
-										<input type="hidden" name="image-data" id="actImg" class="hidden-image-data" />
-	<!--									<button id="testimg" type="submit">Submit</button>-->
-										</div>
+							</div>
+          					 <p></p>
+							<div id="showdates"></div>
+              		 	 </div>
+              		  
+              		  </div>
+                <input type="button" name="previous" class="previous action-button-previous" value="上一步"/>
+                <input type="button" name="next" class="next action-button" value="下一步"/>
+            </fieldset>
+<!--3rd page end@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@-->
+<!--4rh page start@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@-->
+            <fieldset>
+               <div class="startRight">
+               <img src="act_assets/img/start/bg8.jpg" class="img-responsive">
+               </div>
+				<div class="startLeft">
+                <h2 class="fs-title">活動說明</h2>
+                <h3 class="fs-subtitle">Your presence on the social network</h3>
 
+							  <div class="margin-top-10">
+									<div id="editor">
+										<h2>碰碰好可愛</h2>
+										<p>
+											我覺得我做不完了QwQ
+										</p>
+									</div>
+							  </div></div>
+                 <input type="button" name="previous" class="previous action-button-previous" value="上一步"/>
+                <input type="button" name="next" class="next action-button" value="下一步"/>
+            </fieldset>
+<!--4th page end@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@-->
+<!--5th page start@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@-->        
 <!--
-										<div id="result">
-										  <code>$form.serialize() =</code>
-										  <code id="result-data"></code>
-										</div>
+                           <li>更多詳情</li>   
+            <fieldset>
+               <div class="group">
+                <h2 class="fs-title">更多詳細設定？</h2>
+                <h3 class="fs-subtitle">Fill in your credentials</h3>
+                <input type="button" name="previous" class="previous action-button-previous" value="上一步"/>
+                <input type="button" name="next" class="next action-button" value="下一步"/>
+                </div>
+            </fieldset>
 -->
-						  	 	</div>
-						  	 			
-						  	 		</td>
-
-							  </tr>
-						  </table>
-
-      				</div>
-
-      	 			<a href="#tg5" class="btn btn-primary actNext toscroll" id="next5" type="button">下一步</a>
-      	 			<div id="tg5"></div>
-      			</div>
-      		</div>
-      		<hr class="stratLine"/>
-      		</div>
-<!--      		end of row-->
-		
-		
-			<div id="step6" class="hns">　
-<!--     		start of row-->
-      		<div class="row">
-      			<div class="col-md-1"><img src="act_assets/img/start/people.png"></div>
-      			<div class="col-md-11">
-      				<div class="startHead">step 6/6</div>
-      				<div class="startTitle"><h3>揪咪是一個友善熱情的網站，請同意我們的使用條款</h3></div>
+<!--5th page end@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@-->                       
+<!--5th page start@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@-->           
+            <fieldset>
+              
+              
+               <div class="group">
+               <img src="act_assets/img/dogs.jpg" class="img-responsive">
+                <h3 class="margin-top-10">揪咪是一個熱情友善的網站</h3>
+                <h3 class="fs-subtitle">請同意我們的使用條款</h3>
       				<input id="ckfinal" type="checkbox"> 我同意<a href="#"> 《使用條款》 </a><p />
-      				<div style="height: 8em;">
-      				<button id="goSubmit" class="btn btn-danger actNext" type="submit">開啟活動囉！</button>
-      				</div>
-      			</div>
-      		</div>
-<!--      		end of row-->
-     		</div>
-        </form>
-      </div>
-        <!-- END SIDEBAR & CONTENT -->
+                <input type="button" name="previous" class="previous action-button-previous" value="上一步"/>
+                <input type="submit" name="submit" class="submit action-button" value="建立活動"/>
+                </div>
+            </fieldset>
+<!--5th page end@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@-->     
+            
+            
+            
+            
+       </div>
+     </form>
+    
 
 </div>
-</div>
+
+
+<!-- /.MultiStep Form -->
+
+
+
 <!--主頁面要修改的都在這上面-->
 
+
+
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+   
   <!-- BEGIN FOOTER -->
 <c:import url="/front-end/footer.jsp">
 </c:import>
   <!-- END FOOTER -->
 	<!-- 共用Js -->
- <c:import url="/front-end/publicJS.jsp">
-</c:import>
-  	<!-- 共用Js -->
-  	
-<script src="<%=request.getContextPath()%>/front-end/act/act_assets/js/actStart/jquery.cropit.js" type="text/javascript"></script> 
-<script src="<%=request.getContextPath()%>/front-end/act/act_assets/js/actStart/jquery.geocomplete.js"></script>
+
+
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+<script>window.jQuery || document.write('<script src="js/vendor/jquery-3.2.1.min.js"><\/script>')</script>
+<script src="<%=request.getContextPath()%>/front-end/act/act_assets/trumbowyg/trumbowyg.min.js"></script>
+<script src="<%=request.getContextPath()%>/front-end/act/BS-MultiStepForm/assets/bootstrap/js/bootstrap.min.js"></script>
+
+<script src="<%=request.getContextPath()%>/front-end/act/act_assets/modal/js/bootstrap-modal.js" type="text/javascript"></script> 
+<script src="<%=request.getContextPath()%>/front-end/act/BS-MultiStepForm/assets/multistepform/js/msform.js"></script>
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+	<script src="<%=request.getContextPath()%>/front-end/act/act_assets/jui.custom/jquery-ui.min.js"></script>
+	<script src="<%=request.getContextPath()%>/front-end/act/act_assets/dp/jquery-ui.multidatespicker.js"></script>
+
+ <script src="<%=request.getContextPath()%>/HTML/assets/plugins/jquery.wow.min.js" type="text/javascript"></script>
+  <script src="<%=request.getContextPath()%>/HTML/assets/plugins/jquery.smooth-scroll.js" type="text/javascript"></script>
+  <script src="<%=request.getContextPath()%>/HTML/assets/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+  <script src="<%=request.getContextPath()%>/HTML/assets/corporate/scripts/back-to-top.js" type="text/javascript"></script>
+
+<script src="act_assets/js/actStart/jquery.cropit.js" type="text/javascript"></script> 
+<script src="act_assets/js/actStart/jquery.geocomplete.js"></script>
+<!-- END CORE PLUGINS --> 
+
+<!-- BEGIN PAGE LEVEL JAVASCRIPTS (REQUIRED ONLY FOR CURRENT PAGE) --> 
+<!--@@@@@@@@@@@@@@@@@@@@@@@@@ 頁面專屬JS，JS擺在最後有益身心健康，可以刪改 @@@@@@@@@@@@@@@@@@@@@@@@-->
+<script src="<%=request.getContextPath()%>/HTML/assets/plugins/owl.carousel/owl.carousel.min.js" type="text/javascript"></script>
+<script src="<%=request.getContextPath()%>/front-end/act/act_assets/trumbowyg/plugins/colors/trumbowyg.colors.min.js"></script>
+<script src="<%=request.getContextPath()%>/front-end/act/act_assets/trumbowyg/plugins/upload/trumbowyg.upload.min.js"></script>
+
+<script src="<%=request.getContextPath()%>/front-end/act/act_assets/trumbowyg/langs/zh_tw.min.js"></script>
+  <script src="<%=request.getContextPath()%>/HTML/assets/corporate/scripts/layout.js" type="text/javascript"></script>
+  <script src="<%=request.getContextPath()%>/HTML/assets/pages/scripts/bs-carousel.js" type="text/javascript"></script>
+
 <script type="text/javascript">
-	$(document).ready(function(){
+        jQuery(document).ready(function() {
+//		$('.date').datepicker({
+//			multidate: true
+//		});
+//
+//		$('.date').datepicker('setDates', [new Date(2017, 10, 11), new Date(2017, 10, 15)])
+			$('#mdp-demo').multiDatesPicker({
+				maxPicks: 6,
+				minDate: 0, // today
+				maxDate: 60 // +30 days from today
+			});
+			$('#editor').trumbowyg({
+				
+	//			lang: 'zh_tw',
+				btnsDef: {
+					// Create a new dropdown
+					image: {
+						dropdown: ['insertImage', 'upload'],
+						ico: 'insertImage'
+					}
+				},
+    // Redefine the button pane
+				btns: [
+					['viewHTML'],
+					['formatting'],
+					['strong', 'em', 'del'],
+					['superscript', 'subscript'],
+					['link'],
+					['image'], // Our fresh created dropdown
+					['justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull'],
+					['unorderedList', 'orderedList'],
+					['horizontalRule'],
+					['removeformat'],
+					['foreColor', 'backColor'],
+				],
+				plugins: {
+					// Add imagur parameters to upload plugin for demo purposes
+					upload: {
+						serverPath: 'https://api.imgur.com/3/image',
+						fileFieldName: 'image',
+						headers: {
+							'Authorization': 'Client-ID xxxxxxxxxxxx'
+						},
+						urlPropertyName: 'data.link'
+					}
+				}
+				
+				
+});
+
             Layout.init();    
             Layout.initOWL();
             Layout.initTwitter();
             Layout.initFixHeaderWithPreHeader(); /* Switch On Header Fixing (only if you have pre-header) */
-            Layout.initNavScrolling();
-			$("#goSubmit").hide();
-			$("#imgprev").hide();
-			$("#priLVshow").hide();
-			$("#next2").hide();
-//			   $("#imguploader").on('change', function() {
-//				$("#imgprev").show();
-//		 	});
-
-
-	//scroll
-		$("a.toscroll").on('click',function(e) {
-				var url = e.target.href;
-				var hash = url.substring(url.indexOf("#")+1);
-				$('html, body').animate({
-					scrollTop: $('#'+hash).offset().top
-				}, 500);
-				return false;
-			});
-//step1>2
-		$("#next1").click(function(){
-				$("#step2").css("visibility","visible");
-				 $("#geocomplete").geocomplete({
-				  map: ".map_canvas",
-				  details: "form",
-				  types: ["geocode", "establishment"],
-				});
-
-				$("#find").click(function(){
-				  $("#geocomplete").trigger("geocode");
-				  $("#next2").show();
-				});
-			});
-	
-//step2>3
-	
-		$("#next2").click(function(){
-			$("#step3").css("visibility","visible");
-			$("#actLocName").val($("#prename").val());
-			$("#actLong").val($("#prelong").val());
-			$("#actLat").val($("#prelat").val());
-			$("#actAdr").val($("#preadr").val());
-			$("#actLocID").val($("#prepost").val());
-		});
-		
-
-//step3>4
-		$("#next3").click(function(){
-			$("#step4").css("visibility","visible");
-		});
-
-//step4===
-	$("#repTime").change(function(){
-		$("#papprep").css("visibility","visible");
-		
 	});
 	
-//step4>5
-		$("#next4").click(function(){
-			$("#step5").css("visibility","visible");
-			$(".image-editor").cropit();
-			$("#imguploader").on('change', function() {
-				$("#imgprev").show();
-		 	});
-		});
 	
-	
-//step5==
 
-			$("input:radio[name=actPriS]").change(function(){
-			if(this.value!='LV'){
-				$("#priLVshow").hide();
-			};
-			
-			if (this.value == 'LV') {
-				$("#priLVshow").show();
-				$("#actPriID").val('LV');
-				var LVLV=$("#priLVsel").val();
-				$("#actPriID").val(LVLV);
-			}else if (this.value == 'PUBLIC') {
-//				alert(this.value);
-				$("#actPriID").val(1);
-			}else if (this.value == 'CLUB') {
-//				alert(this.value);
-				$("#actPriID").val(2);
-			}else if (this.value == 'CLUBS') {
-//				alert(this.value);
-				$("#actPriID").val(3)
-			}else if (this.value == 'INV') {
-//				alert(this.value);
-				$("#actPriID").val(4);
-			}else{
-				alert("WAT");
-			}
-		});
-			$("#priLVsel").change(function(){
-				var LVLV=$("#priLVsel").val();
-				$("#actPriID").val(LVLV);
-				$("#LVLVLV").prop("checked", true);
-			});
 	
-	        $("#testimg").click(function() {
-          // Move cropped image data to hidden input
-          var imageData = $('.image-editor').cropit('export');
-          $('.hidden-image-data').val(imageData);
-			
-          // Print HTTP request params
-          var formValue = $("#hns").serialize();
-          $('#result-data').text(formValue);
-          // Prevent the form from actually submitting
-          return false;
-			
-			
-			
-			
-        });
-	//step5>6
-	
-		$("#next5").click(function(){
-			$("#step6").css("visibility","visible");
-		});
-	
-	//finalcheck
-	        $("#ckfinal").click(function(){
-			if($("#ckfinal").prop("checked")){
-				$("#goSubmit").fadeIn();
-		}});
-	    });
 </script>
 
-
-
-<!--	<link href="../src/act/js/actStartEnd.js" rel="stylesheet" type="text/css">-->
-
-    
-<!--TODO:dateLIMIT
-    
-    <script type="text/javascript">
-    $(function () {
-        $('#datetimepicker6').datetimepicker();
-        $('#datetimepicker7').datetimepicker({
-            useCurrent: false //Important! See issue #1075
+   
+   <!--map-->
+      
+    <script>
+      $(function(){
+		$(".map_canvas").css("display","none");
+		$(".map_canvas").css("visibility","hidden");
+		$("#onlinebtn").click(function(){
+				$("#showAddress").val("線上活動");	
+			   $("#showAddress").css("visibility","visible");
+			   $("#showAddress").css("display","");
+							  })  
+		  
+		  
+		  
+		$("#inputmap").geocomplete({
+			  types: ["geocode", "establishment"],
+			});
+		  
+		$("#inputmap").on("keyup paste change", function() {
+			$("#geocomplete").val($("#inputmap").val());			  
+		});
+		  
+		  $('#inputmap').keyup(function(e) {
+    		 if(e.keyCode == 13) {
+          		$("#find").click();
+    		}
+		  });
+		  
+		  
+        $("#find").click(function(){
+			$("#geocomplete").geocomplete({
+			  map: ".map_canvas",
+			  details: "form",
+			  types: ["geocode", "establishment"],
+			});
+			
+			$("#geocomplete").trigger("geocode");
+			$("#myModal").css({width:'auto'});
+			$(".map_canvas").css("display","");
+			$(".map_canvas").css("visibility","visible");
+			
         });
-        $("#datetimepicker6").on("dp.change", function (e) {
-            $('#datetimepicker7').data("DateTimePicker").minDate(e.date);
-        });
-        $("#datetimepicker7").on("dp.change", function (e) {
-            $('#datetimepicker6').data("DateTimePicker").maxDate(e.date);
-        });
-    });
+		  
+		  $("#myModal").on("shown.bs.modal", function () {
+			 $(this).find('.modal-content').css({
+              width:'auto', //probably not needed
+              height:'auto', //probably not needed 
+              'max-height':'100%'
+       });
+		});
+		  
+		   $("#mapok").click(function(){
+			  $("#showAddress").val($("#geocomplete").val());
+			   $("#showAddress").css("visibility","visible");
+			   $("#showAddress").css("display","");
+			   $("#myModal").modal('hide')
+		   });
+		  
+		  $('input[type="file"]').change(function(){
+
+			  var f = this.files[0];  
+			  var name = f.name;
+
+			  $("#showpath").text(name);
+
+			});
+		  
+		  
+		  
+      });
+		
+		
+		
+    </script>
+
+	<!--map end-->
+	
+	<script>
+
+		function removeTag(){
+			alert("HI");
+			$("#poiappend").remove($(this));
+		}
+		
+		$(".selectPOIs").click(function(){
+			var str=$(this).find('.poicnt').text();
+;
+			var str2="<span onClick='removeTag();'><li><a href='#'><i class='fa fa-tags'></i>"+str+"</a></li></span>"
+			$("#poiappend").append(str2);
+			$(this).css("display","none");
+//			$("#showpois").val(" ");
+		});
+		
+		$("#reptclose").click(function() {
+			$("#showdates").html($("#mdp-demo").val());
+		});
+		
 	</script>
--->
-    
-    
-    
-    
-<!-- END PAGE LEVEL JAVASCRIPTS -->
+
+<script src="<%=request.getContextPath()%>/HTML/assets/plugins/components/wow.min.js" type="text/javascript"></script>
+
 </body>
-<!-- END BODY -->
 </html>
