@@ -65,12 +65,9 @@
 </c:import>
   <!-- Header END -->
 
-<!--主頁面要修改的都在這下面-->
 
 
-
-
-<div class="center-block" style="max-width: 1350px; text-align: center;">
+<div class="center-block" style="max-width: 1150px; text-align: center;">
 <!-- BEGIN CONTENT -->
 <!-- MultiStep Form -->
 
@@ -85,7 +82,9 @@
                 <li>創建活動</li>
             </ul>
             
-            <div class="container-fluid">
+            
+            
+            <div class="container" style="min-height: 750px;">
   
 
                                                
@@ -102,7 +101,7 @@
 						<div class="wrapper inputSp">
 								<div class="group">
 
-							  	<input class="is" type="text" required="required"/>
+							  	<input class="is" type="text" required="required" id="aName"/>
 								<span class="highlight"></span><span class="bar"></span>
 							  	<label class="la"><i class="fa fa-caret-right pull-left" aria-hidden="true"></i>活動主題是...</label>
 								</div>
@@ -114,12 +113,12 @@
 								<div class="image-editor" style="text-align: center;">
 					  	 		
 				  	 			  <label for="file-upload" class="custom-file-upload">
-										<i class="fa fa-cloud-upload" aria-hidden="true"></i>選擇活動封面
+										選擇活動封面
 									</label>
-									<input id="file-upload" type="file" accept="image/png,image/gif,image/jpeg,image/jpg" class="cropit-image-input"/>
+									<input id="file-upload" type="file" accept="image/png,image/gif,image/jpeg,image/jpg" class="cropit-image-input pull-left"/>
 							<div class="row">
 							<div class="col-md-11">
-										<div id="imgprev" style="width: 400px; text-align: center;margin-left: auto; margin-right: auto">
+										<div id="imgprev" style="width: 360px; text-align: center;margin-left: auto; margin-right: auto">
 										<div class="cropit-preview" style="margin-left: auto; margin-right: auto"></div>
 							</div>  	 			  
 							<div class="col-md-1">
@@ -190,19 +189,23 @@
          
          <button id="mapok" type="button" class="btn btn-info margin-top-10">地點OK</button>
          
-         
-        <input name="name" type="hidden" value="">
+<!--         actLocName-->
+        <input id="locName" name="name" type="hidden" value="">				
         <input name="point_of_interest" type="hidden" value="">
-        <input name="lat" type="hidden" value="">
-        <input name="lng" type="hidden" value="">
+        <input id="lat" name="lat" type="hidden" value="">
+        <input id="lng" name="lng" type="hidden" value="">
+
+
         <input name="location" type="hidden" value="">
         <input name="location_type" type="hidden" value="">
-        <input name="formatted_address" type="hidden" value="">
+<!--        actAdr-->
+        <input id="loc" name="formatted_address" type="hidden" value="">
         <input name="bounds" type="hidden" value="">
         <input name="viewport" type="hidden" value="">
         <input name="route" type="hidden" value="">
         <input name="street_number" type="hidden" value="">
-        <input name="postal_code" type="hidden" value="">
+<!--post-->
+        <input id="post" name="postal_code" type="hidden" value="">
         <input name="locality" type="hidden" value="">
         <input name="sublocality" type="hidden" value="">
         <input name="country" type="hidden" value="">
@@ -223,7 +226,7 @@
 </div>	   
 
 						   	<br>
-								<div class="group">
+						   									<div class="group">
 
 							  	<input id="showpois" class="is hns" type="textarea" required="required" />
 							  	<div id="poiappend" class="event-tags" style="text-align: left; margin-top: 0"></div>
@@ -233,22 +236,16 @@
 							  	</div>
 								
 							   <div id="showcat" class="event-tags_st" style="text-align: left;">
-					   
+					   				<input type="hidden" id="poilists">
 								   <span class="selectPOIs"><li><a href="#"><span class="poicnt"><small>音樂</small></span></a></li></span>
 								   <span class="selectPOIs"><li><a href="#"><span class="poicnt"><small>戲劇</small></span></a></li></span>
 								   <span class="selectPOIs"><li><a href="#"><span class="poicnt"><small>舞蹈</small></span></a></li></span>
 								   <span class="selectPOIs"><li><a href="#"><span class="poicnt"><small>親子</small></span></a></li></span>
-								   <span class="selectPOIs"><li><a href="#"><span class="poicnt"><small>獨立音樂</small></span></a></li></span>
 								   <span class="selectPOIs"><li><a href="#"><span class="poicnt"><small>展覽</small></span></a></li></span>
 								   <span class="selectPOIs"><li><a href="#"><span class="poicnt"><small>講座</small></span></a></li></span>
 								   <span class="selectPOIs"><li><a href="#"><span class="poicnt"><small>電影</small></span></a></li></span>
 								   <span class="selectPOIs"><li><a href="#"><span class="poicnt"><small>運動</small></span></a></li></span>
-								   <span class="selectPOIs"><li><a href="#"><span class="poicnt"><small>手作</small></span></a></li></span>
-								   <span class="selectPOIs"><li><a href="#"><span class="poicnt"><small>綜藝</small></span></a></li></span>
 								   <span class="selectPOIs"><li><a href="#"><span class="poicnt"><small>學習</small></span></a></li></span>
-								   <span class="selectPOIs"><li><a href="#"><span class="poicnt"><small>競賽</small></span></a></li></span>
-								   <span class="selectPOIs"><li><a href="#"><span class="poicnt"><small>徵選</small></span></a></li></span>
-								   <span class="selectPOIs"><li><a href="#"><span class="poicnt"><small>演唱會</small></span></a></li></span>
 								   <span class="selectPOIs"><li><a href="#"><span class="poicnt"><small>餐聚</small></span></a></li></span>
 								   <span class="selectPOIs"><li><a href="#"><span class="poicnt"><small>研習課程</small></span></a></li></span>
 								   <span class="selectPOIs"><li><a href="#"><span class="poicnt"><small>藝文</small></span></a></li></span>
@@ -261,8 +258,10 @@
     					
 						  
 						
-              		  </div>
               		  
+						   </div>	
+		
+		
               		  </div></div>
                 <input type="button" name="previous" class="previous action-button-previous" value="上一步"/>
                 <input type="button" name="next" class="next action-button" value="下一步"/>
@@ -275,7 +274,7 @@
                		<img src="act_assets/img/start/bg2.jpg" class="img-responsive">
                </div>
 				<div class="startLeft">
-                <h1 class="fs-title">時間設定</h1>
+ 				   					   	               <h1 class="fs-title">時間設定</h1>
                 <h3 class="fs-subtitle">Your presence on the social network</h3>
 						<div style="text-align: left">
 							<h3><i class="fa fa-caret-right pull-left" aria-hidden="true"></i>預定時間為...</h3>
@@ -283,10 +282,10 @@
 							<div style="margin-left: 1em;">
 								<div class="form-inline">
 								  <div class="form-group">
-									<input type="datetime-local" min="2017-10-19" name="actStartDate" class="form-control" onkeydown="if(event.keyCode==13)return false;" value="2017-10-20T15:00:00">
+									<input type="datetime-local" min="2017-10-19" id="aStartDate" class="form-control" onkeydown="if(event.keyCode==13)return false;" value="2017-10-20T15:00:00">
 									  </div>
 									<div class="form-group">
-									至<input type="time" name="actStartDate" class="form-control" onkeydown="if(event.keyCode==13)return false;" value="17:00:00">
+									至<input type="time" id="aEndTime" class="form-control" onkeydown="if(event.keyCode==13)return false;" value="17:00:00">
 									</div>
 									</div>
 							</div>
@@ -319,6 +318,7 @@
 							<div id="showdates"></div>
               		 	 </div>
               		  
+              		  
               		  </div>
                 <input type="button" name="previous" class="previous action-button-previous" value="上一步"/>
                 <input type="button" name="next" class="next action-button" value="下一步"/>
@@ -342,37 +342,119 @@
 									</div>
 							  </div></div>
                  <input type="button" name="previous" class="previous action-button-previous" value="上一步"/>
-                <input type="button" name="next" class="next action-button" value="下一步"/>
+                <input type="button" id="conf" name="next" class="next action-button" value="下一步"/>
             </fieldset>
-<!--4th page end@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@-->
-<!--5th page start@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@-->        
-<!--
-                           <li>更多詳情</li>   
+            
+            
             <fieldset>
-               <div class="group">
-                <h2 class="fs-title">更多詳細設定？</h2>
-                <h3 class="fs-subtitle">Fill in your credentials</h3>
+                <h2 class="fs-title">活動內容確認</h2>
+                <h3 class="fs-subtitle">Your presence on the social network</h3>
+                
+                <table>
+                <tr>
+                <th>活動名稱：</th>
+                <td><input Name="actName" id="actName"></td>
+                </tr>
+                <tr>
+                
+                <th>活動地點：</th>
+                <td><input Name="actAdr" id="actAdr"></td>
+                </tr>
+                
+				<tr>
+                <th>Name：</th>
+                <td><input Name="actLocName" id="actLocName"></td>
+                </tr>
+                
+                
+                <tr>
+                <th>POST：</th>
+                <td><input Name="actPost" id="actPost"></td>
+                </tr>
+                
+                <tr>
+                <th>LAT：</th>
+                <td><input Name="actLat" id="actLat"></td>
+                </tr>
+                
+                
+                <tr>
+                <th>LONG：</th>
+                <td><input Name="actLong" id="actLong"></td>
+                </tr>
+                
+                <tr>
+                <th>活動時間：</th>
+                <td><input Name="actStartDate" id="actStartDate"></td>
+                </tr>
+                
+                <tr>
+                <th>活動結束時間：</th>
+                <td><input Name="actEndTime" id="actEndTime"></td>
+                </tr>
+                
+                <tr>
+                <th>活動重複設定：</th>
+                <td><input Name="actTimeTypeCnt" id="actTimeTypeCnt"></td>
+                </tr>      
+                       
+                
+                
+                <tr>
+                <th>活動分類：</th>
+                <td><input Name="actPOIs" id="actPOIs"></td>
+                </tr>
+                
+                 <tr>
+                <th>活動內容：</th>
+                <td><input type="textarea" Name="actContent" id="actContent"></td>
+                </tr>      
+                         
+                </table>
+                
+                
+                
+                
+                <script>
+						 jQuery(document).ready(function() {
+							 $("#onlinebtn").click(function(){
+								 $("#locName").val("線上")
+							 })
+							 $("#conf").click(function(){
+									$("#actName").val($("#aName").val());
+									$("#actAdr").val($("#loc").val());
+									$("#actPost").val($("#post").val());
+									$("#actStartDate").val($("#aStartDate").val());
+									$("#actEndTime").val($("#aEndTime").val());
+									$("#actEndTime").val($("#aEndTime").val());									
+									$("#actPOIs").val($("#poilists").val());										
+									$("#actContent").val($("#editor").text());	
+									$("#actTimeTypeCnt").val($("#showdates").text());	
+									$("#actContent").val($("#editor").text());
+									$("#actLocName").val($("#locName").val());
+									$("#actLong").val($("#lng").val());
+									$("#actLat").val($("#lat").val());
+								});
+						 });
+
+				
+				
+				</script>
+                
+                
                 <input type="button" name="previous" class="previous action-button-previous" value="上一步"/>
-                <input type="button" name="next" class="next action-button" value="下一步"/>
-                </div>
+                <input type="button" name="next" class="next action-button" value="NEXT"/>
             </fieldset>
--->
-<!--5th page end@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@-->                       
-<!--5th page start@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@-->           
             <fieldset>
-              
-              
-               <div class="group">
-               <img src="act_assets/img/dogs.jpg" class="img-responsive">
-                <h3 class="margin-top-10">揪咪是一個熱情友善的網站</h3>
-                <h3 class="fs-subtitle">請同意我們的使用條款</h3>
-      				<input id="ckfinal" type="checkbox"> 我同意<a href="#"> 《使用條款》 </a><p />
+               	<img src="act_assets/img/dogs.jpg" class="img-responsive">
+                <h3 class="fs-title">就快完成囉！</h3>
+                <h3 class="fs-subtitle">揪咪是一個熱情友善的網站。請同意我們的使用條款</h3>
+      			<input id="ckfinal" type="checkbox"> 我同意<a href="#"> 《使用條款》 </a><p />
                 <input type="button" name="previous" class="previous action-button-previous" value="上一步"/>
                 <input type="submit" name="submit" class="submit action-button" value="建立活動"/>
-                </div>
+
             </fieldset>
-<!--5th page end@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@-->     
-            
+           
             
             
             
@@ -385,9 +467,6 @@
 
 <!-- /.MultiStep Form -->
 
-
-
-<!--主頁面要修改的都在這上面-->
 
 
 

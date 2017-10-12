@@ -207,8 +207,8 @@ input[type="file"] {
         border: 0px solid #ccc;
         border-radius: 3px;
         margin-top: 7px;
-        width: 400px;
-        height: 300px;
+        width: 360px;
+        height: 270px;
 
       }
 
@@ -236,10 +236,10 @@ input[type="file"] {
 
 input[type=range].cropit-image-zoom-input{
 	transform: rotate(-90deg);  
-	width: 300px;   
+	width: 270px;   
 	height: 10px;
 	margin: 0;
-	transform-origin:  200px -200px;
+	transform-origin:  180px -180px;
 	vertical-align: middle;
 }
 
