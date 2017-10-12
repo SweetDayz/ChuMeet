@@ -487,7 +487,7 @@ public class actCodeTrans {
          if(htmlStr.trim().length()<170) {
         	 limit=htmlStr.trim().length();
          }
-         System.out.println("limit="+limit);
+//         System.out.println("limit="+limit);
         return htmlStr.trim().substring(0,limit); //return
      } 
 	

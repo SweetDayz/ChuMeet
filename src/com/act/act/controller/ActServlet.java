@@ -33,10 +33,13 @@ public class ActServlet extends HttpServlet {
 
 	public void doPost(HttpServletRequest req, HttpServletResponse res)
 			throws ServletException, IOException {
-
+		
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
-
+		//@@@@@@@@@@@@@@@
+		//INSERT            @@@@@@@@@
+		//@@@@@@@@@@@@@@@
+		
         if ("insert".equals(action)) { // 來自actStart.jsp的請求  
 			
 			Map<String,String> errorMsgs = new LinkedHashMap<String,String>();
@@ -210,11 +213,12 @@ public class ActServlet extends HttpServlet {
 		
         //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
         
-        //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-        //@@@@@@@@@@@@@@@@					ShowFive@LIST		@@@@@@@@@@@@@@@@@@@@@
-        //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+		//@@@@@@@@@@@@@@@
+		//Q WK WK WK WK           @@@@@@@@@
+		//@@@@@@@@@@@@@@@
+		
         
-		if ("showList5".equals(action)) { // 來自actListjsp的請求
+		if ("QueryWks".equals(action)) { // 來自actListjsp的請求
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
@@ -222,15 +226,12 @@ public class ActServlet extends HttpServlet {
 
 //			try {
 				/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
-				Integer actID=Integer.parseInt(req.getParameter("actID"));
 				/***************************2.開始查詢資料*****************************************/
 				Act_Service act_Svc = new Act_Service();
-				ActPOIService actpoiSvc = new ActPOIService();
-				ActFiestaVO actfVO = act_Svc.getOne(actID);
-				
-				List<String> actpoilist = actpoiSvc.getPOIByActID(actID);
+				List<ActFiestaVO> actfVOs = act_Svc.getActByWks();
+
 				Integer memNow=1;						 // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-				if (actfVO == null) {
+				if (actfVOs.size() == 0) {
 					errorMsgs.add("查無資料");
 				}
 				// Send the use back to the form, if there were errors
@@ -242,13 +243,9 @@ public class ActServlet extends HttpServlet {
 				}
 				
 				/***************************3.查詢完成,準備轉交(Send the Success view)*************/
-				req.setAttribute("act_VO", actfVO); // 資料庫取出的act_VO物件,存入req
-				System.out.println(actfVO);
-				System.out.println(123);
-				req.setAttribute("memNow", memNow); // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-				req.setAttribute("actpoilist", actpoilist); // poi
-
-				String url = "/front-end/act/actItem.jsp";
+				req.setAttribute("actie", "QueryWks");
+				req.setAttribute("actfVOs", actfVOs); // 資料庫取出的act_VO物件,存入req
+				String url = "/front-end/act/actList.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交listOneEmp.jsp
 				successView.forward(req, res);
 

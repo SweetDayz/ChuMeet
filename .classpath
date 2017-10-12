@@ -18,6 +18,7 @@
 	<classpathentry exported="true" kind="lib" path="WebContent/WEB-INF/lib/bsf-2.3.0.jar"/>
 	<classpathentry exported="true" kind="lib" path="WebContent/WEB-INF/lib/c3p0-0.9.1.jar"/>
 	<classpathentry exported="true" kind="lib" path="WebContent/WEB-INF/lib/cglib-2.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="WebContent/WEB-INF/lib/commons-collections-3.1.jar"/>
 	<classpathentry exported="true" kind="lib" path="WebContent/WEB-INF/lib/commons-logging-1.1.1.jar"/>
 	<classpathentry exported="true" kind="lib" path="WebContent/WEB-INF/lib/dom4j-1.6.1.jar"/>
 	<classpathentry exported="true" kind="lib" path="WebContent/WEB-INF/lib/ehcache-1.5.0.jar"/>
@@ -44,6 +45,5 @@
 	<classpathentry exported="true" kind="lib" path="WebContent/WEB-INF/lib/slf4j-api-1.5.8.jar"/>
 	<classpathentry exported="true" kind="lib" path="WebContent/WEB-INF/lib/slf4j-log4j12-1.5.8.jar"/>
 	<classpathentry exported="true" kind="lib" path="WebContent/WEB-INF/lib/standard.jar"/>
-	<classpathentry exported="true" kind="lib" path="WebContent/WEB-INF/lib/commons-collections-3.1.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

@@ -7,28 +7,17 @@
 <%@ page import="com.act.actPOI.model.*"%>
 <%@ page import="java.util.*"%>
 <%
-	List<ActFiestaVO> list=null;
-	if(request.getAttribute("actie")==null){
-		Act_Service actS=new Act_Service();
-		list=actS.getAllFromNow();
-		pageContext.setAttribute("list", list);
-		pageContext.setAttribute("pageName", "ref");
-	} else {
-		list= (ArrayList<ActFiestaVO>) request.getAttribute("actfVOs");
-		pageContext.setAttribute("list", list);
-// 		System.out.println(list.size());
-			if(request.getAttribute("actie").equals("QueryWks")){
-				pageContext.setAttribute("pageName", "QueryWks");
-			}
-	}
+	List<ActFiestaVO> list= (ArrayList<ActFiestaVO>) request.getAttribute("actfVOs");
+	pageContext.setAttribute("list", list);
+	System.out.println(list.size());
 %>
 <!-- @@@@@@@@@@@@@@@@@@@@@@@@@ -->
 <c:set var="memNow" value="1"  scope="session"/>				
 <!-- @@@@@@@@@@@@@@@@@@@@@@@@@ -->
 
-<c:set var="myActList1" value="${ActMemService.actMS.getMyActs1(memNow)}" scope="session" />
-<c:set var="myActList2" value="${ActMemService.actMS.getMyActs2(memNow)}" scope="session" />
-<c:set var="myActList5" value="${ActMemService.actMS.getMyActs5(memNow)}" scope="session" />
+<c:set var="myActList1" value="ActMemService.actMS.getMyActs1(memNow)" scope="session" />
+<c:set var="myActList2" value="ActMemService.actMS.getMyActs2(memNow)" scope="session" />
+<c:set var="myActList5" value="ActMemService.actMS.getMyActs5(memNow)" scope="session" />
 
 <html>
 <!-- Head BEGIN -->
@@ -65,8 +54,8 @@
         <div class="col-md-3">
 			<div id="bread">
 				<ul class="breadcrumb">
-					<li><a href="<%=request.getContextPath()%>/index.html">ChuMeet!</a></li>
-					<li><a href="<%=request.getContextPath()%>/front-end/act/actList.jsp">活動列表</a></li>
+					<li><a href="../新增資料夾/index.html">ChuMeet!</a></li>
+					<li><a href="javascript:;">活動列表</a></li>
 					<li class="active">揪咪推薦</li>
 				</ul>
 			</div>
@@ -97,7 +86,7 @@
            <div class="row">
            	<div class="col-md-8">
            	  <h1>揪咪推薦</h1>
-           	      <h1><%=pageContext.getAttribute("pageName") %></h1>
+           	      
         </div>
        <div class="col-md-4 padding-top-10">
         		<div class="actFilter pull-right">
@@ -129,33 +118,23 @@
 								<li><a href="#">社團活動</a></li>
 								<li><a href="#">好友活動</a></li>
 							</ul>
-                    <li <%if (pageContext.getAttribute("pageName").equals("ref")){%>class="active"<%} %>
-                    ><a href="<%=request.getContextPath()%>/front-end/act/actList.jsp" >揪咪推薦</a></li>
-
-                    <li <%if (pageContext.getAttribute("pageName").equals("QueryWks")){%>
-                    	class="active"
-                    		<%} %>><a href="<%=request.getContextPath()%>/front-end/act/act.do?action=QueryWks">周末特調</a></li>
+                    <li class="active"><a href="#tab_3" data-toggle="tab">揪咪推薦</a></li>
+                    <li><a href="#tab_3" data-toggle="tab">政府藝文活動</a></li>
+                    <li><a href="<%=request.getContextPath()%>/front-end/act/act.do?action=QueryWKS">周末特調</a></li>
                     <li data-toggle="collapse" data-target="#actPOI" class="collapsed">
                          <a href="#tab_2" data-toggle="tab">活動分類 <span class="arrow"></span></a></li>
                           <ul class="sub-menu collapse" id="actPOI">
-								<li <%if (pageContext.getAttribute("pageName").equals("poisport")){%>class="active"<%} %>>
-							<a href="<%=request.getContextPath()%>/front-end/act/act.do?action=POI?POIID=9">運動</a></li>
-								<li <%if (pageContext.getAttribute("pageName").equals("poieat")){%>class="active"<%} %>>
-                    		<a href="<%=request.getContextPath()%>/front-end/act/act.do?action=POI?POIID=18">餐聚</a></li>
-								<li <%if (pageContext.getAttribute("pageName").equals("poiart")){%>class="active"<%} %>>
-                    		<a href="<%=request.getContextPath()%>/front-end/act/act.do?action=POI?POIID=20">藝文</a></li>
-								<li <%if (pageContext.getAttribute("pageName").equals("poimovie")){%>class="active"<%} %>>
-                    		<a href="<%=request.getContextPath()%>/front-end/act/act.do?action=POI?POIID=8">電影</a></li>
-								<li <%if (pageContext.getAttribute("pageName").equals("online")){%>class="active"<%} %>>
-                    		<a href="<%=request.getContextPath()%>/front-end/act/act.do?action=POI?POIID=22">線上活動</a></li>
-								<li <%if (pageContext.getAttribute("pageName").equals("outdoor")){%>class="active"<%} %>>
-                    		<a href="<%=request.getContextPath()%>/front-end/act/act.do?action=POI?POIID=23">戶外</a></li>
-								<li <%if (pageContext.getAttribute("pageName").equals("poipet")){%>class="active"<%} %>>
-                    		<a href="<%=request.getContextPath()%>/front-end/act/act.do?action=POI?POIID=24">寵物</a></li>
-								<li <%if (pageContext.getAttribute("pageName").equals("poiex")){%>class="active"<%} %>>
-                    		<a href="<%=request.getContextPath()%>/front-end/act/act.do?action=POI?POIID=6">展覽</a></li>
-								<li <%if (pageContext.getAttribute("pageName").equals("poiother")){%>class="active"<%} %>>
-                    		<a href="<%=request.getContextPath()%>/front-end/act/actPOIs.jsp">其他</a></li>
+                          		<li><a href="#">熱門</a></li>
+								<li><a href="#">運動</a></li>
+								<li><a href="#">學習</a></li>
+								<li><a href="#">餐聚</a></li>
+								<li><a href="#">藝文活動</a></li>
+								<li><a href="#">電影</a></li>
+								<li><a href="#">線上活動</a></li>
+								<li><a href="#">戶外</a></li>
+								<li><a href="#">寵物</a></li>
+								<li><a href="#">展覽</a></li>
+								<li><a href="#">其他</a></li>
 							</ul>
 					<li><a href="#tab_2" data-toggle="tab">揪揪地圖</a></li>
 				</ul>
@@ -224,18 +203,12 @@
 	<div class="ec wow fadeInLeft" data-wow-delay=".05s" data-wow-duration=".1">
 		<div class="row">
 			<div class="col-md-4 col-sm-4">
-
 				<a href="<%=request.getContextPath()%>/front-end/act/act.do?action=showOne&actID=${afVO.actVO.actID}">
 					<img alt="Person Of Interest" class="img-responsive img-rounded" src="<%=request.getContextPath()%>/img/showIMG?colName=actIMG&table=ACT&pk=actID&imgFrom=${afVO.actVO.actID}"">
 				</a>
-					<c:if test="${myActList2.contains(afVO.actVO.actID)}">
 								<span class="label label-info"><i class="fa fa-star" aria-hidden="true"></i> 已參加</span>
-					</c:if>
-					
-					<c:if test="${myActList5.contains(afVO.actVO.actID)}">
 								<span class="label label-info"><i class="fa fa-star" aria-hidden="true"></i> 已追蹤</span>
-					</c:if>
-					
+
 			</div>
 			
 			<div class="col-md-8 col-sm-8">
@@ -273,8 +246,10 @@
 
 	<hr class="event-post-sep">
 	
+
 <span>rowNumber=<%=rowNumber%></span>
 <span>pageNumber=<%=pageNumber%></span>
+
 <%if ( pageNumber > 1) {%>
    <FORM METHOD="post" ACTION="<%=request.getRequestURI()%>">   
                   <ul class="pagination">
@@ -283,20 +258,20 @@
                      	            <%if(pageIndex<rowsPerPage){%>
                     	              class="disabled"
          			    	       	<%}%>		
-         			    	       	><a href="/ChuMeetWebsite/front-end/act/act.do?<%if(pageContext.getAttribute("pageName").equals("ref")){}%><%else {%>action=<%=pageContext.getAttribute("pageName")%>&<%}%>whichPage=<%=whichPage-1%>"><i class="fa fa-angle-left" aria-hidden="true"></i></a></li>
+         			    	       	><a href="<%=request.getContextPath()%>/front-end/act/act.do?action=QueryWKS&whichPage=<%=whichPage-1%>"><i class="fa fa-angle-left" aria-hidden="true"></i></a></li>
                         		  <%for (int i=1; i<=pageNumber; i++){%>
 						             <li <%if(i==whichPage) {%>  
 						             				class="active"  
 						                  <%}%>
 						             >
-						             <a href="/ChuMeetWebsite/front-end/act/act.do?<%if(pageContext.getAttribute("pageName").equals("ref")){}%><%else {%>action=<%=pageContext.getAttribute("pageName")%>&<%}%>whichPage=<%=i%>"><%=i%></a></li>
+						             <a href="<%=request.getContextPath()%>/front-end/act/act.do?action=QueryWKS&whichPage=<%=i%>"><%=i%></a></li>
 						        <%}%> 
                         
                  			   <li
                      	            <%if(pageIndex>=pageIndexArray[pageNumber-1]){%>
                     	              class="disabled"
          			    	       	<%}%>		
-                 			   ><a href="/ChuMeetWebsite/front-end/act/act.do?<%if(pageContext.getAttribute("pageName").equals("ref")){}%><%else {%>action=<%=pageContext.getAttribute("pageName")%>&<%}%>whichPage=<%=whichPage+1%>"><i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+                 			   ><a href="<%=request.getContextPath()%>/front-end/act/act.do?action=QueryWKS&whichPage=<%=whichPage+1%>"><i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
                      	
                      <%}%>
                   </ul>           
@@ -304,6 +279,7 @@
 <%}%>
 
 
+    
                 </div>
 
                 <!-- END LEFT SIDEBAR -->

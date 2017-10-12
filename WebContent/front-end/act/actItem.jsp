@@ -11,6 +11,23 @@
 <%ActFiestaVO actfVO = (ActFiestaVO) request.getAttribute("actfVO");%>
 <c:set var="holder" value="${actfVO.actVO.memID}" />
 <c:set var="memNow" value="1"  scope="session"/>
+<%Set<ActMemVO> amVOs=actfVO.getActVO().getActMems(); %>
+<%  
+Integer memNow=Integer.parseInt((String) session.getAttribute("memNow"));
+Set<Integer> actmem2=new HashSet<Integer>();
+Set<Integer> actmem5=new HashSet<Integer>();
+for (ActMemVO amVO: amVOs){
+		if(amVO.getActMemStatus()==2){
+			actmem2.add(amVO.getMemberHVO().getMemID());
+			System.out.println(amVO.getMemberHVO().getMemID());
+		} else if(amVO.getActMemStatus()==5){
+			actmem5.add(amVO.getMemberHVO().getMemID());
+		}
+}
+pageContext.setAttribute("actmem2",actmem2);
+pageContext.setAttribute("actmem5",actmem5);
+System.out.println(actmem2.contains(memNow));
+	%>
 
 
 <html>
@@ -62,14 +79,14 @@
 
             <div class="content-page">
               <div class="row">
-		<jsp:useBean id="toolman" scope="session" class="com.gen.tool.tools"/>
-		<jsp:useBean id="transman" scope="session" class="com.gen.tool.actCodeTrans"/>  
+		<jsp:useBean id="toolman"  class="com.gen.tool.tools"/>
+		<jsp:useBean id="transman"  class="com.gen.tool.actCodeTrans"/>  
                 <!-- BEGIN LEFT SIDEBAR -->     
                        
                 <div class="col-md-9 col-sm-9 blog-item">
                             <h1>${actfVO.actVO.actName}</h1>
                   <div class="row">
-						<div class="col-md-5">   <img src="<%=request.getContextPath()%>/img/showIMG?colName=actIMG&table=ACT&pk=actID&imgFrom=${actfVO.actVO.actID}" class="img-responsive margin-bottom-30 img-rounded" alt=""></div>
+						<div class="col-md-5">   <img src="<%=request.getContextPath()%>/img/showIMG?colName=actIMG&table=ACT&pk=actID&imgFrom=${actfVO.actVO.actID}" class="img-responsive margin-bottom-30 img-rounded" style="margin-left:auto; margin-right:auto; " alt=""></div>
 						
                         <div class="col-md-7">
                           		<table  class="table table-hover">
@@ -85,7 +102,7 @@
 									</c:choose>
 							</c:when>
 
-							<c:when test="${actfVO.actVO.actMems.contains(memNow)}">					
+							<c:when test="${actmem2.contains(memNow)}">					
 								已參加
 									<c:choose>
 												<c:when test = "${toolman.nowTimestamp() < actfVO.actVO.actStartDate}">，等待活動開始 </c:when>
@@ -181,12 +198,21 @@
 
                 <!-- BEGIN RIGHT SIDEBAR -->            
                 <div class="col-md-3 col-sm-3 blog-sidebar">
+
                 <form action="actm.do" method="post">
 					<div>
 						<c:choose>
 							<c:when test="${memNow==holder}">
 								<button id="actMng" <c:if test="${toolman.nowTimestamp() > actfVO.actVO.actEndDate}"> disabled </c:if>class="btn btn-block btn-info">管理活動</button>
 
+							</c:when>
+							<c:when  test="${actmem2.contains(memNow)}">
+								<button type="submit" name="action" value="delete"  <c:if test="${toolman.nowTimestamp() > actfVO.actVO.actEndDate}"> disabled </c:if> class="btn btn-block btn-warning">退出活動</button>
+							</c:when>
+
+							<c:when  test="${actmem5.contains(memNow)}">
+								<button type="submit" name="action" value="update2"  <c:if test="${toolman.nowTimestamp() > actfVO.actVO.actEndDate}"> disabled </c:if> class="btn btn-block btn-primary">參加活動</button>
+								<button type="submit" name="action" value="delete"  <c:if test="${toolman.nowTimestamp() > actfVO.actVO.actEndDate}"> disabled </c:if> class="btn btn-block btn-warning">取消追蹤</button>
 							</c:when>
 
 						<c:otherwise>
@@ -237,11 +263,12 @@
                     <h2>已參加的成員</h2>
                     <ul class="list-unstyled">
                              <c:forEach var="actMemVO" items="${actfVO.actVO.actMems}">
+                          		<c:if test="${actMemVO.actMemStatus eq 2}">
                           		<li>
                           		<a href="#">
-								<img src="<%=request.getContextPath()%>/img/showIMG?colName=MEMAVATAR&table=MEMBER&pk=MEMID&imgFrom=${actMemVO.memberHVO.memID}"  title="${actMemVO.memberHVO.memName}}">
-                          			
+								<img src="<%=request.getContextPath()%>/img/showIMG?colName=MEMAVATAR&table=MEMBER&pk=MEMID&imgFrom=${actMemVO.memberHVO.memID}"  title="${actMemVO.memberHVO.memName}">
                           		</a></li>
+                          		</c:if>
                           		</c:forEach>
                     </ul>                    
                   </div>

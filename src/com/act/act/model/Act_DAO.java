@@ -122,18 +122,12 @@ public class Act_DAO implements Act_interface {
 		try {
 			session.beginTransaction();
 			Query query = session.createQuery("from Act_VO where actStartDate>systimestamp order by actStartDate");
-
+			query.setMaxResults(50);
 			list = query.list();
-
-					System.out.println(list.get(1).getActName());		//@@@@@@@@@@@@@@@@@
-					System.out.println(list.size());
 					if(!(list.size()==0)) {
 							for (Act_VO actVO : list) {
 									ActFiestaVO actf = new ActFiestaVO(actVO);
-									System.out.println(actf.getMemName());
-									System.out.println(actf.getActVO().getActID()+" start");
 									listf.add(actf); 
-									System.out.println(actf.getActVO().getActID()+" end");
 							}
 					}else {
 						System.out.println("null x_x");
@@ -149,75 +143,84 @@ public class Act_DAO implements Act_interface {
 	
 	
 	@Override
-	public List<Act_VO> getActByPOIID(Integer POIID) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Act_VO> getActByDate(Timestamp selectDate) {
-		List<Act_VO> list = null;
+	public List<ActFiestaVO> getActByPOIID(Integer POIID) {
+		List<Act_VO> list = new ArrayList<Act_VO>();
+		List<ActFiestaVO> listf =  new ArrayList<ActFiestaVO>();
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-
 		try {
 			session.beginTransaction();
+			Query query = session.createQuery("from ActPOIVO where POIID="+POIID+" order by actStartDate");
+			query.setMaxResults(50);
+			list = query.list();
+					System.out.println(list.size());
+					if(!(list.size()==0)) {
+							for (Act_VO actVO : list) {
+									ActFiestaVO actf = new ActFiestaVO(actVO);
+									listf.add(actf); 
+							}
+					}else {
+						System.out.println("null x_x");
+					}
+			session.getTransaction().commit();
+		} catch (RuntimeException ex) {
+			session.getTransaction().rollback();
+			throw ex;
+		}
+		return listf;
+	}
 
-			// 【參數綁定-使用?】
+	@Override
+	public List<ActFiestaVO> getActByDate(Timestamp selectDate) {
+		List<Act_VO> list = new ArrayList<Act_VO>();
+		List<ActFiestaVO> listf =  new ArrayList<ActFiestaVO>();
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		try {
+			session.beginTransaction();
 			Query query = session.createQuery("from Act_VO where to_char(actDate,'yyyy/mm/dd')=? order by actID");
 			query.setParameter(0, selectDate);
-
-			// 【可分頁】
-			// Query query = session.createQuery("from EmpVO");
-			// query.setFirstResult(0); //0,3,6,9,12...
-			// query.setMaxResults(3); //假設每頁有3筆
-
-			// 【測試查詢結果】
-			// 【query.list();直接回傳List】
 			list = query.list();
-
+					if(!(list.size()==0)) {
+							for (Act_VO actVO : list) {
+									ActFiestaVO actf = new ActFiestaVO(actVO);
+									listf.add(actf); 
+							}
+					}else {
+						System.out.println("null x_x");
+					}
 			session.getTransaction().commit();
-		} catch (Exception ex) {
+		} catch (RuntimeException ex) {
 			session.getTransaction().rollback();
-			System.out.println(ex.getMessage());
+			throw ex;
 		}
-
-		return list;
+		return listf;
 	}
 
 	@Override
-	public List<Act_VO> getActByWks(Timestamp actDate) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Act_VO> getActByMemIDJoin(Integer memID) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Act_VO> getActByMemIDCreate(Integer memID) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Act_VO> getActByMemIDFriend(Integer memID) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Act_VO> getActByMemIDTrack(Integer memID) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Act_VO> getActByClub(Integer clubID) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<ActFiestaVO> getActByWks() {
+		String sb=tools.GetWKSFromNow();
+		List<Act_VO> list = new ArrayList<Act_VO>();
+		List<ActFiestaVO> listf =  new ArrayList<ActFiestaVO>();
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		try {
+			session.beginTransaction();
+			System.out.println(sb);
+			Query query = session.createQuery("from Act_VO where to_char(actStartDate,'yyyy/mm/dd') in ("+sb+") order by actID");
+			
+			list = query.list();
+					if(!(list.size()==0)) {
+							for (Act_VO actVO : list) {
+									ActFiestaVO actf = new ActFiestaVO(actVO);
+									listf.add(actf); 
+							}
+					}else {
+						System.out.println("null x_x");
+					}
+			session.getTransaction().commit();
+		} catch (RuntimeException ex) {
+			session.getTransaction().rollback();
+			throw ex;
+		}
+		return listf;
 	}
 
 	@Override
@@ -354,6 +357,12 @@ public class Act_DAO implements Act_interface {
 		// System.out.println();
 		// }
 
+	}
+
+	@Override
+	public List<ActFiestaVO> getActByClub(Integer clubID) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

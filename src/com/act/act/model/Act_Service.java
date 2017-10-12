@@ -2,11 +2,12 @@ package com.act.act.model;
 
 import java.sql.*;
 import java.util.*;
-import java.util.List;
 
 import com.act.act.model.Act_VO;
+import com.act.actMem.model.ActMemVO;
+import com.act.actPOI.model.ActPOIVO;
 
-public class Act_Service {
+public class Act_Service implements Act_interface{
 	private Act_interface dao;
 
 	public Act_Service() {
@@ -32,36 +33,34 @@ public class Act_Service {
 		return dao.getOne(actID);
 	};
 
-	public List<Act_VO> getActByCat(Integer POIID) {
+	public List<ActFiestaVO> getActByDate(Timestamp actDate) {
 		return null;
 	};
 
-	public List<Act_VO> getActByDate(Timestamp actDate) {
-		return null;
+	public List<ActFiestaVO> getActByWks() {
+		return dao.getActByWks();
 	};
 
-	public List<Act_VO> getActByWks(Timestamp actDate) {
-		return null;
-	};
 
-	// public List<ActVO> getActByDist(Integer Dist);
-	public List<Act_VO> getActByMemIDJoin(Integer memID) {
+	public List<ActFiestaVO> getActByClub(Integer clubID) {
 		return null;
-	};
+	}
 
-	public List<Act_VO> getActByMemIDCreate(Integer memID) {
+	@Override
+	public Set<ActMemVO> whosin(Integer actID) {
+		// TODO Auto-generated method stub
 		return null;
-	};
+	}
 
-	public List<Act_VO> getActByMemIDFriend(Integer memID) {
+	@Override
+	public Set<ActPOIVO> showthetags(Integer actID) {
+		// TODO Auto-generated method stub
 		return null;
-	};
+	}
 
-	public List<Act_VO> getActByMemIDTrack(Integer memID) {
-		return null;
-	};
-
-	public List<Act_VO> getActByClub(Integer clubID) {
+	@Override
+	public List<ActFiestaVO> getActByPOIID(Integer POIID) {
+		// TODO Auto-generated method stub
 		return null;
 	};
 

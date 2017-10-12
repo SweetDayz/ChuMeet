@@ -20,6 +20,10 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -287,7 +291,24 @@ public class tools {
 			return sb.toString();
 		}
 		
-		
+		    public static String GetWKSFromNow() {
+		    	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+		    	Calendar today =Calendar.getInstance();
+		    	Calendar cal =Calendar.getInstance();
+//		    	System.out.println(cal.getTime());
+		    	cal.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
+		    	cal.add(Calendar.DAY_OF_WEEK, 6);
+		    	String sb=dateFormat.format(cal.getTime());
+		    	cal.add(Calendar.DAY_OF_WEEK, 1);
+//		    	System.out.println(dateFormat.format(cal.getTime()));
+		    	sb="'"+sb+"','"+dateFormat.format(cal.getTime())+"'";
+		    	System.out.println(sb);
+		    	
+		    	return sb;
+		    }
+		    
+		    
+		}
 
 	    
-}
+
