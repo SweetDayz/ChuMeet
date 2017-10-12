@@ -29,7 +29,7 @@
   <link href="<%=request.getContextPath()%>/HTML/assets/plugins/owl.carousel/assets/owl.carousel.css" rel="stylesheet">
   <link href="<%=request.getContextPath()%>/HTML/assets/plugins/fancybox/source/jquery.fancybox.css" rel="stylesheet">
   <link href="<%=request.getContextPath()%>/HTML/assets/pages/css/animate.css" rel="stylesheet">
-<link href="<%=request.getContextPath()%>/front-end/act/act_assets/jui.custom/jquery-ui.css" rel="stylesheet">
+<link href="<%=request.getContextPath()%>/front-end/act/act_assets/jquery-ui-1.12.1.custom/jquery-ui.css" rel="stylesheet">
 <link href="<%=request.getContextPath()%>/front-end/act/act_assets/dp/jquery-ui.multidatespicker.css" rel="stylesheet">
 
  <!-- Theme styles START -->
@@ -71,7 +71,7 @@
 <!-- BEGIN CONTENT -->
 <!-- MultiStep Form -->
 
-        <form id="msform">
+        <form id="msform" action="<%=request.getContextPath()%>/front-end/act/act.do" method="get">
             <!-- progressbar -->
             <ul id="progressbar">
                 <li class="active">基本資料</li>
@@ -82,7 +82,7 @@
                 <li>創建活動</li>
             </ul>
             
-            
+        	<input name="action" type="hidden" value="insert">    
             
             <div class="container" style="min-height: 750px;">
   
@@ -451,7 +451,7 @@
                 <h3 class="fs-subtitle">揪咪是一個熱情友善的網站。請同意我們的使用條款</h3>
       			<input id="ckfinal" type="checkbox"> 我同意<a href="#"> 《使用條款》 </a><p />
                 <input type="button" name="previous" class="previous action-button-previous" value="上一步"/>
-                <input type="submit" name="submit" class="submit action-button" value="建立活動"/>
+                <button type="submit" name="submit" class="submit action-button">建立活動</button>
 
             </fieldset>
            
@@ -491,7 +491,7 @@
 <script src="<%=request.getContextPath()%>/front-end/act/act_assets/modal/js/bootstrap-modal.js" type="text/javascript"></script> 
 <script src="<%=request.getContextPath()%>/front-end/act/BS-MultiStepForm/assets/multistepform/js/msform.js"></script>
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-	<script src="<%=request.getContextPath()%>/front-end/act/act_assets/jui.custom/jquery-ui.min.js"></script>
+	<script src="<%=request.getContextPath()%>/front-end/act/act_assets/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
 	<script src="<%=request.getContextPath()%>/front-end/act/act_assets/dp/jquery-ui.multidatespicker.js"></script>
 
  <script src="<%=request.getContextPath()%>/HTML/assets/plugins/jquery.wow.min.js" type="text/javascript"></script>
@@ -514,166 +514,175 @@
   <script src="<%=request.getContextPath()%>/HTML/assets/pages/scripts/bs-carousel.js" type="text/javascript"></script>
 
 <script type="text/javascript">
-        jQuery(document).ready(function() {
-//		$('.date').datepicker({
-//			multidate: true
-//		});
+jQuery(document).ready(function() {
+//	$('.date').datepicker({
+//		multidate: true
+//	});
 //
-//		$('.date').datepicker('setDates', [new Date(2017, 10, 11), new Date(2017, 10, 15)])
-			$('#mdp-demo').multiDatesPicker({
-				maxPicks: 6,
-				minDate: 0, // today
-				maxDate: 60 // +30 days from today
-			});
-			$('#editor').trumbowyg({
-				
-	//			lang: 'zh_tw',
-				btnsDef: {
-					// Create a new dropdown
-					image: {
-						dropdown: ['insertImage', 'upload'],
-						ico: 'insertImage'
-					}
-				},
-    // Redefine the button pane
-				btns: [
-					['viewHTML'],
-					['formatting'],
-					['strong', 'em', 'del'],
-					['superscript', 'subscript'],
-					['link'],
-					['image'], // Our fresh created dropdown
-					['justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull'],
-					['unorderedList', 'orderedList'],
-					['horizontalRule'],
-					['removeformat'],
-					['foreColor', 'backColor'],
-				],
-				plugins: {
-					// Add imagur parameters to upload plugin for demo purposes
-					upload: {
-						serverPath: 'https://api.imgur.com/3/image',
-						fileFieldName: 'image',
-						headers: {
-							'Authorization': 'Client-ID xxxxxxxxxxxx'
-						},
-						urlPropertyName: 'data.link'
-					}
+//	$('.date').datepicker('setDates', [new Date(2017, 10, 11), new Date(2017, 10, 15)])
+		$('#mdp-demo').multiDatesPicker({
+			maxPicks: 6,
+			minDate: 0, // today
+			maxDate: 60 // +30 days from today
+		});
+		
+
+		
+		
+		$('#editor').trumbowyg({
+			
+//			lang: 'zh_tw',
+			btnsDef: {
+				// Create a new dropdown
+				image: {
+					dropdown: ['insertImage', 'upload'],
+					ico: 'insertImage'
 				}
-				
-				
+			},
+// Redefine the button pane
+			btns: [
+				['viewHTML'],
+				['formatting'],
+				['strong', 'em', 'del'],
+				['superscript', 'subscript'],
+				['link'],
+				['image'], // Our fresh created dropdown
+				['justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull'],
+				['unorderedList', 'orderedList'],
+				['horizontalRule'],
+				['removeformat'],
+				['foreColor', 'backColor'],
+			],
+			plugins: {
+				// Add imagur parameters to upload plugin for demo purposes
+				upload: {
+					serverPath: 'https://api.imgur.com/3/image',
+					fileFieldName: 'image',
+					headers: {
+						'Authorization': 'Client-ID xxxxxxxxxxxx'
+					},
+					urlPropertyName: 'data.link'
+				}
+			}
+			
+			
 });
 
-            Layout.init();    
-            Layout.initOWL();
-            Layout.initTwitter();
-            Layout.initFixHeaderWithPreHeader(); /* Switch On Header Fixing (only if you have pre-header) */
-	});
-	
-	
+        Layout.init();    
+        Layout.initOWL();
+        Layout.initTwitter();
+        Layout.initFixHeaderWithPreHeader(); /* Switch On Header Fixing (only if you have pre-header) */
+});
 
+
+
+
+</script>
+
+
+<!--map-->
+  
+<script>
+  $(function(){
+	$(".map_canvas").css("display","none");
+	$(".map_canvas").css("visibility","hidden");
+	$("#onlinebtn").click(function(){
+			$("#showAddress").val("線上活動");	
+		   $("#showAddress").css("visibility","visible");
+		   $("#showAddress").css("display","");
+						  })  
+	  
+	  
+	  
+	$("#inputmap").geocomplete({
+		  types: ["geocode", "establishment"],
+		});
+	  
+	$("#inputmap").on("keyup paste change", function() {
+		$("#geocomplete").val($("#inputmap").val());			  
+	});
+	  
+	  $('#inputmap').keyup(function(e) {
+		 if(e.keyCode == 13) {
+      		$("#find").click();
+		}
+	  });
+	  
+	  
+    $("#find").click(function(){
+		$("#geocomplete").geocomplete({
+		  map: ".map_canvas",
+		  details: "form",
+		  types: ["geocode", "establishment"],
+		});
+		
+		$("#geocomplete").trigger("geocode");
+		$("#myModal").css({width:'auto'});
+		$(".map_canvas").css("display","");
+		$(".map_canvas").css("visibility","visible");
+		
+    });
+	  
+	  $("#myModal").on("shown.bs.modal", function () {
+		 $(this).find('.modal-content').css({
+          width:'auto', //probably not needed
+          height:'auto', //probably not needed 
+          'max-height':'100%'
+   });
+	});
+	  
+	   $("#mapok").click(function(){
+		  $("#showAddress").val($("#geocomplete").val());
+		   $("#showAddress").css("visibility","visible");
+		   $("#showAddress").css("display","");
+		   $("#myModal").modal('hide')
+	   });
+	  
+	  $('input[type="file"]').change(function(){
+
+		  var f = this.files[0];  
+		  var name = f.name;
+
+		  $("#showpath").text(name);
+
+		});
+	  
+	  
+	  
+  });
+	
+	
 	
 </script>
 
-   
-   <!--map-->
-      
-    <script>
-      $(function(){
-		$(".map_canvas").css("display","none");
-		$(".map_canvas").css("visibility","hidden");
-		$("#onlinebtn").click(function(){
-				$("#showAddress").val("線上活動");	
-			   $("#showAddress").css("visibility","visible");
-			   $("#showAddress").css("display","");
-							  })  
-		  
-		  
-		  
-		$("#inputmap").geocomplete({
-			  types: ["geocode", "establishment"],
-			});
-		  
-		$("#inputmap").on("keyup paste change", function() {
-			$("#geocomplete").val($("#inputmap").val());			  
-		});
-		  
-		  $('#inputmap').keyup(function(e) {
-    		 if(e.keyCode == 13) {
-          		$("#find").click();
-    		}
-		  });
-		  
-		  
-        $("#find").click(function(){
-			$("#geocomplete").geocomplete({
-			  map: ".map_canvas",
-			  details: "form",
-			  types: ["geocode", "establishment"],
-			});
-			
-			$("#geocomplete").trigger("geocode");
-			$("#myModal").css({width:'auto'});
-			$(".map_canvas").css("display","");
-			$(".map_canvas").css("visibility","visible");
-			
-        });
-		  
-		  $("#myModal").on("shown.bs.modal", function () {
-			 $(this).find('.modal-content').css({
-              width:'auto', //probably not needed
-              height:'auto', //probably not needed 
-              'max-height':'100%'
-       });
-		});
-		  
-		   $("#mapok").click(function(){
-			  $("#showAddress").val($("#geocomplete").val());
-			   $("#showAddress").css("visibility","visible");
-			   $("#showAddress").css("display","");
-			   $("#myModal").modal('hide')
-		   });
-		  
-		  $('input[type="file"]').change(function(){
+<!--map end-->
 
-			  var f = this.files[0];  
-			  var name = f.name;
+<script>
 
-			  $("#showpath").text(name);
-
-			});
-		  
-		  
-		  
-      });
-		
-		
-		
-    </script>
-
-	<!--map end-->
+	function removeTag(){
+		$("#poiappend").detach(this);
+	}
 	
-	<script>
-
-		function removeTag(){
-			alert("HI");
-			$("#poiappend").remove($(this));
-		}
-		
-		$(".selectPOIs").click(function(){
+	var poiList=new Array();
+	$(".selectPOIs").click(function(){
+		if(poiList.length<6){
 			var str=$(this).find('.poicnt').text();
-;
-			var str2="<span onClick='removeTag();'><li><a href='#'><i class='fa fa-tags'></i>"+str+"</a></li></span>"
+			var str2="<span onClick='removeTag();'><li><a href='#'><small><i class='fa fa-tags'></i>"+str+"</small></a></li></span>"
 			$("#poiappend").append(str2);
 			$(this).css("display","none");
-//			$("#showpois").val(" ");
-		});
-		
-		$("#reptclose").click(function() {
-			$("#showdates").html($("#mdp-demo").val());
-		});
-		
-	</script>
+			poiList.push(str);
+			$(poilists).val(poiList);
+		}else{
+			alert("最多選擇六項")
+		}
+//		$("#showpois").val(" ");
+	});
+	
+	$("#reptclose").click(function() {
+		$("#showdates").html($("#mdp-demo").val());
+	});
+	
+</script>
 
 <script src="<%=request.getContextPath()%>/HTML/assets/plugins/components/wow.min.js" type="text/javascript"></script>
 
