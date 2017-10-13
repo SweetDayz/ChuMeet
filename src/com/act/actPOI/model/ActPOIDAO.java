@@ -9,7 +9,7 @@ package com.act.actPOI.model;
 
 import com.act.act.model.Act_VO;
 
-	public class ActPOIDAO implements ActPOIDAO_interface{
+	public class ActPOIDAO implements ActPOI_interface{
 		private static DataSource ds = null;
 		static {
 			try {

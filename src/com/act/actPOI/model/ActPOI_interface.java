@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.act.act.model.Act_VO;
 
-public interface ActPOIDAO_interface {
+public interface ActPOI_interface {
 	//POI做標籤
     public List<String> getPOIByActID(Integer actID);
     //select by POI

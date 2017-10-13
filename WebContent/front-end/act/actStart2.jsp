@@ -64,7 +64,7 @@
       <div class="wd80">
 
       
-<form  action="<%=request.getContextPath()%>/front-end/act/act.do" method="post">
+<form  action="<%=request.getContextPath()%>/front-end/act/act.do?action=insert" method="post" enctype="multipart/form-data">
    <input type="hidden" value="insert" name="action">
 <!--     		start of row-->
 <!--     		======================actName HERE-->
@@ -238,26 +238,7 @@
 							  	 <th>上傳活動照片
 						  	 		</th>
 						  	 		<td>
-
-								<div class="image-editor pull-left" style="text-align: center;">
-					  	 		
-				  	 			  <label for="file-upload" class="custom-file-upload">
-										選擇活動封面
-									</label>
-									<input id="file-upload" type="file" accept="image/png,image/gif,image/jpeg,image/jpg" class="cropit-image-input pull-left"/>
-							<div class="row">
-							<div class="col-md-11">
-										<div id="imgprev" style="width: 360px; text-align: center;margin-left: auto; margin-right: auto">
-										<div class="cropit-preview" style="margin-left: auto; margin-right: auto"></div>
-							</div>  	 			  
-							<div class="col-md-1" style="text-align: center;">
-										<input type="range" class="cropit-image-zoom-input" style="width: 360px; ">
-										<input type="hidden" name="image-data" id="actImg" class="hidden-image-data" />
-								</div>
-								</div>
-							</div>
-						  	 	</div>
-						  	 			
+<input class="btn btn-default" id="file" Name="actIMG" type="file" accept="image/png,image/gif,image/jpeg,image/jpg" >
 						  	 		</td>
 
 							  </tr>

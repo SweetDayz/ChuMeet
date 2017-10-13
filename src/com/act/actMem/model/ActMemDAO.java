@@ -31,6 +31,7 @@ public class ActMemDAO implements ActMem_Interface {
 	}
 
 
+
 	public void update(ActMemVO actMemVO) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
@@ -66,7 +67,7 @@ public class ActMemDAO implements ActMem_Interface {
 		List<ActMemVO> list = null;
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		session.beginTransaction();
-		Query query = session.createQuery("from ActMemVO where memid="+memID+" where actMemStatus=1 order by actVO.actStartDate");
+		Query query = session.createQuery("from ActMemVO where memid="+memID+" where actMemStatus=1");
 		list = (List<ActMemVO>) query.list();
 		session.getTransaction().commit();
 		return list;
@@ -76,7 +77,9 @@ public class ActMemDAO implements ActMem_Interface {
 		List<ActMemVO> list2 = null;
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		session.beginTransaction();
-		Query query = session.createQuery("from ActMemVO where memid="+memID+" where actMemStatus=2 order by actVO.actStartDate");
+		String sql="from ActMemVO where ActMemVO.MemberHVO.memid="+memID+" where ActMemVO.Act_VO.actMemStatus=2";
+		Query query = session.createQuery(sql);
+
 		list2 = (List<ActMemVO>) query.list();
 		session.getTransaction().commit();
 		return list2;
@@ -86,7 +89,7 @@ public class ActMemDAO implements ActMem_Interface {
 		List<ActMemVO> list5 = null;
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		session.beginTransaction();
-		Query query = session.createQuery("from ActMemVO where memid="+memID+" where actMemStatus=5 order by actVO.actStartDate");
+		Query query = session.createQuery("from ActMemVO where memid="+memID+" where actMemStatus=5");
 		list5 = (List<ActMemVO>) query.list();
 		session.getTransaction().commit();
 		return list5;

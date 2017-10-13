@@ -274,7 +274,7 @@ public class tools {
 	    }
 	    
 		public static byte[] sendPicture(String path) throws IOException {
-			
+			System.out.println(path);
 			FileInputStream in = new FileInputStream(path);
 			ByteArrayOutputStream out = new ByteArrayOutputStream();
 			byte[] buff = new byte[in.available()];

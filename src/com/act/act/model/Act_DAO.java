@@ -257,58 +257,74 @@ public class Act_DAO implements Act_interface {
 		
 		Act_DAO dao = new Act_DAO();
 		Act_VO actVO1=new Act_VO();
-		actVO1.setActType(actType);
 
-		actVO1.setMemID(memID);
-		actVO1.setActCreateDate(actCreateDate);
-		actVO1.setActName(actName);
-		actVO1.setActStatus(actStatus);
-		actVO1.setActPriID(actPriID);
-		actVO1.setActStartDate(actStartDate);
+//		actVO1.setActType(actType);
+//		actVO1.setActID(actID);
+//		actVO1.setMemID(memID);
+//		actVO1.setActCreateDate(actCreateDate);
+//		actVO1.setActName(actName);
+//		actVO1.setActStatus(actStatus);
+//		actVO1.setActPriID(actPriID);
+//		actVO1.setActStartDate(actStartDate);
+//		actVO1.setActEndDate(actEndDate);
+//		actVO1.setActSignStartDate(actSignStartDate);
+//		actVO1.setActSignEndDate(actSignEndDate);
+//		actVO1.setActTimeTypeID(actTimeTypeID);
+//		actVO1.setActTimeTypeCnt(actTimeTypeCnt);
+//		actVO1.setActMemMax(actMemMax);
+//		actVO1.setActMemMin(actMemMin);
+//		actVO1.setActImg(actImg);
+//		actVO1.setActContent(actContent);
+//		actVO1.setActIsHot(actIsHot);
+//		actVO1.setActLong(actLong);
+//		actVO1.setActLat(actLat);
+//		actVO1.setActPost(actPost);
+//		actVO1.setActLocName(actLocName);
+//		actVO1.setActAdr(actAdr);
+//		actVO1.setActUID(actUID);
+//		actVO1.setActShowUni(actShowUni);
+//		actVO1.setActMasterUnit(actMasterUnit);
+//		actVO1.setActWebSales(actWebSales);
+//		actVO1.setActSourceWebName(actSourceWebName);
+//		actVO1.setActOnSale(actOnSale);
+//		actVO1.setActPrice(actPrice);
 
-		actVO1.setActTimeTypeID(actTimeTypeID);
-
-		actVO1.setActLong(actLong);
-		actVO1.setActLat(actLat);
-		actVO1.setActPost(actPost);
-
-		actVO1.setActAdr(actAdr);
 		Integer actID=dao.insert(actVO1);
 
 
 
-
-		// 為了回傳用的
-
-		Act_VO actVO2 = new Act_VO();
-
-		Set<ActMemVO> amset = new HashSet<ActMemVO>();
-		Set<ActPOIVO> apset = new HashSet<ActPOIVO>();
-
-		ActMemVO amVO = new ActMemVO();
-		MemberHVO mvo = new MemberHVO();
-			mvo.setMemID(1);
-		amVO.setMemberHVO(mvo);
-		amVO.setActJoinDate(tools.nowTimestamp());
-		amVO.setActMemStatus(1);
-
-		for (Integer poiID : poiincome) {
-			ActPOIVO apVO = new ActPOIVO();
-			POIVO pv = new POIVO();
-				pv.setPOIID(poiID);
-			apVO.setPOIVO(pv);
-			
-			Act_VO actVO3 = new Act_VO();
-				actVO3.setActID(actID);
-			apVO.setActVO(actVO2);
-			
-			apset.add(apVO);
-		}
-
-		actVO2.setActPOIs(apset);
-		actVO2.setActMems(amset);
-
-		dao.update(actVO2);
+//
+//		// 為了回傳用的
+//
+//		Act_VO actVO2 = new Act_VO();
+//
+//		Set<ActMemVO> amset = new HashSet<ActMemVO>();
+//		Set<ActPOIVO> apset = new HashSet<ActPOIVO>();
+//
+//		ActMemVO amVO = new ActMemVO();
+//		MemberHVO mvo = new MemberHVO();
+//			mvo.setMemID(1);
+//		amVO.setMemberHVO(mvo);
+//		amVO.setActJoinDate(tools.nowTimestamp());
+//		amVO.setActMemStatus(1);
+//
+//		for (Integer poiID : poiincome) {
+//			ActPOIVO apVO = new ActPOIVO();
+//			POIVO pv = new POIVO();
+//				pv.setPOIID(poiID);
+//			apVO.setPOIVO(pv);
+//			
+//			Act_VO actVO3 = new Act_VO();
+//				actVO3.setActID(actID);
+//			apVO.setActVO(actVO2);
+//			
+//			apset.add(apVO);
+//		}
+//
+//		actVO2.setActPOIs(apset);
+//		actVO2.setActMems(amset);
+//
+//		dao.update(actVO2);
 
 		// ● 查詢-findByPrimaryKey (優秀!) (一方dept2.hbm.xml必須設為lazy="false")
 		// DeptVO deptVO3 = dao.findByPrimaryKey(30);

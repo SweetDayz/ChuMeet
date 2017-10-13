@@ -4,6 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page import="com.act.actMem.model.*"%>
 <%@ page import="com.act.act.model.*"%>
+<%@ page import="com.act.model.*"%>
 <%@ page import="com.act.actPOI.model.*"%>
 <%@ page import="com.member.model.*"%>
 <%@ page import="java.util.*"%>
@@ -11,11 +12,13 @@
 <%ActFiestaVO actfVO = (ActFiestaVO) request.getAttribute("actfVO");%>
 <c:set var="holder" value="${actfVO.actVO.memID}" />
 <c:set var="memNow" value="1"  scope="session"/>
+<c:set var="actID" value="${actfVO.actVO.actID}" />
 <%Set<ActMemVO> amVOs=actfVO.getActVO().getActMems(); %>
 <%  
 Integer memNow=Integer.parseInt((String) session.getAttribute("memNow"));
 Set<Integer> actmem2=new HashSet<Integer>();
 Set<Integer> actmem5=new HashSet<Integer>();
+
 for (ActMemVO amVO: amVOs){
 		if(amVO.getActMemStatus()==2){
 			actmem2.add(amVO.getMemberHVO().getMemID());
@@ -27,6 +30,7 @@ for (ActMemVO amVO: amVOs){
 pageContext.setAttribute("actmem2",actmem2);
 pageContext.setAttribute("actmem5",actmem5);
 System.out.println(actmem2.contains(memNow));
+int actPOIno=
 	%>
 
 
@@ -38,7 +42,6 @@ System.out.println(actmem2.contains(memNow));
 </c:import>
 	<!-- 共用Header -->
   <!--  my styles  -->
-<link href="<%=request.getContextPath()%>/front-end/act/act_assets/css/actMain.css" rel="stylesheet">
 
 <style>
  #map {
@@ -86,10 +89,11 @@ System.out.println(actmem2.contains(memNow));
                 <div class="col-md-9 col-sm-9 blog-item">
                             <h1>${actfVO.actVO.actName}</h1>
                   <div class="row">
-						<div class="col-md-5">   <img src="<%=request.getContextPath()%>/img/showIMG?colName=actIMG&table=ACT&pk=actID&imgFrom=${actfVO.actVO.actID}" class="img-responsive margin-bottom-30 img-rounded" style="margin-left:auto; margin-right:auto; " alt=""></div>
+						<div class="col-md-5">   
+						<img src="<%=request.getContextPath()%>/img/showIMG?colName=actIMG&table=ACT&pk=actID&imgFrom=${actfVO.actVO.actID}" class="img-responsive margin-bottom-30 img-rounded" style="margin-left:auto; margin-right:auto; " alt=""></div>
 						
                         <div class="col-md-7">
-                          		<table  class="table table-hover">
+                          		<table class="table table-hover">
                           		<tr><th class="text-danger topstat"><i class="fa fa-smile-o"></i></th><th>我的狀態</th><td><span>
             <c:choose>
 
@@ -171,26 +175,44 @@ System.out.println(actmem2.contains(memNow));
                      <hr class="colorgraph">
                   <h2>留言區</h2>
                   <div class="comments">
-<!--                   start mb1 -->
-                    <div class="media">                    
-                      <a href="javascript:;" class="pull-left">
-                      <img src="../assets/pages/img/people/img1-small.jpg" alt="" class="media-object">
-                      </a>
-                      <div class="media-body">
-                        <h4 class="media-heading">breadcan <span>timestamp[] 5 hours ago / <a href="javascript:;">Reply</a></span></h4>
-                        <p>哇！化妝品！</p>
-                      </div>
-                    </div>
- <!--end media-->
+                  
+<%
+ActMBService ambS=new ActMBService();
+Integer actID=Integer.parseInt( request.getParameter("actID"));
+System.out.print(actID);
+List<ActMBVO> listmbs=ambS.getAll(actID);
+ %>
+   	 
+<%if(listmbs.size()>0){  for(ActMBVO amb: listmbs) {%>
+	<div class="media">
+     <div class="media-body">
+     <h4 class="media-heading"><%=com.gen.tool.actCodeTrans.whoRU(amb.getMemID()) %>
+      <span style="color: #388697 "><%=com.gen.tool.tools.tsToActStr(amb.getActMBDate()) %></span>
+     <p><%=amb.getActMBContent() %></p>
+     </div>
+       </div>
+<%} }%>
+                  
+
                   </div>
+
 
                   <div class="post-comment padding-top-40">
                     <h3>活動留言</h3>
-                    <form role="form" action="act.do">
+                    <form id="MBform" role="form" action="<%=request.getContextPath()%>/front-end/act/actmb.do">
                       <div class="form-group">
-                        <textarea class="form-control" rows="8"></textarea>
+                        <textarea name="actMBContent" class="form-control" rows="8"></textarea>
+                        <input type="hidden"  name="action" value="insertMB">
+                        <input type="hidden"  name="actID" value=${actfVO.actVO.actID}>
+                        <input type="hidden"  name="memID" value=<%=memNow %>>
+                        <input type="hidden" name="requestURL" value=<%= request.getParameter("requestURL")%>>
                       </div>
-                      <p><button class="btn btn-primary" type="submit">提交</button></p>
+                      <p><button class="btn btn-primary" id="MBarea">提交</button></p>
+                      <script>
+                      $("#MBarea").click(function(){
+                    	  $("#MBform").submit();
+                      });
+                      </script>
                     </form>
                   </div>                      
                 </div>
@@ -278,10 +300,10 @@ System.out.println(actmem2.contains(memNow));
                  <!-- BEGIN RECENT NEWS -->                            
                   <h2>類似的活動</h2>
                   <div class="recent-news margin-bottom-10">
-                   
+
                    
 <!--                  card start -->
-                    <div class="wow fadeInUp" data-wow-duration=".3" data-wow-delay=".2s">
+                    <div class="wow fadeInUp">
                         <div class="card">
 							<img class="card-img-top cardImg" src="act_assets/img/eventSamples/Cap-Commandos.jpg" alt="Card image cap">
 							<div class="card-block">

@@ -13,16 +13,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.act.act.model.ActFiestaVO;
 import com.act.act.model.Act_Service;
 import com.act.act.model.Act_VO;
 import com.act.actMem.model.ActMemService;
 import com.act.actMem.model.ActMemVO;
 import com.act.actPOI.model.ActPOIService;
+import com.act.model.ActMBService;
+import com.act.model.ActMBVO;
 import com.gen.tool.tools;
 import com.member.model.MemberHVO;
 
-public class ActMemServlet extends HttpServlet{
+public class ActMBServlet extends HttpServlet{
 	public void doGet(HttpServletRequest req, HttpServletResponse res)
 			throws ServletException, IOException {
 		doPost(req, res);
@@ -34,47 +35,39 @@ public class ActMemServlet extends HttpServlet{
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
 
-
-		
-		
-		if ("delete".equals(action)) { 
+		if ("insertMB".equals(action)) { 
 
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
 			
-			String requestURL = req.getParameter("requestURL"); // 送出刪除的來源網頁路徑: 可能為【/emp/listAllEmp.jsp】 或  【/dept/listEmps_ByDeptno.jsp】 或 【 /dept/listAllDept.jsp】
-			System.out.println(requestURL);	
-			try {
+//			String requestURL = req.getParameter("requestURL"); // 送出刪除的來源網頁路徑: 可能為【/emp/listAllEmp.jsp】 或  【/dept/listEmps_ByDeptno.jsp】 或 【 /dept/listAllDept.jsp】
+//			System.out.println("URL="+requestURL);	
+//			try {
 				/***************************1.接收請求參數***************************************/
 				Integer memID = 1; //@@@@@@@@@@@@@@@@@@@@@@@@
-				Integer actID=new Integer(req.getParameter("actID"));
-					ActMemVO amVO=new ActMemVO();
-						MemberHVO mvo=new MemberHVO();
-							mvo.setMemID(memID);
-						Act_VO av=new Act_VO();
-							av.setActID(actID);
-					amVO.setActVO(av);
-					amVO.setMemberHVO(mvo);
-	
+				Integer actID=Integer.parseInt(req.getParameter("actID"));
+				String actMBContent=req.getParameter("actMBContent");
+
 				/***************************2.開始new資料***************************************/
-				ActMemService actmSvc = new ActMemService();
-				actmSvc.delete(amVO);
+				ActMBService ambS = new ActMBService();
+				System.out.println("actID="+actID+", memID="+memID+actMBContent);
+				 ambS.insert(actID, memID, actMBContent);
 			
 				/***************************3.new完成,準備轉接***********/
 				
 				 res.sendRedirect(req.getContextPath()+"/front-end/act/act.do?actID="+actID+"&action=showOne");
-				
+		}
 
 				/***************************其他可能的錯誤處理**********************************/
-						} catch (Exception e) {
-							errorMsgs.add(e.getMessage());
-							RequestDispatcher failureView = req
-									.getRequestDispatcher("/emp/addEmp.jsp");
-							failureView.forward(req, res);
-						}
-					}	//end of if
+//						} catch (Exception e) {
+//							errorMsgs.add(e.getMessage());
+//							RequestDispatcher failureView = req
+//									.getRequestDispatcher("/emp/addEmp.jsp");
+//							failureView.forward(req, res);
+//						}
+//					}	//end of if
 		
 		
 		if ("insert2".equals(action)) { 
@@ -235,45 +228,11 @@ public class ActMemServlet extends HttpServlet{
 						}
 					}	//end of if
 		
-			
-		
-	if ("getMyAct1".equals(action)) { 
-
-		List<String> errorMsgs = new LinkedList<String>();
-		// Store this set in the request scope, in case we need to
-		// send the ErrorPage view.
-		req.setAttribute("errorMsgs", errorMsgs);
-		
-		String requestURL = req.getParameter("requestURL"); // 送出刪除的來源網頁路徑: 可能為【/emp/listAllEmp.jsp】 或  【/dept/listEmps_ByDeptno.jsp】 或 【 /dept/listAllDept.jsp】
-		System.out.println(requestURL);	
-		try {
-			/***************************1.接收請求參數***************************************/
-			Integer memID = 1; //@@@@@@@@@@@@@@@@@@@@@@@@
-			/***************************2.開始new資料***************************************/
-			ActMemService actmSvc = new ActMemService();
-			List<ActFiestaVO> list1=actmSvc.getMyAct1(memID);
-		
-			/***************************3.new完成,準備轉接***********/
-								
-				req.setAttribute("list", list1); // 資料庫取出的act_VO物件,存入req
-				req.setAttribute("memNow", memID); // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-				String url = "/front-end/act/myActList1.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交listOneEmp.jsp
-				successView.forward(req, res);
-		
-
-			/***************************其他可能的錯誤處理**********************************/
-					} catch (Exception e) {
-						errorMsgs.add(e.getMessage());
-						RequestDispatcher failureView = req
-								.getRequestDispatcher("/front-end/act/actListNoResult.jsp");
-						failureView.forward(req, res);
-					}
-				}	//end of if
-	
-	
 			}
-}
+		
+		
+			}
+	
 	
 	
 	

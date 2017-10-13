@@ -1,14 +1,17 @@
 package com.act.actMem.model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import com.act.trashcan.ActMemDAO_JNDI;
+import com.act.act.model.ActFiestaVO;
+import com.act.actMem.*;
 
 public class ActMemService implements ActMem_Interface {
 	private ActMem_Interface dao;
+	private ActMemDAO_JNDI daoJ;
 
 	@Override
 	public ActMemVO getOne(Integer actID, Integer memID) {
@@ -16,7 +19,23 @@ public class ActMemService implements ActMem_Interface {
 		return dao.getOne(actID,memID);
 	}
 	
+	public List<ActFiestaVO> getMyAct1(Integer memID) {
+		List<ActFiestaVO> list=new ArrayList<ActFiestaVO> ();
+		list=daoJ.getMyAct1(memID);
+		return list; 
+	}
+
+	public List<ActFiestaVO> getMyAct2(Integer memID) {
+		List<ActFiestaVO> list;
+		list=daoJ.getMyAct2(memID);
+		return list; 
+	}
 	
+	public List<ActFiestaVO> getMyAct5(Integer memID) {
+		List<ActFiestaVO> list;
+		list=daoJ.getMyAct5(memID);
+		return list; 
+	}
 	
 	public ActMemService() {
 		dao = new ActMemDAO();

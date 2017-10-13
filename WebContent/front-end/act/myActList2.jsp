@@ -7,25 +7,31 @@
 <%@ page import="com.act.actPOI.model.*"%>
 <%@ page import="java.util.*"%>
 <%
-	List<ActFiestaVO> list=null;
-		Act_Service actS=new Act_Service();
-		list=actS.getAllFromNow();
-		pageContext.setAttribute("list", list);
-		pageContext.setAttribute("pageName", "ref");
+List<ActFiestaVO> list=null;
+List<ActFiestaVO> list1=null;
+List<ActFiestaVO> list2=null;
+List<ActFiestaVO> list5=null;
 		
-		Integer POIID=0;
-		if(request.getAttribute("actie")!=null){
-			list= (ArrayList<ActFiestaVO>) request.getAttribute("actfVOs");
-			pageContext.setAttribute("list", list);
-// 		System.out.println(list.size());
-			if(request.getAttribute("actie").equals("QueryWks")){
-				pageContext.setAttribute("pageName", "QueryWks");
-			}
-			if(request.getAttribute("actie").equals("QueryPOI")){
-				pageContext.setAttribute("pageName", "QueryPOI");
-				POIID=(Integer) request.getAttribute("poiID");
-			}
-	}
+ActMemService amS=new ActMemService();
+		List<ActMemVO> am1s=amS.myActList1(1);
+		List<ActMemVO> am2s=amS.myActList2(1);
+		List<ActMemVO> am5s=amS.myActList5(1);
+		for (ActMemVO amv:am1s){
+			ActFiestaVO afVO = new ActFiestaVO(amv.getActVO());
+			list1.add(afVO);
+		}
+		for (ActMemVO amv:am2s){
+			ActFiestaVO afVO = new ActFiestaVO(amv.getActVO());
+			list2.add(afVO);
+		}
+		for (ActMemVO amv:am5s){
+			ActFiestaVO afVO = new ActFiestaVO(amv.getActVO());
+			list.add(afVO);
+		}
+		
+		pageContext.setAttribute("list", list);
+
+	
 %>
 <!-- @@@@@@@@@@@@@@@@@@@@@@@@@ -->
 <c:set var="memNow" value="1"  scope="session"/>				
@@ -102,11 +108,8 @@
            <div class="row">
            	<div class="col-md-8">
 
-           	  <% if  (request.getAttribute("actie")!=null) {%>
-           	      <h3>目前搜尋條件：<%=transman.POItoString((Integer)request.getAttribute("poiID")) %></h3>
-           	      <%} else {%>
-           	  <h1>揪咪推薦</h1>
-           	  <%} %>           	      
+           	  <h1>我的活動</h1>
+           	  
         </div>
        <div class="col-md-4 padding-top-10">
         		<div class="actFilter pull-right">
@@ -128,13 +131,12 @@
                 <div class="col-md-3 col-sm-3">
                   <ul class="tabbable actl-tabbable">
                    	<li><a href="actStart.jsp" data-toggle="tab">開個揪揪團</a></li>
-                    <li data-toggle="collapse" data-target="#myAct" class="collapsed">
+                    <li data-toggle="collapse" data-target="#myAct">
                            <a href="#tab_1" data-toggle="tab">我的活動 <span class="arrow"></span></a></li>
-                            <ul class="sub-menu collapse" id="myAct">
-								<li><a href="#">參加中</a></li>
-								<li><a href="#">邀請中</a></li>
-								<li><a href="#">我舉辦的活動</a></li>
-								<li><a href="#">追蹤中</a></li>
+                            <ul class="sub-menu" id="myAct">
+								<li class="active"><a href="<%=request.getContextPath()%>/front-end/act/myActList2.jsp">參加中</a></li>
+								<li><a href="<%=request.getContextPath()%>/front-end/act/myActList1.jsp">我舉辦的活動</a></li>
+								<li><a href="<%=request.getContextPath()%>/front-end/act/myActList5.jsp">追蹤中</a></li>
 								<li><a href="#">社團活動</a></li>
 								<li><a href="#">好友活動</a></li>
 							</ul>
@@ -144,20 +146,20 @@
                     <li><a href="<%=request.getContextPath()%>/front-end/act/act.do?action=QueryWks">周末特調</a></li>
                     <li data-toggle="collapse" data-target="#actPOI" class="collapsed">
                          <a href="#tab_2" data-toggle="tab">活動分類 <span class="arrow"></span></a></li>
-                          <ul class="sub-menu<%if (POIID<=0){ %> collapse"<%} %> id="actPOI">
-								  <li <%if (POIID==9){ %>class="active" <%} %>>
+                          <ul class="sub-menu collapse"> id="actPOI">
+								  <li>
 							<a href="<%=request.getContextPath()%>/front-end/act/act.do?action=QueryPOI&poiID=9">運動</a></li>
-								  <li <%if (POIID==1){ %>class="active" <%} %>>
+								  <li>
                     		<a href="<%=request.getContextPath()%>/front-end/act/act.do?action=QueryPOI&poiID=1">音樂</a></li>
-								  <li <%if (POIID==2){ %>class="active" <%} %>>
+								  <li>
                     		<a href="<%=request.getContextPath()%>/front-end/act/act.do?action=QueryPOI&poiID=2">戲劇</a></li>
-								  <li <%if (POIID==3){ %>class="active" <%} %>>
+								  <li>
                     		<a href="<%=request.getContextPath()%>/front-end/act/act.do?action=QueryPOI&poiID=3">舞蹈</a></li>
-							  <li <%if (POIID==6){ %>class="active" <%} %>>
+							  <li>
                     		<a href="<%=request.getContextPath()%>/front-end/act/act.do?action=QueryPOI&poiID=6">展覽</a></li>
-								  <li <%if (POIID==7){ %>class="active" <%} %>>
+								  <li>
                     		<a href="<%=request.getContextPath()%>/front-end/act/act.do?action=QueryPOI&poiID=7">講座</a></li>
-							  <li <%if (POIID==8){ %>class="active" <%} %>>
+							  <li>
                     		<a href="<%=request.getContextPath()%>/front-end/act/act.do?action=QueryPOI&poiID=8">電影</a></li>
 								  <li>
                     		<a href="<%=request.getContextPath()%>/front-end/act/actPOIs.jsp">其他</a></li>
@@ -218,12 +220,40 @@
 <div class="col-md-9 col-sm-9 event-posts">
 
         
-<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
-<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
-         
   
 
-<%@ include file="pages/page1.file" %> 
+<%  int rowsPerPage = 5;  //每頁的筆數    
+    int rowNumber=0;      //總筆數
+    int pageNumber=0;     //總頁數      
+    int whichPage=1;      //第幾頁
+    int pageIndexArray[]=null;
+    int pageIndex=0; 
+%>
+
+<%  
+    rowNumber=list.size();
+    if (rowNumber%rowsPerPage !=0)
+     pageNumber=rowNumber/rowsPerPage +1;
+    else pageNumber=rowNumber/rowsPerPage;    
+
+    pageIndexArray=new int[pageNumber]; 
+    for (int i=1 ; i<=pageIndexArray.length ; i++)
+    pageIndexArray[i-1]=i*rowsPerPage-rowsPerPage;
+%>
+
+<%  try {
+      whichPage = Integer.parseInt(request.getParameter("whichPage"));
+      pageIndex=pageIndexArray[whichPage-1];
+    } catch (NumberFormatException e) { //第一次執行的時候
+       whichPage=1;
+       pageIndex=0;
+    } catch (ArrayIndexOutOfBoundsException e) { //總頁數之外的錯誤頁數
+         if (pageNumber>0){
+              whichPage=pageNumber;
+              pageIndex=pageIndexArray[pageNumber-1];
+         }
+    } 
+%>
 <c:forEach var="afVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 <!--      1st card          -->
 	<div class="ec wow fadeInLeft">

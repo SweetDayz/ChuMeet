@@ -7,9 +7,8 @@ import java.util.Set;
 import com.act.actMem.model.ActMemVO;
 import com.act.actPOI.model.ActPOIVO;
 
-public class Act_VO  implements java.io.Serializable {
+public class ActVO  implements java.io.Serializable {
 	private Integer actType;
-
 	private Integer actID;
 	private Integer memID;
 	private Timestamp actCreateDate;
@@ -39,39 +38,11 @@ public class Act_VO  implements java.io.Serializable {
 	private String actSourceWebName;
 	private String actOnSale;
 	private String actPrice;
-	
-
-	@Override
-	public String toString() {
-		return "Act_VO [actType=" + actType + ", actID=" + actID + ", memID=" + memID + ", actCreateDate="
-				+ actCreateDate + ", actName=" + actName + ", actStatus=" + actStatus + ", actPriID=" + actPriID
-				+ ", actStartDate=" + actStartDate + ", actEndDate=" + actEndDate + ", actSignStartDate="
-				+ actSignStartDate + ", actSignEndDate=" + actSignEndDate + ", actTimeTypeID=" + actTimeTypeID
-				+ ", actTimeTypeCnt=" + actTimeTypeCnt + ", actMemMax=" + actMemMax + ", actMemMin=" + actMemMin
-				+ ", actIMG=" + Arrays.toString(actIMG) + ", actContent=" + actContent + ", actIsHot=" + actIsHot
-				+ ", actLong=" + actLong + ", actLat=" + actLat + ", actPost=" + actPost + ", actLocName=" + actLocName
-				+ ", actAdr=" + actAdr + ", actUID=" + actUID + ", actShowUnit=" + actShowUnit + ", actMasterUnit="
-				+ actMasterUnit + ", actWebSales=" + actWebSales + ", actSourceWebName=" + actSourceWebName
-				+ ", actOnSale=" + actOnSale + ", actPrice=" + actPrice + ", actMems=" + actMems + ", actPOIs="
-				+ actPOIs + "]";
+	public Integer getActType() {
+		return actType;
 	}
-	//	查一時，查出一群多(actMem) => set
-	private Set<ActMemVO> actMems = new HashSet<ActMemVO>();
-	private Set<ActPOIVO> actPOIs = new HashSet<ActPOIVO>();
-
-	
-	
-	public Set<ActMemVO> getActMems() {
-		return actMems;
-	}
-	public void setActMems(Set<ActMemVO> actMems) {
-		this.actMems = actMems;
-	}
-	public Set<ActPOIVO> getActPOIs() {
-		return actPOIs;
-	}
-	public void setActPOIs(Set<ActPOIVO> actPOIs) {
-		this.actPOIs = actPOIs;
+	public void setActType(Integer actType) {
+		this.actType = actType;
 	}
 	public Integer getActID() {
 		return actID;
@@ -205,22 +176,18 @@ public class Act_VO  implements java.io.Serializable {
 	public void setActAdr(String actAdr) {
 		this.actAdr = actAdr;
 	}
-	
-	
-	public Integer getActType() {
-		return actType;
-	}
-	public void setActType(Integer actType) {
-		this.actType = actType;
-	}
-	
 	public String getActUID() {
 		return actUID;
 	}
 	public void setActUID(String actUID) {
 		this.actUID = actUID;
 	}
-
+	public String getActShowUnit() {
+		return actShowUnit;
+	}
+	public void setActShowUnit(String actShowUnit) {
+		this.actShowUnit = actShowUnit;
+	}
 	public String getActMasterUnit() {
 		return actMasterUnit;
 	}
@@ -251,12 +218,7 @@ public class Act_VO  implements java.io.Serializable {
 	public void setActPrice(String actPrice) {
 		this.actPrice = actPrice;
 	}
-	public String getActShowUnit() {
-		return actShowUnit;
-	}
-	public void setActShowUnit(String actShowUnit) {
-		this.actShowUnit = actShowUnit;
-	}
+	
 
 	
 	

@@ -91,6 +91,16 @@
 		<url-pattern>/front-end/act/actm.do</url-pattern>
 	</servlet-mapping>
 <!-- ********************Actm END************************* -->
+<!-- ********************Actm Start************************* -->
+  	<servlet>
+		<servlet-name>ActMBServlet</servlet-name>
+		<servlet-class>com.act.act.controller.ActMBServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ActMBServlet</servlet-name>
+		<url-pattern>/front-end/act/actmb.do</url-pattern>
+	</servlet-mapping>
+<!-- ********************Actm END************************* -->
 <!-- ********************ImgStart************************* -->
   	<servlet>
 		<servlet-name>showIMG</servlet-name>

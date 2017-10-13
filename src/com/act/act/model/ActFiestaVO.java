@@ -10,19 +10,26 @@ public class ActFiestaVO implements java.io.Serializable  {
 
 	private String memName;
 	private String actCnt;
-	private Act_VO actVO;
+	private Act_VO actVO2;
+	private ActVO actVO;
 	
 	public ActFiestaVO() {
 	}
 	
 
-	public ActFiestaVO(Act_VO actVO) {
+	public ActFiestaVO(Act_VO actVO2) {
+		this.actVO2 = actVO2;
+		this.memName = actCodeTrans.whoRU(actVO2.getMemID());
+		this.actCnt = actCodeTrans.delHTMLTag(actVO2.getActContent());
+
+	}
+	
+	public ActFiestaVO(ActVO actVO) {
 		this.actVO = actVO;
 		this.memName = actCodeTrans.whoRU(actVO.getMemID());
 		this.actCnt = actCodeTrans.delHTMLTag(actVO.getActContent());
 
 	}
-	
 	
 	public String getMemName() {
 		return memName;
@@ -32,9 +39,27 @@ public class ActFiestaVO implements java.io.Serializable  {
 		return actCnt;
 	}
 
-	public Act_VO getActVO() {
+
+
+	public Act_VO getActVO2() {
+		return actVO2;
+	}
+
+
+	public void setActVO2(Act_VO actVO2) {
+		this.actVO2 = actVO2;
+	}
+
+
+	public ActVO getActVO() {
 		return actVO;
 	}
+
+
+	public void setActVO(ActVO actVO) {
+		this.actVO = actVO;
+	}
+
 
 	public void setMemName(String memName) {
 		this.memName = memName;
@@ -44,9 +69,6 @@ public class ActFiestaVO implements java.io.Serializable  {
 		this.actCnt = actCnt;
 	}
 
-	public void setActVO(Act_VO actVO) {
-		this.actVO = actVO;
-	}
 
 
 }
